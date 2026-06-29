@@ -1,2 +1,0 @@
-# nextpartner_merida
-nextpartner_merida
