@@ -180,7 +180,7 @@
   .story-video-section { position:relative; overflow:hidden; background:#415a82; }
   .story-video-bg { position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
   .story-video-bg video { width:100%; height:100%; object-fit:cover; opacity:0.34; }
-  .story-video-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(239,244,252,0.42) 0%, rgba(219,229,244,0.50) 100%); }
+  .story-video-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(246,249,253,0.22) 0%, rgba(238,243,249,0.30) 100%); }
 
   .stories-marquee-shell { position:relative; overflow:hidden; margin-top:8px; }
   .stories-marquee-shell::before, .stories-marquee-shell::after { content:''; position:absolute; top:0; bottom:0; width:84px; z-index:3; pointer-events:none; }
@@ -429,6 +429,7 @@
     position:relative;
     overflow:hidden;
     isolation:isolate;
+    backdrop-filter:saturate(110%);
   }
   .landing-gradient-soft-blue > div,
   .landing-gradient-soft-white > div,
@@ -443,33 +444,40 @@
     position:absolute;
     inset:0;
     pointer-events:none;
+    z-index:0;
+    background:
+      linear-gradient(90deg, rgba(210,224,244,0.22) 0%, rgba(255,255,255,0.00) 22%, rgba(255,255,255,0.00) 78%, rgba(216,224,234,0.18) 100%),
+      radial-gradient(circle at left center, rgba(176,202,238,0.18) 0%, rgba(176,202,238,0) 34%),
+      radial-gradient(circle at right center, rgba(206,214,226,0.16) 0%, rgba(206,214,226,0) 30%);
+  }
+  .landing-gradient-soft-blue::after,
+  .landing-gradient-soft-white::after,
+  .landing-gradient-soft-gray::after {
+    content:'';
+    position:absolute;
+    inset:0;
+    pointer-events:none;
     z-index:1;
     background:
-      repeating-linear-gradient(90deg, rgba(255,255,255,0.34) 0 1px, transparent 1px 138px),
-      repeating-linear-gradient(180deg, rgba(113,141,183,0.09) 0 1px, transparent 1px 92px),
-      linear-gradient(90deg, rgba(148,178,226,0.18) 0%, rgba(148,178,226,0.08) 12%, rgba(255,255,255,0) 28%, rgba(255,255,255,0) 72%, rgba(180,190,208,0.07) 88%, rgba(180,190,208,0.16) 100%);
-    opacity:0.7;
+      linear-gradient(180deg, rgba(255,255,255,0.26) 0 1px, transparent 1px 100%),
+      linear-gradient(90deg, rgba(144,164,195,0.08) 0 1px, transparent 1px 100%);
+    background-size:100% 72px, 160px 100%;
+    opacity:0.26;
   }
   .landing-gradient-soft-blue {
-    background:
-      radial-gradient(circle at left center, rgba(133, 170, 236, 0.18) 0%, rgba(133, 170, 236, 0) 34%),
-      radial-gradient(circle at right 18%, rgba(186, 196, 214, 0.14) 0%, rgba(186, 196, 214, 0) 28%),
-      linear-gradient(90deg, #F8FBFF 0%, #F1F5FB 50%, #EDF2F8 100%);
+    background:linear-gradient(90deg, rgba(250,252,255,0.96) 0%, rgba(244,248,252,0.98) 52%, rgba(239,244,249,0.96) 100%);
   }
   .landing-gradient-soft-white {
-    background:
-      radial-gradient(circle at left 12%, rgba(162, 188, 229, 0.14) 0%, rgba(162, 188, 229, 0) 32%),
-      radial-gradient(circle at right bottom, rgba(205, 213, 226, 0.12) 0%, rgba(205, 213, 226, 0) 30%),
-      linear-gradient(90deg, #FFFFFF 0%, #F8FAFD 52%, #F1F5FA 100%);
+    background:linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(249,251,253,0.98) 52%, rgba(242,246,250,0.96) 100%);
   }
   .landing-gradient-soft-gray {
-    background:
-      radial-gradient(circle at left top, rgba(130, 166, 224, 0.14) 0%, rgba(130, 166, 224, 0) 30%),
-      radial-gradient(circle at right center, rgba(191, 198, 210, 0.13) 0%, rgba(191, 198, 210, 0) 28%),
-      linear-gradient(90deg, #F6F9FD 0%, #F1F5F9 48%, #EDF1F5 100%);
+    background:linear-gradient(90deg, rgba(248,250,253,0.98) 0%, rgba(243,246,249,0.98) 48%, rgba(238,242,246,0.96) 100%);
   }
   .story-video-section.landing-gradient-soft-blue::before {
-    opacity:0.48;
+    opacity:0.72;
+  }
+  .story-video-section.landing-gradient-soft-blue::after {
+    opacity:0.14;
   }
   .story-video-section .story-video-bg {
     z-index:0;
@@ -700,7 +708,7 @@
       </div>
     </section>
 
-    <section id="stories" class="story-video-section landing-gradient-soft-blue" style="color:#fff;">
+    <section id="stories" class="story-video-section landing-gradient-soft-blue" style="color:#13233F;">
       <div class="story-video-bg" aria-hidden="true">
         <video autoplay muted loop playsinline preload="metadata">
           <source src="./넥스트파트너_로고포함(20초).mp4" type="video/mp4">
@@ -708,9 +716,9 @@
       </div>
       <div class="section-shell-lg" style="position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:100px 32px;">
         <div style="text-align:center; margin-bottom:60px;">
-          <div style="font-size:16px; font-weight:700; color:#5B8FE6; letter-spacing:0.06em; margin-bottom:14px;">합격 후기</div>
-          <h2 style="font-size:46px; font-weight:800; color:#fff; margin:0 0 16px; letter-spacing:-0.035em;">먼저 시작한 분들의 이야기</h2>
-          <p style="font-size:20px; color:#AEB8CC; margin:0; line-height:1.6;">넥스트파트너와 함께 다시 일을 시작한 분들의 진짜 후기예요.</p>
+          <div style="font-size:16px; font-weight:700; color:#1F4F8F; letter-spacing:0.06em; margin-bottom:14px;">합격 후기</div>
+          <h2 style="font-size:46px; font-weight:800; color:#111827; margin:0 0 16px; letter-spacing:-0.035em;">먼저 시작한 분들의 이야기</h2>
+          <p style="font-size:20px; color:#4B5563; margin:0; line-height:1.6;">넥스트파트너와 함께 다시 일을 시작한 분들의 진짜 후기예요.</p>
         </div>
         <div class="stories-marquee-shell">
           <div id="stories-container" class="stories-marquee-track"></div>
