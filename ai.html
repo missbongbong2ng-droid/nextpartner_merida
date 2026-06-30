@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 <style>
-  html { font-size:16px; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+  html { font-size:16px; -webkit-text-size-adjust:100%; text-size-adjust:100%; zoom:0.8; }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: 'Pretendard', sans-serif; color: #1E2A44; background: #F4F7FB; -webkit-font-smoothing: antialiased; letter-spacing: -0.01em; }
   a { text-decoration: none; color: inherit; cursor: pointer; }
@@ -235,7 +235,7 @@
     .reading-tool-fab {
       right:14px !important;
       top:auto !important;
-      bottom:calc(92px + env(safe-area-inset-bottom, 0px)) !important;
+      bottom:auto !important; top:12px !important;
       z-index:180 !important;
     }
   }
