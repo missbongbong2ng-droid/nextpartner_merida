@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>넥스트파트너 - 마이페이지</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nx-header">
+  <div class="nx-logo"><span class="dot"></span>NEXT PARTNER</div>
+  <nav class="nx-gnb">
+    <a href="index.html">홈</a><a href="jobs.html">채용공고</a><a href="ai.html">AI 취업지원</a><a href="index.html#stories">성공사례</a><a class="on" href="mypage.html">마이페이지</a>
+  </nav>
+  <div class="nx-actions">
+    <span class="nx-login">김OO님</span>
+    <button class="btn btn-outline btn-sm">로그아웃</button>
+  </div>
+</header>
+
+<div class="section">
+  <div class="profile-card">
+    <div class="profile-avatar"></div>
+    <div class="profile-info"><b>김OO 님</b><div>2026.03.12 가입 · 서울 강북구 · 희망직종: 시설관리</div></div>
+    <div style="margin-left:auto;"><span class="pill gray">무료 회원</span></div>
+  </div>
+
+  <div class="tabbar" id="myTabbar">
+    <button class="on" data-tab="status">지원현황</button>
+    <button data-tab="liked">찜한 공고</button>
+    <button data-tab="resume">이력서 관리</button>
+    <button data-tab="billing">구독 · 결제관리</button>
+    <button data-tab="inquiry">문의내역</button>
+  </div>
+
+  <div class="tabpanel" id="tabpanel-status">
+    <div class="sub" style="margin-bottom:16px;">지원한 공고 3건 — 서류 심사중 1건, 지원완료 2건</div>
+    <div class="status-row"><div class="sr-left"><div class="sr-logo"></div><div><div class="sr-title">아파트 경비원 (주간)</div><div class="sr-sub">그린힐 관리사무소</div></div></div><span class="pill blue">서류 심사중</span></div>
+    <div class="status-row"><div class="sr-left"><div class="sr-logo"></div><div><div class="sr-title">학교 급식 조리원</div><div class="sr-sub">행복초등학교</div></div></div><span class="pill success">지원완료</span></div>
+    <div class="status-row"><div class="sr-left"><div class="sr-logo"></div><div><div class="sr-title">주차관리 요원</div><div class="sr-sub">스마트파킹</div></div></div><span class="pill success">지원완료</span></div>
+  </div>
+
+  <div class="tabpanel" id="tabpanel-liked" style="display:none;">
+    <div class="sub" style="margin-bottom:16px;">찜한 공고 1건</div>
+    <div class="status-row"><div class="sr-left"><div class="sr-logo"></div><div><div class="sr-title">학교 급식 조리원</div><div class="sr-sub">행복초등학교 · 시급 12,000원</div></div></div><a class="btn btn-outline btn-sm" href="jobs.html">보러가기</a></div>
+  </div>
+
+  <div class="tabpanel" id="tabpanel-resume" style="display:none;">
+    <div class="sub" style="margin-bottom:16px;">이력서 1건이 등록되어 있습니다.</div>
+    <div class="status-row"><div class="sr-left"><div class="sr-logo"></div><div><div class="sr-title">김OO_이력서_2026.pdf</div><div class="sr-sub">최근 수정 2026.07.28</div></div></div><a class="btn btn-outline btn-sm" href="ai.html">AI로 보완하기</a></div>
+  </div>
+
+  <div class="tabpanel" id="tabpanel-billing" style="display:none;">
+    <div style="display:flex; justify-content:space-between; align-items:center; border:1px solid var(--gray100); border-radius:14px; padding:20px 22px; margin-bottom:20px;">
+      <div><div style="font-weight:800; font-size:16px; margin-bottom:4px;">AI 프리미엄 패키지</div><div class="sub" style="margin:0;">자소서 · 증명사진 · 경력재구성 각 5회 · 28,000원/월</div></div>
+      <button class="btn btn-outline btn-sm">구독 관리</button>
+    </div>
+    <div class="promo-inline">
+      <b style="font-size:13.5px; color:var(--blue700); width:100%;">프로모션 코드로 1회 무료체험 <span style="background:var(--blue100); color:var(--blue700); font-size:11px; font-weight:800; padding:3px 8px; border-radius:999px; margin-left:6px;">NEW</span></b>
+      <input type="text" placeholder="코드를 입력하세요" id="promoCode">
+      <button class="btn btn-blue btn-sm" onclick="alert('코드가 확인되었습니다.')">확인</button>
+    </div>
+  </div>
+
+  <div class="tabpanel" id="tabpanel-inquiry" style="display:none;">
+    <div class="empty-state">문의 내역이 없습니다. 궁금한 점이 있으면 하단의 고객센터로 문의해주세요.</div>
+  </div>
+</div>
+
+<footer class="nx-footer">
+  <div><a href="#">이용약관</a><a href="#">개인정보처리방침</a><a class="footer-biz" href="#">기업 서비스 바로가기 →</a></div>
+  <div>(주)넥스트파트너 · 고객센터 1544-0000</div>
+</footer>
+
+<!-- Accessibility widget -->
+<div class="a11y-panel" id="a11yPanel">
+  <div class="a11y-panel-title">보기 편하게</div>
+  <div class="a11y-row">
+    <button onclick="a11yDecFont()">A-</button>
+    <span id="a11yFontLabel">보통</span>
+    <button onclick="a11yIncFont()">A+</button>
+  </div>
+  <button class="btn btn-outline btn-sm" onclick="a11yToggleLine()">줄 간격: <span id="a11yLineLabel">보통</span></button>
+  <button class="btn btn-ghost btn-sm" onclick="a11yReset()">초기화</button>
+</div>
+<button class="a11y-fab" onclick="a11yTogglePanel()"><span class="a11y-ico">A+</span>보기 편하게</button>
+
+<script src="common.js"></script>
+<script>
+  document.getElementById('myTabbar').addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-tab]');
+    if (!btn) return;
+    document.querySelectorAll('#myTabbar button').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    document.querySelectorAll('.tabpanel').forEach(p => p.style.display = 'none');
+    document.getElementById('tabpanel-' + btn.dataset.tab).style.display = 'block';
+  });
+</script>
+</body>
+</html>

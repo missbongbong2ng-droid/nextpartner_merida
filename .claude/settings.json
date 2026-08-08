@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(awk '{ print length, NR }' index.html)",
+      "Bash(awk '{ print length, NR }' ai.html)",
+      "Bash(awk '{ print length, NR }' jobs.html)",
+      "Bash(python \"C:/Users/missb/AppData/Local/Temp/claude/d--AI-task/66fe561a-da5d-4468-95c0-7da18dc3bd39/scratchpad/recolor.py\")",
+      "Bash(py --version)",
+      "Bash(node \"C:/Users/missb/AppData/Local/Temp/claude/d--AI-task/66fe561a-da5d-4468-95c0-7da18dc3bd39/scratchpad/recolor.js\")",
+      "Bash(cd \"/d/AI/task\" && sed -i 's/#EDF3FB/#E4ECF7/g' ai.html && grep -c '#EDF3FB' ai.html; grep -c '#E4ECF7' ai.html)",
+      "Bash(awk 'length\\($0\\) < 2000' ai.html)",
+      "Bash(awk 'length\\($0\\) < 2000' index.html)",
+      "Bash(awk 'length\\($0\\) < 2000' jobs.html)",
+      "PowerShell(Start-Process \"d:\\\\AI\\\\task\\\\index.html\")",
+      "PowerShell(Start-Process \"d:\\\\AI\\\\task\\\\jobs.html\")",
+      "PowerShell(Start-Process \"d:\\\\AI\\\\task\\\\ai.html\")",
+      "Bash(awk 'length\\($0\\)<2000' index.html)"
+    ]
+  }
+}
