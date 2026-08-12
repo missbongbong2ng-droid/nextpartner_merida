@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>넥스트파트너 - 기업브리핑</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nx-header">
+  <div class="nx-header-inner">
+    <div class="nx-logo"><img class="nx-logo-icon" src="로고.png" alt="Next Partner"></div>
+    <nav class="nx-gnb">
+      <a href="index.html">홈</a><a class="on" href="jobs.html">채용공고</a><a href="ai.html">AI 취업지원</a><a href="mypage.html">마이페이지</a>
+    </nav>
+    <div class="nx-actions">
+      <span class="nx-login" onclick="openLoginModal()" style="cursor:pointer;">로그인</span>
+      <button class="btn btn-primary" onclick="openLoginModal()">무료 회원가입</button>
+    </div>
+    <button class="nx-hamburger" onclick="toggleMobileNav()" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="nx-mobile-nav-backdrop" id="mobileNavBackdrop" onclick="closeMobileNav()"></div>
+<nav class="nx-mobile-nav" id="mobileNav">
+  <a href="index.html">홈</a>
+  <a class="on" href="jobs.html">채용공고</a>
+  <a href="ai.html">AI 취업지원</a>
+  <a href="mypage.html">마이페이지</a>
+  <div class="nx-mobile-nav-actions">
+    <button class="btn btn-outline" style="width:100%; justify-content:center;" onclick="closeMobileNav(); openLoginModal();">로그인</button>
+    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="closeMobileNav(); openLoginModal();">무료 회원가입</button>
+  </div>
+</nav>
+
+<div class="jobs-head">
+  <div class="detail-crumb"><a href="jobs.html">채용공고</a> &gt; 기업브리핑</div>
+  <h2 id="companyName" style="margin:0;">회사명</h2>
+</div>
+
+<div class="section" style="padding-top:0;">
+  <div class="company-brief">
+    <div class="company-brief-logo" id="companyLogo"></div>
+    <div>
+      <div class="company-brief-name" id="companyNameSub">회사명</div>
+      <div class="company-brief-meta">
+        <span id="companyIndustry"></span>
+        <span id="companyFounded"></span>
+        <span id="companyEmployees"></span>
+        <span id="companyAddress"></span>
+      </div>
+    </div>
+  </div>
+  <p class="detail-p" id="companyIntro" style="margin-bottom:44px;"></p>
+
+  <h3 style="margin:0 0 16px;">채용중인 공고</h3>
+  <div class="job-grid" id="companyJobGrid"></div>
+  <div class="empty-state" id="companyJobEmpty" style="display:none;">현재 채용중인 공고가 없습니다.</div>
+
+  <h3 style="margin:44px 0 16px;">최신 뉴스</h3>
+  <div id="companyNews"></div>
+</div>
+
+<footer class="footer-rich">
+  <div class="footer-rich-inner">
+    <div class="footer-rich-grid">
+      <div>
+        <div class="nx-logo" style="margin-bottom:14px;"><img class="nx-logo-icon" src="로고.png" alt="Next Partner"></div>
+        <p style="font-size:14.5px; line-height:1.75; color:var(--gray500); margin:0; max-width:280px;">시니어의 다음을 함께 만드는 AI 일자리 플랫폼.</p>
+        <div class="footer-rich-legal">
+          주식회사 모리아타운 · 대표 권오형<br>
+          서울특별시 송파구 법원로 114(문정동) B동 915호 (05854)<br>
+          사업자등록번호 215-86-89431 · 통신판매업신고번호 2011-서울송파-1572<br>
+          직업정보제공사업 신고번호 서울동부 제2026-11호<br>
+          개인정보책임자 정원석 (<a href="mailto:james@moriahtown.com">james@moriahtown.com</a>)
+        </div>
+      </div>
+      <div>
+        <div class="footer-rich-col-title">가이드</div>
+        <div class="footer-rich-links">
+          <a href="#">이용가이드</a>
+          <a href="#">고객센터</a>
+          <a href="#">공지사항</a>
+          <a href="#">콘텐츠</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-rich-col-title">정책</div>
+        <div class="footer-rich-links">
+          <a href="#">이용약관</a>
+          <a href="#">개인정보처리방침</a>
+          <a href="#">환불정책</a>
+          <a href="#">위치기반서비스</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-rich-col-title">고객센터</div>
+        <div class="footer-rich-links">
+          <a href="tel:070-8655-2031">070-8655-2031</a>
+          <span>평일 10:00~18:00 (점심 12:00~13:00)</span>
+          <span>주말·공휴일 휴무</span>
+          <a href="mailto:cs@moriahtown.com">cs@moriahtown.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-rich-bottom">
+      <div class="footer-rich-copy">© 2026 NEXTPARTNER. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Accessibility widget -->
+<div class="a11y-panel" id="a11yPanel">
+  <div class="a11y-panel-title">보기 편하게</div>
+  <div class="a11y-row">
+    <button onclick="a11yDecFont()">A-</button>
+    <span id="a11yFontLabel">보통</span>
+    <button onclick="a11yIncFont()">A+</button>
+  </div>
+  <button class="btn btn-outline btn-sm" onclick="a11yToggleLine()">줄 간격: <span id="a11yLineLabel">보통</span></button>
+  <button class="btn btn-ghost btn-sm" onclick="a11yReset()">초기화</button>
+</div>
+<button class="a11y-fab" onclick="a11yTogglePanel()"><span class="a11y-ico">A+</span>보기 편하게</button>
+
+<!-- Login modal -->
+<div class="login-modal-overlay" id="loginModal">
+  <div class="login-modal-card">
+    <button class="lm-close" onclick="closeLoginModal()">✕</button>
+    <div class="lm-title">로그인하고 계속하기</div>
+    <div class="lm-sub">로그인하면 바로 지원할 수 있어요</div>
+    <button class="btn btn-blue lm-btn">카카오로 시작하기</button>
+    <button class="btn btn-outline lm-btn">네이버로 시작하기</button>
+    <button class="btn btn-outline lm-btn" style="margin-bottom:0;">전화번호로 시작하기</button>
+  </div>
+</div>
+
+<!-- Job detail modal -->
+<div class="detail-overlay" id="detailModal">
+  <div class="detail-card">
+    <div class="detail-head">
+      <button class="detail-close" onclick="closeJobDetail()">✕</button>
+      <div class="detail-crumb"></div>
+      <div class="detail-title-row">
+        <div>
+          <div class="detail-title"></div>
+          <div class="detail-company"></div>
+        </div>
+        <div class="detail-price"></div>
+      </div>
+      <div class="job-tags detail-tags-top"></div>
+    </div>
+    <div class="detail-body detail-scroll">
+      <div class="detail-info-grid"></div>
+      <div class="detail-h4">상세 설명</div>
+      <p class="detail-p detail-desc"></p>
+      <div class="detail-h4">담당업무</div>
+      <ul class="detail-list detail-duties"></ul>
+      <div class="detail-h4">자격요건 · 우대사항</div>
+      <div class="detail-tags detail-quals"></div>
+      <div class="detail-h4">복리후생</div>
+      <div class="detail-tags detail-benefits"></div>
+      <div class="detail-h4">근무지 위치</div>
+      <div class="detail-map">지도 영역 (근무지 위치 표시)</div>
+      <div class="detail-h4">회사 정보</div>
+      <div class="detail-company-card">
+        <div class="dc-logo"></div>
+        <div><div class="dc-name"></div><div class="dc-sub"></div></div>
+      </div>
+      <div class="detail-contact-wrap"></div>
+    </div>
+    <div class="detail-sticky">
+      <button class="btn btn-outline" onclick="alert('찜한 공고에 추가되었습니다.')">♡ 찜하기</button>
+      <button class="btn btn-primary detail-apply-btn"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Inquiry modal -->
+<div class="login-modal-overlay" id="inquiryModal">
+  <div class="login-modal-card">
+    <button class="lm-close" onclick="closeInquiryModal()">✕</button>
+    <div class="lm-title">담당자에게 문의하기</div>
+    <div class="lm-sub" id="inquiryTarget">공고에 대해 궁금한 점을 남겨주세요</div>
+    <textarea class="inquiry-textarea" id="inquiryText" placeholder="예) 근무 요일을 조율할 수 있을까요?" rows="5"></textarea>
+    <button class="btn btn-primary lm-btn" style="margin-top:14px;" onclick="submitInquiry()">문의 등록</button>
+  </div>
+</div>
+
+<script src="jobs-data.js"></script>
+<script src="company-data.js"></script>
+<script src="common.js"></script>
+<script>
+  function jobCardHTML(job){
+    const heartOn = job.liked ? 'on' : '';
+    const heartChar = job.liked ? '♥' : '♡';
+    const closed = job.closed;
+    return `
+      <div class="job-card">
+        <div class="job-top">
+          <div class="job-top-left">
+            <div class="job-logo" style="background:${logoColorFor(job.company)};">${job.company.charAt(0)}</div>
+            <div>
+              <div class="job-title">${job.title}</div>
+              <div class="job-sub">${job.company} · ${job.location}</div>
+              <div class="job-views">👁 조회 <b>${job.views.toLocaleString()}</b></div>
+            </div>
+          </div>
+          <button class="job-heart ${heartOn}" onclick="toggleHeart(this,event)">${heartChar}</button>
+        </div>
+        <div class="job-tags">${job.tags.map(t => `<span class="pill ${t.cls}">${t.t}</span>`).join('')}</div>
+        <div class="job-price">${job.price}</div>
+        ${closed
+          ? `<button class="btn btn-outline" style="opacity:.5;" disabled>지원 마감</button>`
+          : `<button class="btn btn-primary-soft" onclick="openJobDetail('${job.id}')">상세보기</button>`}
+      </div>`;
+  }
+  function newsItemHTML(n){
+    return `<div class="news-item"><div class="news-date">${n.date}</div><div class="news-title">${n.title}</div></div>`;
+  }
+
+  const params = new URLSearchParams(location.search);
+  const company = companyById(params.get('id')) || COMPANIES[0];
+
+  document.title = `넥스트파트너 - ${company.name} 기업브리핑`;
+  document.getElementById('companyName').textContent = company.name;
+  document.getElementById('companyNameSub').textContent = company.name;
+  document.getElementById('companyLogo').textContent = company.name.charAt(0);
+  document.getElementById('companyLogo').style.background = logoColorFor(company.name);
+  document.getElementById('companyIndustry').textContent = company.industry;
+  document.getElementById('companyFounded').textContent = company.founded;
+  document.getElementById('companyEmployees').textContent = company.employees;
+  document.getElementById('companyAddress').textContent = company.address;
+  document.getElementById('companyIntro').textContent = company.intro;
+
+  const companyJobs = JOBS.filter(j => j.company === company.name);
+  document.getElementById('companyJobGrid').innerHTML = companyJobs.map(jobCardHTML).join('');
+  document.getElementById('companyJobEmpty').style.display = companyJobs.length ? 'none' : 'block';
+
+  document.getElementById('companyNews').innerHTML = company.news.map(newsItemHTML).join('');
+</script>
+</body>
+</html>

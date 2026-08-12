@@ -12,41 +12,112 @@
 <body>
 
 <header class="nx-header">
-  <div class="nx-logo"><span class="dot"></span>NEXT PARTNER</div>
-  <nav class="nx-gnb">
-    <a href="index.html">홈</a><a class="on" href="jobs.html">채용공고</a><a href="ai.html">AI 취업지원</a><a href="index.html#stories">성공사례</a><a href="mypage.html">마이페이지</a>
-  </nav>
-  <div class="nx-actions">
-    <span class="nx-login" onclick="openLoginModal()" style="cursor:pointer;">로그인</span>
-    <button class="btn btn-primary" onclick="openLoginModal()">채팅으로 시작하기 <span style="font-weight:600;font-size:12.5px;opacity:.85;margin-left:4px;">(무료)</span></button>
+  <div class="nx-header-inner">
+    <div class="nx-logo"><img class="nx-logo-icon" src="로고.png" alt="Next Partner"></div>
+    <nav class="nx-gnb">
+      <a href="index.html">홈</a><a class="on" href="jobs.html">채용공고</a><a href="ai.html">AI 취업지원</a><a href="mypage.html">마이페이지</a>
+    </nav>
+    <div class="nx-actions">
+      <span class="nx-login" onclick="openLoginModal()" style="cursor:pointer;">로그인</span>
+      <button class="btn btn-primary" onclick="openLoginModal()">무료 회원가입</button>
+    </div>
+    <button class="nx-hamburger" onclick="toggleMobileNav()" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
+<div class="nx-mobile-nav-backdrop" id="mobileNavBackdrop" onclick="closeMobileNav()"></div>
+<nav class="nx-mobile-nav" id="mobileNav">
+  <a href="index.html">홈</a>
+  <a class="on" href="jobs.html">채용공고</a>
+  <a href="ai.html">AI 취업지원</a>
+  <a href="mypage.html">마이페이지</a>
+  <div class="nx-mobile-nav-actions">
+    <button class="btn btn-outline" style="width:100%; justify-content:center;" onclick="closeMobileNav(); openLoginModal();">로그인</button>
+    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="closeMobileNav(); openLoginModal();">무료 회원가입</button>
+  </div>
+</nav>
 
-<div style="padding:36px 40px 8px;">
+<div class="jobs-head">
   <h2 style="margin:0 0 4px;">채용공고</h2>
-</div>
-<div class="searchbar">
-  <input type="text" placeholder="직종, 지역, 회사명으로 검색" id="jobSearch">
-  <button class="btn btn-blue" onclick="filterJobs()">검색</button>
-</div>
-<div class="filterbar">
-  <div class="filter-chip">지역 전체 ▾</div>
-  <div class="filter-chip">고용형태 전체 ▾</div>
-  <div class="filter-chip">급여 전체 ▾</div>
-</div>
-
-<div style="padding:0 40px 12px;">
-  <span class="pill gold">스폰서 공고 상단 노출</span>
 </div>
 
 <div class="section" style="padding-top:0;">
+  <h3 style="margin:0 0 16px; display:flex; align-items:center; gap:8px;">
+    <img src="contents/채용공고/적극채용중인회사 아이콘.png" width="24" height="24" alt="" style="display:block;">
+    적극 채용중인 회사
+  </h3>
+  <div class="job-grid" id="featuredJobGrid"></div>
+
+  <h3 style="margin:44px 0 16px; display:flex; align-items:center; gap:8px;">
+    <img src="contents/채용공고/채용공고 아이콘.png" width="22" height="22" alt="" style="display:block;">
+    전체 공고
+  </h3>
+  <div class="searchbar" style="width:100%; margin:0 0 24px; flex-wrap:wrap;">
+    <input type="text" placeholder="직종, 지역, 회사명으로 검색" id="jobSearch">
+    <button class="btn btn-blue" onclick="filterJobs()">검색</button>
+    <select class="filter-chip" id="filterRegion" onchange="filterJobs()">
+      <option value="">지역 전체</option>
+      <option value="서울">서울</option>
+      <option value="경기">경기</option>
+      <option value="인천">인천</option>
+    </select>
+    <select class="filter-chip" id="filterType" onchange="filterJobs()">
+      <option value="">고용형태 전체</option>
+      <option value="정규직">정규직</option>
+      <option value="계약직">계약직</option>
+      <option value="파트타임">파트타임</option>
+      <option value="일용직">일용직</option>
+    </select>
+  </div>
   <div class="job-grid" id="jobGrid"></div>
-  <div style="text-align:center; margin-top:28px;"><button class="btn btn-outline">공고 더보기</button></div>
+  <div style="text-align:center; margin-top:28px;"><button class="btn btn-outline" id="loadMoreBtn" onclick="loadMoreJobs()">공고 더보기</button></div>
 </div>
 
-<footer class="nx-footer">
-  <div><a href="#">이용약관</a><a href="#">개인정보처리방침</a><a class="footer-biz" href="#">기업 서비스 바로가기 →</a></div>
-  <div>(주)넥스트파트너 · 고객센터 1544-0000</div>
+<footer class="footer-rich">
+  <div class="footer-rich-inner">
+    <div class="footer-rich-grid">
+      <div>
+        <div class="nx-logo" style="margin-bottom:14px;"><img class="nx-logo-icon" src="로고.png" alt="Next Partner"></div>
+        <p style="font-size:14.5px; line-height:1.75; color:var(--gray500); margin:0; max-width:280px;">시니어의 다음을 함께 만드는 AI 일자리 플랫폼.</p>
+        <div class="footer-rich-legal">
+          주식회사 모리아타운 · 대표 권오형<br>
+          서울특별시 송파구 법원로 114(문정동) B동 915호 (05854)<br>
+          사업자등록번호 215-86-89431 · 통신판매업신고번호 2011-서울송파-1572<br>
+          직업정보제공사업 신고번호 서울동부 제2026-11호<br>
+          개인정보책임자 정원석 (<a href="mailto:james@moriahtown.com">james@moriahtown.com</a>)
+        </div>
+      </div>
+      <div>
+        <div class="footer-rich-col-title">가이드</div>
+        <div class="footer-rich-links">
+          <a href="#">이용가이드</a>
+          <a href="#">고객센터</a>
+          <a href="#">공지사항</a>
+          <a href="#">콘텐츠</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-rich-col-title">정책</div>
+        <div class="footer-rich-links">
+          <a href="#">이용약관</a>
+          <a href="#">개인정보처리방침</a>
+          <a href="#">환불정책</a>
+          <a href="#">위치기반서비스</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-rich-col-title">고객센터</div>
+        <div class="footer-rich-links">
+          <a href="tel:070-8655-2031">070-8655-2031</a>
+          <span>평일 10:00~18:00 (점심 12:00~13:00)</span>
+          <span>주말·공휴일 휴무</span>
+          <a href="mailto:cs@moriahtown.com">cs@moriahtown.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-rich-bottom">
+      <div class="footer-rich-copy">© 2026 NEXTPARTNER. All rights reserved.</div>
+    </div>
+  </div>
 </footer>
 
 <!-- Accessibility widget -->
@@ -87,9 +158,9 @@
         </div>
         <div class="detail-price"></div>
       </div>
-      <div class="job-tags detail-tags-top" style="margin-top:14px;"></div>
+      <div class="job-tags detail-tags-top"></div>
     </div>
-    <div class="detail-body">
+    <div class="detail-body detail-scroll">
       <div class="detail-info-grid"></div>
       <div class="detail-h4">상세 설명</div>
       <p class="detail-p detail-desc"></p>
@@ -106,15 +177,28 @@
         <div class="dc-logo"></div>
         <div><div class="dc-name"></div><div class="dc-sub"></div></div>
       </div>
+      <div class="detail-contact-wrap"></div>
     </div>
     <div class="detail-sticky">
       <button class="btn btn-outline" onclick="alert('찜한 공고에 추가되었습니다.')">♡ 찜하기</button>
-      <button class="btn btn-primary" onclick="closeJobDetail(); openLoginModal();">즉시 지원 →</button>
+      <button class="btn btn-primary detail-apply-btn"></button>
     </div>
   </div>
 </div>
 
+<!-- Inquiry modal -->
+<div class="login-modal-overlay" id="inquiryModal">
+  <div class="login-modal-card">
+    <button class="lm-close" onclick="closeInquiryModal()">✕</button>
+    <div class="lm-title">담당자에게 문의하기</div>
+    <div class="lm-sub" id="inquiryTarget">공고에 대해 궁금한 점을 남겨주세요</div>
+    <textarea class="inquiry-textarea" id="inquiryText" placeholder="예) 근무 요일을 조율할 수 있을까요?" rows="5"></textarea>
+    <button class="btn btn-primary lm-btn" style="margin-top:14px;" onclick="submitInquiry()">문의 등록</button>
+  </div>
+</div>
+
 <script src="jobs-data.js"></script>
+<script src="company-data.js"></script>
 <script src="common.js"></script>
 <script>
   function jobCardHTML(job){
@@ -122,13 +206,14 @@
     const heartChar = job.liked ? '♥' : '♡';
     const closed = job.closed;
     return `
-      <div class="job-card" ${job.sponsor ? 'style="border-color:#F0DFAE;"' : ''}>
+      <div class="job-card">
         <div class="job-top">
           <div class="job-top-left">
-            <div class="job-logo"></div>
+            <div class="job-logo" style="background:${logoColorFor(job.company)};">${job.company.charAt(0)}</div>
             <div>
               <div class="job-title">${job.title}</div>
               <div class="job-sub">${job.company} · ${job.location}</div>
+              <div class="job-views">👁 조회 <b>${job.views.toLocaleString()}</b></div>
             </div>
           </div>
           <button class="job-heart ${heartOn}" onclick="toggleHeart(this,event)">${heartChar}</button>
@@ -137,20 +222,75 @@
         <div class="job-price">${job.price}</div>
         ${closed
           ? `<button class="btn btn-outline" style="opacity:.5;" disabled>지원 마감</button>`
-          : `<button class="btn ${job.sponsor ? 'btn-primary' : (job.liked ? 'btn-outline' : 'btn-primary')}" onclick="openJobDetail('${job.id}')">상세보기</button>`}
+          : `<button class="btn btn-primary-soft" onclick="openJobDetail('${job.id}')">상세보기</button>`}
       </div>`;
   }
+  const PAGE_SIZE = 6;
+  let currentList = JOBS;
+  let jobsShown = PAGE_SIZE;
+
+  function companyCardHTML(c){
+    const openJobs = JOBS.filter(j => j.company === c.name && !j.closed);
+    const color = logoColorFor(c.name);
+    const banner = c.image
+      ? `<img src="${c.image}" alt="" loading="lazy">`
+      : industryIconHTML(c.industry, color);
+    return `
+      <a class="company-card" href="company.html?id=${c.id}">
+        <div class="company-card-banner" style="background-color:${color};">
+          ${banner}
+        </div>
+        <div class="company-card-body">
+          <div class="company-card-logo" style="background:${color};">${c.name.charAt(0)}</div>
+          <div>
+            <div class="company-card-name">${c.name}</div>
+            <div class="company-card-positions">${openJobs.length}개 포지션</div>
+          </div>
+        </div>
+      </a>`;
+  }
+  const featuredPool = COMPANIES;
+  const featuredJobGrid = document.getElementById('featuredJobGrid');
+  let featuredOffset = 0;
+  function renderFeatured(){
+    const n = featuredPool.length;
+    const shown = [];
+    for (let i = 0; i < Math.min(3, n); i++) shown.push(featuredPool[(featuredOffset + i) % n]);
+    featuredJobGrid.style.opacity = '0';
+    setTimeout(() => {
+      featuredJobGrid.innerHTML = shown.map(companyCardHTML).join('');
+      featuredJobGrid.style.opacity = '1';
+    }, 250);
+  }
+  function renderVisibleJobs(){
+    document.getElementById('jobGrid').innerHTML = currentList.slice(0, jobsShown).map(jobCardHTML).join('');
+    document.getElementById('loadMoreBtn').style.display = jobsShown >= currentList.length ? 'none' : '';
+  }
   function renderJobs(list){
-    document.getElementById('jobGrid').innerHTML = list.map(jobCardHTML).join('');
+    currentList = list;
+    jobsShown = PAGE_SIZE;
+    renderVisibleJobs();
+  }
+  function loadMoreJobs(){
+    jobsShown += PAGE_SIZE;
+    renderVisibleJobs();
   }
   function filterJobs(){
     const q = document.getElementById('jobSearch').value.trim().toLowerCase();
-    if (!q) { renderJobs(JOBS); return; }
+    const region = document.getElementById('filterRegion').value;
+    const type = document.getElementById('filterType').value;
     renderJobs(JOBS.filter(j =>
-      j.title.toLowerCase().includes(q) || j.company.toLowerCase().includes(q) || j.location.toLowerCase().includes(q)
+      (!q || j.title.toLowerCase().includes(q) || j.company.toLowerCase().includes(q) || j.location.toLowerCase().includes(q)) &&
+      (!region || j.region === region) &&
+      (!type || j.employmentType === type)
     ));
   }
   document.getElementById('jobSearch').addEventListener('keydown', (e) => { if (e.key === 'Enter') filterJobs(); });
+  renderFeatured();
+  setInterval(() => {
+    featuredOffset = (featuredOffset + 1) % featuredPool.length;
+    renderFeatured();
+  }, 10000);
   renderJobs(JOBS);
 </script>
 </body>

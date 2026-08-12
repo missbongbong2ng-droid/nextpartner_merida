@@ -12,103 +12,93 @@
 <body>
 
 <header class="nx-header">
-  <div class="nx-logo"><span class="dot"></span>NEXT PARTNER</div>
-  <nav class="nx-gnb">
-    <a href="index.html">홈</a><a href="jobs.html">채용공고</a><a class="on" href="ai.html">AI 취업지원</a><a href="index.html#stories">성공사례</a><a href="mypage.html">마이페이지</a>
-  </nav>
-  <div class="nx-actions">
-    <span class="nx-login" onclick="openLoginModal()" style="cursor:pointer;">로그인</span>
-    <button class="btn btn-primary" onclick="openLoginModal()">채팅으로 시작하기 <span style="font-weight:600;font-size:12.5px;opacity:.85;margin-left:4px;">(무료)</span></button>
+  <div class="nx-header-inner">
+    <div class="nx-logo"><img class="nx-logo-icon" src="로고.png" alt="Next Partner"></div>
+    <nav class="nx-gnb">
+      <a href="index.html">홈</a><a href="jobs.html">채용공고</a><a class="on" href="ai.html">AI 취업지원</a><a href="mypage.html">마이페이지</a>
+    </nav>
+    <div class="nx-actions">
+      <span class="nx-login" onclick="openLoginModal()" style="cursor:pointer;">로그인</span>
+      <button class="btn btn-primary" onclick="openLoginModal()">무료 회원가입</button>
+    </div>
+    <button class="nx-hamburger" onclick="toggleMobileNav()" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
+<div class="nx-mobile-nav-backdrop" id="mobileNavBackdrop" onclick="closeMobileNav()"></div>
+<nav class="nx-mobile-nav" id="mobileNav">
+  <a href="index.html">홈</a>
+  <a href="jobs.html">채용공고</a>
+  <a class="on" href="ai.html">AI 취업지원</a>
+  <a href="mypage.html">마이페이지</a>
+  <div class="nx-mobile-nav-actions">
+    <button class="btn btn-outline" style="width:100%; justify-content:center;" onclick="closeMobileNav(); openLoginModal();">로그인</button>
+    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="closeMobileNav(); openLoginModal();">무료 회원가입</button>
+  </div>
+</nav>
 
-<div style="padding:40px 40px 28px; text-align:center; background:var(--blue50);">
-  <h2 style="margin:0 0 8px;">AI 취업지원</h2>
-  <div class="sub" style="margin:0;">성공적인 취업활동을 위한 전문적인 AI 취업지원 서비스를 이용해보세요!</div>
-</div>
+<!-- HeroSection: 상태 분기 CTA 포함, JS의 renderHeroSection()이 채움 -->
+<div id="heroSection"></div>
 
 <div class="section">
+  <!-- ProcessSection: 경력진단 → 완성형작성 → 실전대비 3단계 -->
+  <div id="processSection"></div>
 
-  <div class="ai-step1">
-    <div class="ai-step1-badge">STEP 1 · 모든 기능의 시작</div>
-    <h3>AI 이력서 초안 <span class="pill success">FREE</span></h3>
-    <p>항목별 폼에 하나하나 입력하는 대신, 챗봇이 순서대로 질문하고 답변을 대화로 입력해요. 대화가 끝나면 AI가 자동으로 이력서 초안을 완성해드립니다. 내용이 부족하면 챗봇에게 다시 물어보면서 자연스럽게 보완할 수 있어요.</p>
-    <div class="chat-mock">
-      <div class="bubble bot">안녕하세요! 이력서 작성을 도와드릴게요. 가장 최근에 하셨던 일부터 편하게 말씀해주시겠어요?</div>
-      <div class="bubble me">그린힐 관리사무소에서 경비원으로 2년 일했어요</div>
-      <div class="bubble bot">좋아요 :) 그 일에서 주로 어떤 업무를 맡으셨나요?</div>
-    </div>
-    <div class="ai-step1-btns">
-      <button class="btn btn-primary btn-lg" onclick="openLoginModal()">💬 채팅으로 시작하기 <span style="font-weight:600;font-size:12.5px;opacity:.85;margin-left:4px;">(무료)</span></button>
-      <button class="btn btn-outline btn-lg" onclick="openLoginModal()"><span class="ai-badge-tag">AI</span>OCR로 인식하기 <span style="font-weight:600; font-size:12.5px;">(유료)</span></button>
-    </div>
-  </div>
+  <!-- PackageBanner: 정가 취소선 + 할인가 강조, 클릭 시 PackageModal -->
+  <div id="packageBanner"></div>
 
-  <div class="ai-acc" data-acc>
-    <button class="ai-acc-head" onclick="toggleAcc(this)">
-      <div><h3><span class="ai-badge-tag">AI</span>AI 자기소개서 · 이력서 완성형 작성</h3><div class="ai-acc-hint">눌러서 자세히 보기 ⌄</div></div>
-      <div class="ai-acc-right">
-        <div class="ai-acc-right-top"><div class="ai-feat-price">9,900원<span style="font-size:12px; color:var(--gray500); font-weight:600;"> /월</span></div><span class="ai-acc-chevron">⌄</span></div>
-        <span class="btn btn-outline btn-sm" onclick="event.stopPropagation(); openLoginModal();">체험하기</span>
-      </div>
-    </button>
-    <div class="ai-acc-body">
-      <p style="font-size:13.5px; color:var(--gray500); margin:0;">이력서 초안에서 나눈 이야기를 바탕으로 자기소개서까지 이어서 완성해드려요. 경험을 다시 설명할 필요 없이, 강점과 지원 동기를 자연스러운 문장으로 정리해드립니다. 클릭 시 "AI 마크가 있는 기능은 유료 플랜이 필요해요" 안내가 표시됩니다.</p>
-    </div>
-  </div>
+  <!-- ServiceGrid: 단품 서비스 2x2 카드 -->
+  <div id="serviceGrid"></div>
 
-  <div class="ai-acc" data-acc>
-    <button class="ai-acc-head" onclick="toggleAcc(this)">
-      <div><h3><span class="ai-badge-tag">AI</span>AI 증명사진</h3><div class="ai-acc-hint">눌러서 자세히 보기 ⌄</div></div>
-      <div class="ai-acc-right">
-        <div class="ai-acc-right-top"><div class="ai-feat-price">11,000원<span style="font-size:12px; color:var(--gray500); font-weight:600;"> /월</span></div><span class="ai-acc-chevron">⌄</span></div>
-        <span class="btn btn-outline btn-sm" onclick="event.stopPropagation(); openLoginModal();">체험하기</span>
-      </div>
-    </button>
-    <div class="ai-acc-body">
-      <p style="font-size:13.5px; color:var(--gray500); margin:0 0 14px;">정장 톤으로 자연스럽게 보정하고 배경도 증명사진에 맞게 새로 합성해드려요. 결과는 Before/After로 바로 비교해 확인할 수 있습니다. 사진을 업로드하는 순간 AI 보정 기능을 안내해드려요.</p>
-      <div style="display:flex; gap:12px;">
-        <div style="flex:1; height:90px; background:var(--gray100); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:12.5px; color:var(--gray500);">Before</div>
-        <div style="flex:1; height:90px; background:var(--blue50); border:1px solid var(--blue100); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:12.5px; color:var(--blue700); font-weight:700;">After</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ai-acc" data-acc>
-    <button class="ai-acc-head" onclick="toggleAcc(this)">
-      <div><h3><span class="ai-badge-tag">AI</span>경력 재구성 (AI로 직업찾기) <span class="pill blue">NEW</span></h3><div class="ai-acc-hint">눌러서 자세히 보기 ⌄</div></div>
-      <div class="ai-acc-right">
-        <div class="ai-acc-right-top"><div class="ai-feat-price">9,900원<span style="font-size:12px; color:var(--gray500); font-weight:600;"> /월</span></div><span class="ai-acc-chevron">⌄</span></div>
-        <span class="btn btn-outline btn-sm" onclick="event.stopPropagation(); openLoginModal();">체험하기</span>
-      </div>
-    </button>
-    <div class="ai-acc-body">
-      <p style="font-size:13.5px; color:var(--gray500); margin:0;">흩어진 경력을 분석해 지원 가능한 새로운 직무를 추천해드립니다. (상세 기능 정의는 추후 업데이트 예정)</p>
-    </div>
-  </div>
-
-  <div class="ai-acc" data-acc>
-    <button class="ai-acc-head" onclick="toggleAcc(this)">
-      <div><h3>AI 모의면접</h3><div class="ai-acc-hint">눌러서 자세히 보기 ⌄</div></div>
-      <div class="ai-acc-right">
-        <div class="ai-acc-right-top"><div class="ai-feat-price">11,000원<span style="font-size:12px; color:var(--gray500); font-weight:600;"> /월</span></div><span class="ai-acc-chevron">⌄</span></div>
-        <span class="btn btn-outline btn-sm" onclick="event.stopPropagation(); openLoginModal();">체험하기</span>
-      </div>
-    </button>
-    <div class="ai-acc-body">
-      <p style="font-size:13.5px; color:var(--gray500); margin:0;">직무에 맞는 질문을 받고, 답변에 대한 AI 피드백을 실시간으로 받아보세요. 진행 상태와 분석 과정을 화면으로 보여드려서 실제 면접처럼 편안하게 연습할 수 있습니다.</p>
-    </div>
-  </div>
-
-  <div style="background:var(--navy900); color:#fff; border-radius:16px; padding:26px 28px; margin-top:26px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
-    <div><div style="font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; margin-bottom:6px;">AI 프리미엄 패키지</div><div style="font-size:17px; font-weight:800;">자소서 · 증명사진 · 경력재구성 3종 묶음 (각 5회)</div></div>
-    <div style="text-align:right;"><div style="font-size:26px; font-weight:900;">28,000원<span style="font-size:13px; color:#C7CDD4; font-weight:600;">/월 · 단가 대비 10%↓</span></div><button class="btn btn-primary btn-sm" style="margin-top:6px;" onclick="openLoginModal()">패키지 보기</button></div>
-  </div>
+  <!-- FaqSection: 아코디언, 기존 .ai-acc 셸 재사용 -->
+  <div id="faqSection"></div>
 </div>
 
-<footer class="nx-footer">
-  <div><a href="#">이용약관</a><a href="#">개인정보처리방침</a><a class="footer-biz" href="#">기업 서비스 바로가기 →</a></div>
-  <div>(주)넥스트파트너 · 고객센터 1544-0000</div>
+<footer class="footer-rich">
+  <div class="footer-rich-inner">
+    <div class="footer-rich-grid">
+      <div>
+        <div class="nx-logo" style="margin-bottom:14px;"><img class="nx-logo-icon" src="로고.png" alt="Next Partner"></div>
+        <p style="font-size:14.5px; line-height:1.75; color:var(--gray500); margin:0; max-width:280px;">시니어의 다음을 함께 만드는 AI 일자리 플랫폼.</p>
+        <div class="footer-rich-legal">
+          주식회사 모리아타운 · 대표 권오형<br>
+          서울특별시 송파구 법원로 114(문정동) B동 915호 (05854)<br>
+          사업자등록번호 215-86-89431 · 통신판매업신고번호 2011-서울송파-1572<br>
+          직업정보제공사업 신고번호 서울동부 제2026-11호<br>
+          개인정보책임자 정원석 (<a href="mailto:james@moriahtown.com">james@moriahtown.com</a>)
+        </div>
+      </div>
+      <div>
+        <div class="footer-rich-col-title">가이드</div>
+        <div class="footer-rich-links">
+          <a href="#">이용가이드</a>
+          <a href="#">고객센터</a>
+          <a href="#">공지사항</a>
+          <a href="#">콘텐츠</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-rich-col-title">정책</div>
+        <div class="footer-rich-links">
+          <a href="#">이용약관</a>
+          <a href="#">개인정보처리방침</a>
+          <a href="#">환불정책</a>
+          <a href="#">위치기반서비스</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-rich-col-title">고객센터</div>
+        <div class="footer-rich-links">
+          <a href="tel:070-8655-2031">070-8655-2031</a>
+          <span>평일 10:00~18:00 (점심 12:00~13:00)</span>
+          <span>주말·공휴일 휴무</span>
+          <a href="mailto:cs@moriahtown.com">cs@moriahtown.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-rich-bottom">
+      <div class="footer-rich-copy">© 2026 NEXTPARTNER. All rights reserved.</div>
+    </div>
+  </div>
 </footer>
 
 <!-- Accessibility widget -->
@@ -136,6 +126,83 @@
   </div>
 </div>
 
+<!-- Service detail modal (데이터 기반, AI_SERVICES 5개가 이 모달 하나를 공유) -->
+<div class="login-modal-overlay" id="serviceModal" role="dialog" aria-modal="true" aria-labelledby="svcModalTitle">
+  <div class="svc-modal-card">
+    <button class="lm-close" onclick="closeServiceModal()" aria-label="닫기">✕</button>
+
+    <div class="svc-modal-header">
+      <div class="svc-modal-icon" id="svcIcon"></div>
+      <div class="svc-modal-header-text">
+        <h2 class="svc-modal-title" id="svcModalTitle"></h2>
+        <p class="svc-modal-subtitle" id="svcSubtitle"></p>
+      </div>
+    </div>
+
+    <ul class="svc-modal-desc" id="svcDesc"></ul>
+
+    <div class="svc-modal-ba" id="svcBeforeAfter">
+      <div class="svc-ba-row">
+        <div class="svc-ba-item">
+          <img id="svcBeforeImg" alt="">
+          <span class="svc-ba-label" id="svcBeforeLabel"></span>
+        </div>
+        <div class="svc-ba-item">
+          <img id="svcAfterImg" alt="">
+          <span class="svc-ba-label" id="svcAfterLabel"></span>
+        </div>
+      </div>
+    </div>
+    <p class="svc-modal-social" id="svcSocial"></p>
+
+    <div class="svc-modal-footer">
+      <div class="svc-modal-price-row">
+        <div class="svc-modal-price" id="svcPrice"></div>
+        <div class="svc-modal-credits" id="svcCredits"></div>
+      </div>
+      <ul class="svc-modal-benefits" id="svcBenefits"></ul>
+      <div class="svc-modal-btns">
+        <button class="btn btn-outline" onclick="closeServiceModal()">나중에 하기</button>
+        <button class="btn btn-primary" id="svcPayBtn"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Package detail modal (AI_PACKAGE 전용, ServiceDetailModal과 다른 레이아웃: 단품 리스트 + 정가/할인가) -->
+<div class="login-modal-overlay" id="packageModal" role="dialog" aria-modal="true" aria-labelledby="pkgModalTitle">
+  <div class="svc-modal-card">
+    <button class="lm-close" onclick="closePackageModal()" aria-label="닫기">✕</button>
+
+    <div class="svc-modal-header">
+      <div class="svc-modal-icon" id="pkgIcon"></div>
+      <div class="svc-modal-header-text">
+        <h2 class="svc-modal-title" id="pkgModalTitle"></h2>
+        <p class="svc-modal-subtitle" id="pkgSubtitle"></p>
+      </div>
+    </div>
+
+    <ul class="svc-modal-desc" id="pkgDesc"></ul>
+
+    <ul class="pkg-modal-items" id="pkgItems"></ul>
+    <p class="svc-modal-social" id="pkgSocial"></p>
+
+    <div class="svc-modal-footer">
+      <div class="pkg-modal-price-row">
+        <span class="pkg-modal-regular" id="pkgRegular"></span>
+        <span class="pkg-modal-rate" id="pkgRate"></span>
+      </div>
+      <div class="svc-modal-price" id="pkgPrice"></div>
+      <ul class="svc-modal-benefits" id="pkgBenefits"></ul>
+      <div class="svc-modal-btns">
+        <button class="btn btn-outline" onclick="closePackageModal()">나중에 하기</button>
+        <button class="btn btn-primary" id="pkgPayBtn"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="ai-services-data.js"></script>
 <script src="common.js"></script>
 <script>
   function toggleAcc(headBtn){
@@ -144,6 +211,309 @@
     document.querySelectorAll('[data-acc]').forEach(a => a.classList.remove('open'));
     if (!wasOpen) acc.classList.add('open');
   }
+
+  /* =====================================================================
+     Hero CTA 상태 분기 (mock auth/draft status)
+     실제 로그인 API가 붙으면 getAuthDraftStatus() 내부만 서버 호출로 바꾸면 됨.
+     반환 형태 { loggedIn, hasDraft }를 그대로 유지하면 React로 옮길 때
+     useAuthDraftStatus() 훅으로도 바로 승격 가능.
+     ===================================================================== */
+  const AUTH_DRAFT_KEY = 'np_mock_auth_draft';
+  function getAuthDraftStatus(){
+    try {
+      const saved = JSON.parse(localStorage.getItem(AUTH_DRAFT_KEY));
+      if (saved && typeof saved.loggedIn === 'boolean' && typeof saved.hasDraft === 'boolean') return saved;
+    } catch (e) {}
+    return { loggedIn: false, hasDraft: false };
+  }
+  function setAuthDraftStatus(status){
+    localStorage.setItem(AUTH_DRAFT_KEY, JSON.stringify(status));
+  }
+
+  function startAiDraft(){
+    setAuthDraftStatus({ loggedIn: true, hasDraft: true });
+    alert(`채팅 작성 화면은 아직 준비 중이라, 데모에서는 바로 '초안 작성 완료' 상태로 전환할게요.`);
+    renderHeroSection();
+  }
+
+  /* =====================================================================
+     <HeroSection /> — 네이비 배너 + STEP1 무료 초안 카드, 로그인·초안 상태 분기 포함
+     ===================================================================== */
+  function renderHeroSection(){
+    const root = document.getElementById('heroSection');
+    if (!root) return;
+    const c = AI_HERO_COPY;
+    const { loggedIn, hasDraft } = getAuthDraftStatus();
+
+    const ocrBtn = `<button class="btn btn-outline btn-lg" onclick="openServiceModal('ocr')"><span class="ai-badge-tag">AI</span>OCR로 인식하기 <span style="font-weight:600; font-size:12.5px;">(유료)</span></button>`;
+    const ctaRow = (loggedIn && hasDraft)
+      ? `<div class="ai-step1-done">
+           <button class="btn btn-outline btn-lg" disabled>✅ 이미 채팅으로 작성을 완료했어요</button>
+           <a class="ai-step1-draft-link" href="mypage.html">내 이력서 초안 다시보기 ›</a>
+         </div>
+         ${ocrBtn}`
+      : `<button class="btn btn-outline btn-lg" disabled>🎤 음성으로 시작하기 <span class="pill gray" style="margin-left:2px;">준비중</span></button>
+         <button class="btn btn-primary btn-lg" onclick="startAiDraft()">💬 채팅으로 시작하기 <span style="font-weight:600;font-size:12.5px;opacity:.85;margin-left:4px;">(무료)</span></button>
+         ${ocrBtn}`;
+
+    root.innerHTML = `
+      <div class="ai-hero">
+        <div class="ai-hero-tag">${c.tag}</div>
+        <h1 class="ai-hero-title">${c.title}</h1>
+        <p class="ai-hero-sub">${c.subtitle}</p>
+      </div>
+      <div class="section" style="padding-bottom:0;">
+        <div class="ai-step1">
+          <div class="ai-step1-badge">${c.stepBadge}</div>
+          <h3>${c.stepTitle} <span class="pill success">FREE</span></h3>
+          <p>${c.stepDesc}</p>
+          <div class="chat-mock">
+            ${c.chatMock.map(m => `<div class="bubble ${m.from === 'bot' ? 'bot' : 'me'}">${m.text}</div>`).join('')}
+          </div>
+          <div class="ai-step1-btns" id="heroCtaRow">${ctaRow}</div>
+        </div>
+      </div>`;
+  }
+
+  /* =====================================================================
+     <ProcessSection /> — 경력진단(무료) → 완성형작성 → 실전대비, 3단계 가로 인디케이터
+     실제 순차 흐름이라 번호(1-2-3) 사용. serviceId가 있는 단계는 클릭 시 해당 모달로 연결.
+     ===================================================================== */
+  function renderProcessSection(){
+    const root = document.getElementById('processSection');
+    if (!root) return;
+    root.innerHTML = `
+      <h3 style="margin:0 0 16px;">이렇게 3단계로 진행돼요</h3>
+      <div class="ai-process">
+        ${AI_PROCESS_STEPS.map(s => {
+          const clickable = !!s.serviceId;
+          const tag = s.tag ? `<span class="pill success">${s.tag}</span>` : '';
+          return `
+          <${clickable ? 'button' : 'div'} class="ai-process-step"${clickable ? ` onclick="openServiceModal('${s.serviceId}')"` : ''}>
+            <div class="ai-process-num">${s.step}</div>
+            <div class="ai-process-label">${s.label}</div>
+            <div class="ai-process-title">${s.title} ${tag}</div>
+            <p class="ai-process-desc">${s.desc}</p>
+          </${clickable ? 'button' : 'div'}>`;
+        }).join('')}
+      </div>`;
+  }
+
+  /* =====================================================================
+     <PackageBanner /> — 정가 취소선 + 할인가 강조, 클릭 시 PackageModal 오픈
+     ===================================================================== */
+  function renderPackageBanner(){
+    const root = document.getElementById('packageBanner');
+    if (!root) return;
+    const p = AI_PACKAGE;
+    root.innerHTML = `
+      <button class="ai-pkg-banner" onclick="openPackageModal()">
+        <div>
+          <div class="ai-pkg-kicker">${p.title}</div>
+          <div class="ai-pkg-title">${p.subtitle}</div>
+        </div>
+        <div class="ai-pkg-price-block">
+          <div class="pkg-modal-regular" style="color:#8A96C4;">${p.regularPrice.toLocaleString()}원</div>
+          <div class="ai-pkg-discount">${p.discountPrice.toLocaleString()}원<span class="rate">/${p.unit} · ${p.discountRate}%↓</span></div>
+        </div>
+      </button>`;
+  }
+
+  /* =====================================================================
+     <ServiceGrid /> — 패키지에 포함된 단품 서비스 4개를 2x2 카드로, 카드 클릭 시 ServiceDetailModal
+     ===================================================================== */
+  function renderServiceGrid(){
+    const root = document.getElementById('serviceGrid');
+    if (!root) return;
+    const ids = AI_PACKAGE.items.map(i => i.serviceId);
+    const cards = ids.map(aiServiceById).filter(Boolean);
+    root.innerHTML = `
+      <h3 style="margin:32px 0 16px;">단품으로 골라 쓰기</h3>
+      <div class="ai-svc-grid">
+        ${cards.map(s => `
+          <button class="ai-svc-card" onclick="openServiceModal('${s.id}')">
+            <div class="ai-svc-card-icon">${s.icon}</div>
+            <div class="ai-svc-card-title">${s.title}</div>
+            <div class="ai-svc-card-sub">${s.subtitle}</div>
+            <div class="ai-svc-card-price">${s.price.amount.toLocaleString()}원<span> / ${s.price.unit}</span></div>
+          </button>`).join('')}
+      </div>`;
+  }
+
+  /* =====================================================================
+     <FaqSection /> — 아코디언, 기존 .ai-acc 셸(toggleAcc)을 그대로 재사용
+     ===================================================================== */
+  function renderFaqSection(){
+    const root = document.getElementById('faqSection');
+    if (!root) return;
+    root.innerHTML = `
+      <h3 style="margin:32px 0 16px;">자주 묻는 질문</h3>
+      ${AI_FAQS.map(f => `
+        <div class="ai-acc" data-acc>
+          <button class="ai-acc-head" onclick="toggleAcc(this)">
+            <h3 style="font-size:16px; font-weight:800; margin:0;">${f.q}</h3>
+            <span class="ai-acc-chevron">⌄</span>
+          </button>
+          <div class="ai-acc-body">
+            <p style="font-size:16px; color:var(--gray700); line-height:1.7; margin:0;">${f.a}</p>
+          </div>
+        </div>`).join('')}`;
+  }
+
+  renderHeroSection();
+  renderProcessSection();
+  renderPackageBanner();
+  renderServiceGrid();
+  renderFaqSection();
+
+  /* =====================================================================
+     ServiceDetailModal (데이터 기반, AI_SERVICES 5개 공유)
+     구조: 헤더 / 설명 불릿 / Before-After+socialProof(조건부) / 가격·혜택+버튼2개
+     접근성: 포커스 트랩(Tab 순환), ESC 닫기(공통 핸들러는 common.js),
+             배경 스크롤 잠금, aria-modal + aria-labelledby
+     ===================================================================== */
+  let svcLastFocused = null;
+
+  function openServiceModal(id){
+    const data = typeof aiServiceById === 'function' ? aiServiceById(id) : null;
+    const modal = document.getElementById('serviceModal');
+    if (!data || !modal) return;
+
+    renderServiceModal(data);
+    svcLastFocused = document.activeElement;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    const closeBtn = modal.querySelector('.lm-close');
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeServiceModal(){
+    const modal = document.getElementById('serviceModal');
+    if (!modal) return;
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    if (svcLastFocused && typeof svcLastFocused.focus === 'function') svcLastFocused.focus();
+    svcLastFocused = null;
+  }
+
+  function renderServiceModal(data){
+    const modal = document.getElementById('serviceModal');
+
+    modal.querySelector('#svcIcon').textContent = data.icon;
+    modal.querySelector('#svcModalTitle').textContent = data.title;
+    modal.querySelector('#svcSubtitle').textContent = data.subtitle;
+    modal.querySelector('#svcDesc').innerHTML = data.description.map(d => `<li>${d}</li>`).join('');
+
+    const baWrap = modal.querySelector('#svcBeforeAfter');
+    if (data.beforeAfter) {
+      baWrap.style.display = '';
+      modal.querySelector('#svcBeforeImg').src = data.beforeAfter.beforeImage;
+      modal.querySelector('#svcBeforeLabel').textContent = data.beforeAfter.beforeLabel;
+      modal.querySelector('#svcAfterImg').src = data.beforeAfter.afterImage;
+      modal.querySelector('#svcAfterLabel').textContent = data.beforeAfter.afterLabel;
+    } else {
+      baWrap.style.display = 'none';
+    }
+
+    const socialEl = modal.querySelector('#svcSocial');
+    if (data.socialProof) {
+      socialEl.textContent = data.socialProof;
+      socialEl.style.display = '';
+    } else {
+      socialEl.style.display = 'none';
+    }
+
+    modal.querySelector('#svcPrice').textContent = `${data.price.amount.toLocaleString()}원 / ${data.price.unit}`;
+    modal.querySelector('#svcCredits').textContent = data.price.credits || '';
+    modal.querySelector('#svcBenefits').innerHTML = data.benefits.map(b => `<li>${b}</li>`).join('');
+
+    const payBtn = modal.querySelector('#svcPayBtn');
+    payBtn.textContent = data.ctaLabel;
+    payBtn.onclick = () => onPayService(data);
+  }
+
+  function onPayService(data){
+    // 결제 플로우 연결 지점 — 실제 결제 붙기 전까지는 로그로만 확인
+    console.log('[onPay]', data.id, data.ctaLabel);
+    closeServiceModal();
+    alert(`${data.title} 결제 플로우로 연결됩니다. (데모: 콘솔 로그만 출력)`);
+  }
+
+  /* =====================================================================
+     PackageModal (AI_PACKAGE 전용)
+     ServiceDetailModal과 마크업 셸(.svc-modal-*)은 공유하되, 단품 리스트 +
+     정가 취소선/할인가/할인율 블록이 추가로 들어가는 별도 레이아웃.
+     ===================================================================== */
+  let pkgLastFocused = null;
+
+  function openPackageModal(){
+    const modal = document.getElementById('packageModal');
+    if (!modal) return;
+    renderPackageModal(AI_PACKAGE);
+    pkgLastFocused = document.activeElement;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    const closeBtn = modal.querySelector('.lm-close');
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closePackageModal(){
+    const modal = document.getElementById('packageModal');
+    if (!modal) return;
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    if (pkgLastFocused && typeof pkgLastFocused.focus === 'function') pkgLastFocused.focus();
+    pkgLastFocused = null;
+  }
+
+  function renderPackageModal(data){
+    const modal = document.getElementById('packageModal');
+
+    modal.querySelector('#pkgIcon').textContent = data.icon;
+    modal.querySelector('#pkgModalTitle').textContent = data.title;
+    modal.querySelector('#pkgSubtitle').textContent = data.subtitle;
+    modal.querySelector('#pkgDesc').innerHTML = data.description.map(d => `<li>${d}</li>`).join('');
+
+    modal.querySelector('#pkgItems').innerHTML = data.items.map(item => `
+      <li class="pkg-item">
+        <span class="pkg-item-label">${item.label}<span class="pkg-item-credits">${item.credits}</span></span>
+        <span class="pkg-item-price">${item.standalonePrice.toLocaleString()}원</span>
+      </li>`).join('');
+
+    const socialEl = modal.querySelector('#pkgSocial');
+    if (data.socialProof) { socialEl.textContent = data.socialProof; socialEl.style.display = ''; }
+    else socialEl.style.display = 'none';
+
+    modal.querySelector('#pkgRegular').textContent = `정가 ${data.regularPrice.toLocaleString()}원`;
+    modal.querySelector('#pkgRate').textContent = `${data.discountRate}% 할인`;
+    modal.querySelector('#pkgPrice').textContent = `${data.discountPrice.toLocaleString()}원 / ${data.unit}`;
+    modal.querySelector('#pkgBenefits').innerHTML = data.benefits.map(b => `<li>${b}</li>`).join('');
+
+    const payBtn = modal.querySelector('#pkgPayBtn');
+    payBtn.textContent = data.ctaLabel;
+    payBtn.onclick = () => onPayPackage(data);
+  }
+
+  function onPayPackage(data){
+    // 결제 플로우 연결 지점 — 실제 결제 붙기 전까지는 로그로만 확인
+    console.log('[onPay:package]', data.id, data.ctaLabel);
+    closePackageModal();
+    alert(`${data.title} 결제 플로우로 연결됩니다. (데모: 콘솔 로그만 출력)`);
+  }
+
+  // Tab 포커스 트랩 — 현재 열려있는 login-modal-overlay 계열 모달(로그인/문의/서비스/패키지) 전체에 적용
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const modal = document.querySelector('.login-modal-overlay.open');
+    if (!modal) return;
+
+    const focusables = Array.from(modal.querySelectorAll('button, a[href], [tabindex]:not([tabindex="-1"])'))
+      .filter(el => el.offsetParent !== null);
+    if (!focusables.length) return;
+    const first = focusables[0], last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
 </script>
 </body>
 </html>
