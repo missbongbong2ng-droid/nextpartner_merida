@@ -4,7 +4,7 @@ const fs = require('fs');
 const { execFileSync } = require('child_process');
 const FF = 'C:/Users/missb/AppData/Local/Temp/claude/56ee5e0c35754088/308ffb76-0545-4298-8def-b7e318829d3d/scratchpad/render/node_modules/ffmpeg-static/ffmpeg.exe';
 const [video, out] = process.argv.slice(2);
-const html = fs.readFileSync(process.env.FILM_HTML || 'd:/AI/task/CF/pbaas_film_v6.html', 'utf8');
+const html = fs.readFileSync(process.env.FILM_HTML || 'd:/AI/task/CF/pbaas_film_v8.html', 'utf8');
 const dir = process.env.NARR_DIR || 'd:/AI/task/CF/audio/';
 const hookDir = process.env.HOOK_DIR || 'd:/AI/task/CF/audio/';
 
@@ -32,7 +32,7 @@ for (const c of clips) {
   n++;
 }
 filters.push(`${[...Array(n).keys()].map(i => `[a${i}]`).join('')}amix=inputs=${n}:normalize=0:duration=longest,loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000,apad=whole_dur=${DURATION},atrim=0:${DURATION}[nar]`);
-const track = dir + 'narration_full.wav';
+const track = process.env.TRACK || dir + 'narration_full.wav';
 execFileSync(FF, ['-y', '-loglevel', 'error', ...inputs, '-filter_complex', filters.join(';'), '-map', '[nar]', '-ac', '2', '-ar', '48000', track]);
 console.log('트랙:', track);
 if (video && out) {
