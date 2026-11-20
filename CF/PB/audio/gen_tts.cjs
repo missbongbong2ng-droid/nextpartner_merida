@@ -5,7 +5,7 @@ const FF = 'C:/Users/missb/AppData/Local/Temp/claude/56ee5e0c35754088/308ffb76-0
 const URL = 'https://merida-s-voice-studio.vercel.app/api/tts';
 const VOICE = process.env.VOICE || 'Zephyr';
 
-const html = fs.readFileSync('d:/AI/task/CF/pbaas_film_v5.html', 'utf8');
+const html = fs.readFileSync('d:/AI/task/CF/PB/이전_버전/pbaas_film_v5.html', 'utf8');
 const CUES = eval(html.match(/const CUES = (\[[\s\S]*?\]);/)[1]);
 const speak = s => s.replace(/AEO/g, '에이이오').replace(/GEO/g, '지이오').replace(/PBaaS/g, '파바스');
 

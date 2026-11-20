@@ -4,9 +4,9 @@ const fs = require('fs');
 const { execFileSync } = require('child_process');
 const FF = 'C:/Users/missb/AppData/Local/Temp/claude/56ee5e0c35754088/308ffb76-0545-4298-8def-b7e318829d3d/scratchpad/render/node_modules/ffmpeg-static/ffmpeg.exe';
 const [video, out] = process.argv.slice(2);
-const html = fs.readFileSync(process.env.FILM_HTML || 'd:/AI/task/CF/pbaas_film_v8.html', 'utf8');
-const dir = process.env.NARR_DIR || 'd:/AI/task/CF/audio/';
-const hookDir = process.env.HOOK_DIR || 'd:/AI/task/CF/audio/';
+const html = fs.readFileSync(process.env.FILM_HTML || 'd:/AI/task/CF/PB/pbaas_film_v8.html', 'utf8');
+const dir = process.env.NARR_DIR || 'd:/AI/task/CF/PB/audio/';
+const hookDir = process.env.HOOK_DIR || 'd:/AI/task/CF/PB/audio/';
 
 // HTML의 타임라인 정의를 그대로 읽어 같은 계산을 한다
 const KNOTS = eval(html.match(/const KNOTS = (\[[\s\S]*?\]);/)[1]);

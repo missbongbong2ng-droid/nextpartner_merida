@@ -8,7 +8,7 @@ const VOICE = process.env.VOICE || 'Laomedeia';
 const OUT = (process.env.OUT || 'laomedeia') + '/';
 const STYLE = 'Say this in a bright, cheerful, upbeat tone, as if smiling while speaking, like a friendly Korean TV commercial narrator: ';
 
-const html = fs.readFileSync('d:/AI/task/CF/pbaas_film_v6.html', 'utf8');
+const html = fs.readFileSync('d:/AI/task/CF/PB/pbaas_film_v8.html', 'utf8');
 const OCUES = eval(html.match(/const OCUES = (\[[\s\S]*?\]);/)[1]);
 const speak = s => s.replace(/AEO/g, '에이이오').replace(/GEO/g, '지이오').replace(/PBaaS/g, '파바스');
 const jobs = OCUES.map((c, i) => ({ name: String(i + 3).padStart(2, '0'), text: speak(c[2]) }));

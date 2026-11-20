@@ -2,7 +2,7 @@
 # 사용법: [VIDEO=.. VOICE=.. DUR=..] bash mix_bgm.sh <bgm파일> <출력mp4>   (기본값: v6_noaudio.mp4 + laomedeia/narration_full.wav, 105.6초)
 FF="C:/Users/missb/AppData/Local/Temp/claude/56ee5e0c35754088/308ffb76-0545-4298-8def-b7e318829d3d/scratchpad/render/node_modules/ffmpeg-static/ffmpeg.exe"
 VIDEO="${VIDEO:-C:/Users/missb/AppData/Local/Temp/claude/56ee5e0c35754088/308ffb76-0545-4298-8def-b7e318829d3d/scratchpad/v6_noaudio.mp4}"
-VOICE="${VOICE:-d:/AI/task/CF/audio/laomedeia/narration_full.wav}"
+VOICE="${VOICE:-d:/AI/task/CF/PB/audio/laomedeia/narration_full.wav}"
 DUR=${DUR:-105.6}
 FADE_ST=$(awk "BEGIN{print $DUR-3.5}")
 BGM_VOL=${BGM_VOL:-0.30}
