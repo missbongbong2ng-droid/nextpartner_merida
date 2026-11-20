@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PBaaS Brand Film</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --brand:#5B4BFF; --brand2:#8B6CFF; --mint:#34E0C2; --bg:#0E0F12;
+  --card:#16181D; --line:rgba(255,255,255,.08); --muted:#8A8F98;
+}
+html,body{margin:0;height:100%;background:#000;overflow:hidden}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;
+  background:var(--bg);color:#EDEEF0;letter-spacing:-0.02em;
+  font-family:"Pretendard Variable",Pretendard,"Malgun Gothic",sans-serif;}
+.abs{position:absolute}
+.layer{position:absolute;left:0;top:0;width:1920px;height:1080px}
+svg{display:block}
+
+/* ---------- backgrounds ---------- */
+#bgN{background:radial-gradient(1100px 700px at 30% 20%,#1A1C22 0%,rgba(14,15,18,0) 70%),radial-gradient(900px 600px at 85% 90%,#17181D 0%,rgba(14,15,18,0) 70%),#0E0F12}
+#bgB{background:radial-gradient(900px 620px at 20% 15%,rgba(91,75,255,.38) 0%,rgba(91,75,255,0) 70%),radial-gradient(900px 700px at 90% 95%,rgba(52,224,194,.16) 0%,rgba(52,224,194,0) 70%),radial-gradient(1200px 800px at 60% 50%,rgba(139,108,255,.14) 0%,rgba(0,0,0,0) 70%)}
+#bgC{background:radial-gradient(1200px 800px at 15% 10%,#8B6CFF 0%,rgba(139,108,255,0) 65%),radial-gradient(1000px 700px at 95% 100%,#2FC9B0 0%,rgba(47,201,176,0) 60%),linear-gradient(135deg,#5B4BFF 0%,#4433E0 100%)}
+#grain{opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+
+/* ---------- common ---------- */
+.sec{left:120px;top:84px;font-size:28px;font-weight:700;color:#D5D8DD;display:flex;gap:16px;align-items:center;white-space:nowrap}
+.sec b{color:var(--mint);font-size:20px;letter-spacing:.08em;border:1px solid rgba(52,224,194,.45);padding:5px 13px;border-radius:999px;font-weight:700}
+.chip-label{display:flex;gap:12px;align-items:center;font-size:26px;font-weight:700;color:#9AA0AA;padding:10px 22px 10px 16px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03);white-space:nowrap}
+.bubble{background:#1B1E25;border:1px solid rgba(255,255,255,.08);border-radius:36px 36px 36px 10px;padding:32px 46px;font-size:46px;line-height:1.4;font-weight:500;color:#BFC4CC;box-shadow:0 30px 60px rgba(0,0,0,.35);white-space:nowrap}
+.hl{color:#fff;font-weight:800;background-image:linear-gradient(transparent 62%,rgba(255,190,80,.42) 62%);background-repeat:no-repeat;background-size:0% 100%}
+.typing{background:#1B1E25;border:1px solid rgba(255,255,255,.08);border-radius:26px 26px 26px 8px;padding:24px 28px;display:flex;gap:10px}
+.typing i{width:13px;height:13px;border-radius:50%;background:#6B717C;display:block}
+
+.paper{width:560px;height:330px;background:#ECE7DE;border-radius:10px;color:#2a2a2a;padding:34px 40px;box-sizing:border-box;box-shadow:0 30px 70px rgba(0,0,0,.55);overflow:hidden}
+.paper .nm{font-size:36px;font-weight:800;letter-spacing:-.01em}
+.paper .tt{font-size:17px;color:#555;margin-top:6px}
+.paper hr{border:0;border-top:1px solid #c9c2b5;margin:16px 0 12px}
+.paper .tiny{font-size:12.5px;line-height:1.55;color:#6a655d;letter-spacing:-.03em}
+.paper .fade{position:absolute;left:0;right:0;bottom:0;height:110px;background:linear-gradient(rgba(236,231,222,0),#ECE7DE 75%)}
+.paper .more{position:absolute;right:28px;bottom:22px;font-size:15px;color:#b0473a;font-weight:700}
+
+.win{background:#15171C;border:1px solid var(--line);border-radius:22px;box-shadow:0 40px 90px rgba(0,0,0,.5);overflow:hidden;width:780px}
+.win-top{height:54px;display:flex;align-items:center;gap:10px;padding:0 22px;border-bottom:1px solid var(--line);font-size:19px;color:#7D838D}
+.win-top .d{width:12px;height:12px;border-radius:50%;background:#2A2D34}
+.post{padding:22px 28px;font-size:26px;font-weight:700;color:#E6E8EB;border-bottom:1px solid var(--line)}
+.post small{display:block;font-size:17px;color:#6E747E;font-weight:500;margin-top:6px}
+.cmt{display:flex;gap:18px;padding:22px 28px;border-bottom:1px solid var(--line)}
+.av{width:56px;height:56px;border-radius:50%;background:#262A33;display:grid;place-items:center;flex:none}
+.cmt .nm{font-size:19px;color:#8A9099;font-weight:600;margin-bottom:6px}
+.cmt .tx{font-size:29px;line-height:1.42;color:#C3C8D0}
+.cmt .lk{font-size:17px;color:#6B717C;margin-top:8px;display:flex;gap:18px}
+
+/* ---------- UI cards (light) ---------- */
+.ui{background:#fff;color:#14161A;border-radius:26px;box-shadow:0 40px 90px rgba(0,0,0,.45);overflow:hidden}
+.chrome{height:48px;background:#F2F3F6;display:flex;align-items:center;gap:8px;padding:0 18px}
+.chrome .d{width:11px;height:11px;border-radius:50%;background:#D9DBE1}
+.chrome .url{flex:1;margin-left:12px;background:#fff;border-radius:999px;height:28px;font-size:15px;color:#6B7280;display:flex;align-items:center;padding:0 14px;gap:8px}
+.lbl{font-size:15px;font-weight:700;color:#8B8FA0;letter-spacing:.02em}
+.mono{border-radius:50%;background:linear-gradient(135deg,#8B6CFF,#5B4BFF);color:#fff;display:grid;place-items:center;font-weight:800}
+.tag{display:inline-block;font-size:15px;font-weight:700;color:#5B4BFF;background:#EEECFF;border-radius:999px;padding:6px 12px;margin:0 6px 6px 0}
+.btn{background:#5B4BFF;color:#fff;border-radius:14px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ok{display:inline-flex;gap:8px;align-items:center;font-size:20px;font-weight:700;color:var(--mint);white-space:nowrap}
+.toast{background:#111318;color:#fff;border-radius:999px;padding:14px 24px;font-size:20px;font-weight:600;display:flex;gap:10px;align-items:center;white-space:nowrap;box-shadow:0 14px 40px rgba(0,0,0,.35)}
+
+/* phone */
+.phone{width:400px;height:820px;border-radius:64px;background:#0A0B0D;box-shadow:0 0 0 2px #2A2D34,0 50px 100px rgba(0,0,0,.6)}
+.screen{position:absolute;left:14px;top:14px;width:372px;height:792px;border-radius:52px;overflow:hidden;background:#fff}
+.notch{position:absolute;left:50%;top:14px;width:120px;height:34px;margin-left:-60px;border-radius:20px;background:#0A0B0D;z-index:5}
+
+/* S7 */
+.pg{width:540px;height:650px}
+.area{position:relative;overflow:hidden}
+.flash{position:absolute;inset:0;border:3px solid var(--mint);border-radius:inherit;box-shadow:inset 0 0 0 999px rgba(52,224,194,.12);opacity:0;pointer-events:none}
+.ed{width:500px;height:650px;background:#16181D;border:1px solid var(--line);border-radius:26px;box-shadow:0 40px 90px rgba(0,0,0,.45);padding:28px;box-sizing:border-box}
+.ed .tabs{display:flex;gap:8px;background:#0F1115;border-radius:14px;padding:6px;margin:18px 0 26px}
+.ed .tab{flex:1;text-align:center;font-size:19px;font-weight:700;color:#7D838D;padding:12px 0;border-radius:10px}
+.ed .tab.on{background:#262A33;color:#fff}
+.ed .f{margin-bottom:22px}
+.ed .f .k{font-size:16px;color:#8A9099;font-weight:700;margin-bottom:10px}
+.ed .f .v{height:62px;border-radius:14px;background:#0F1115;border:2px solid #23262E;display:flex;align-items:center;padding:0 18px;font-size:21px;color:#D5D8DD;white-space:nowrap;overflow:hidden}
+.ed .f.on .v{border-color:var(--brand);box-shadow:0 0 0 5px rgba(91,75,255,.22)}
+.caret{display:inline-block;width:2px;height:26px;background:#fff;margin-left:3px;vertical-align:middle}
+.persona{font-size:26px;font-weight:800;color:#fff;white-space:nowrap}
+.persona span{color:var(--mint)}
+.tagrow .tg{display:inline-block;font-size:18px;font-weight:700;color:#D9D4FF;background:rgba(91,75,255,.22);border:1px solid rgba(139,108,255,.4);border-radius:999px;padding:8px 16px;margin-right:8px}
+
+/* captions */
+#cap{left:50%;bottom:44px;transform:translateX(-50%);max-width:1560px;text-align:center;font-size:36px;font-weight:600;line-height:1.35;color:#fff;
+  background:rgba(8,9,12,.55);padding:14px 30px;border-radius:14px;white-space:nowrap;opacity:0}
+
+/* controls (preview only) */
+#ctl{position:fixed;left:0;right:0;bottom:0;display:flex;gap:16px;align-items:center;padding:12px 18px;background:linear-gradient(transparent,rgba(0,0,0,.85));color:#ddd;font:14px "Malgun Gothic",sans-serif;opacity:0;transition:opacity .25s;z-index:10}
+#ctl:hover,#ctl.show{opacity:1}
+#ctl button{background:#5B4BFF;border:0;color:#fff;width:40px;height:34px;border-radius:8px;font-size:15px;cursor:pointer}
+#ctl input[type=range]{flex:1;accent-color:#5B4BFF}
+#ctl label{display:flex;gap:6px;align-items:center;white-space:nowrap;cursor:pointer}
+body.render #ctl{display:none}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B6CFF"/><stop offset="1" stop-color="#4B3BFF"/></linearGradient>
+    <linearGradient id="hubg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B6CFF"/><stop offset="1" stop-color="#5B4BFF"/></linearGradient>
+  </defs>
+  <symbol id="mark" viewBox="0 0 64 64">
+    <rect width="64" height="64" rx="17" fill="url(#mg)"/>
+    <path d="M18 39 L32 46 L46 39" stroke="#fff" stroke-width="4.2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".5"/>
+    <path d="M18 31 L32 38 L46 31" stroke="#fff" stroke-width="4.2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".78"/>
+    <path d="M32 15 L46 22 L32 29 L18 22 Z" fill="#fff"/>
+  </symbol>
+  <symbol id="markW" viewBox="0 0 64 64">
+    <rect width="64" height="64" rx="17" fill="#fff"/>
+    <path d="M18 39 L32 46 L46 39" stroke="#5B4BFF" stroke-width="4.2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".45"/>
+    <path d="M18 31 L32 38 L46 31" stroke="#5B4BFF" stroke-width="4.2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".75"/>
+    <path d="M32 15 L46 22 L32 29 L18 22 Z" fill="#5B4BFF"/>
+  </symbol>
+  <symbol id="i-page" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-qr" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></g><path d="M14 14h3v3h-3zM18 18h3v3h-3zM18 14h3M14 19v2" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="12" rx="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9.5" cy="13" r="1.6" fill="currentColor"/><circle cx="14.5" cy="13" r="1.6" fill="currentColor"/><path d="M12 7V4M10 4h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9l2-5h14l2 5M3 9h18M3 9c0 2 1.5 3 3 3s3-1 3-3c0 2 1.5 3 3 3s3-1 3-3c0 2 1.5 3 3 3s3-1 3-3M5 12v8h14v-8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#0E0F12" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-mega" viewBox="0 0 24 24"><path d="M3 10v4h4l7 5V5L7 10zM17 9a4 4 0 0 1 0 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2" fill="currentColor"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+</svg>
+
+<div id="stage">
+  <div id="bgN" class="layer"></div>
+  <div id="bgB" class="layer" style="opacity:0"></div>
+  <div id="bgC" class="layer" style="opacity:0"></div>
+
+  <!-- ================= S1 + S2 : PAIN (0 - 23.5) ================= -->
+  <div id="pain" class="layer" style="transform-origin:960px 520px">
+    <div id="card" class="abs paper" style="left:1150px;top:120px;transform-origin:50% 50%">
+      <div class="nm">김지원</div>
+      <div class="tt">리더십 · 조직문화 강사 / 前 OO그룹 인사총괄</div>
+      <hr>
+      <div class="tiny">
+        2004 조직문화 TF 리드 · 2007 신입사원 교육체계 설계 · 2009 리더십 아카데미 운영 · 2011 해외법인 HR 셋업 · 2013 성과관리 제도 개편 · 2015 사내 코치 120명 양성 · 2017 M&amp;A PMI 조직통합 · 2019 HR 총괄 임원 · 2021 공공기관 자문 · 2022 대학 특강 · 2023 중소기업 HR 컨설팅 · 저서 · 기고 · 수상 · 강의 후기 · 커리큘럼 · 출강 이력 · 자격 · 코칭 사례 · 2004 조직문화 TF 리드 · 2007 신입사원 교육체계 설계 · 2009 리더십 아카데미 운영 · 2011 해외법인 HR 셋업 · 2013 성과관리 제도 개편
+      </div>
+      <div class="fade"></div>
+      <div class="more">+ 경력 27건 더 있음…</div>
+    </div>
+
+    <div id="lab1" class="abs chip-label" style="left:140px;top:120px"><svg width="26" height="26" style="color:#9AA0AA"><use href="#i-chat"/></svg>프리랜서 강사 · 자문가</div>
+    <div id="dots1" class="abs typing" style="left:140px;top:205px;transform-origin:0 100%"><i></i><i></i><i></i></div>
+    <div id="b1" class="abs bubble" style="left:140px;top:200px;transform-origin:0 100%">종이 명함 한 장으론<br>제 경력을 <span class="hl" id="h1">다 못 보여주네요.</span></div>
+    <div id="dots2" class="abs typing" style="left:200px;top:440px;transform-origin:0 100%"><i></i><i></i><i></i></div>
+    <div id="b2" class="abs bubble" style="left:200px;top:432px;transform-origin:0 100%">홈페이지 제작·관리는<br><span class="hl" id="h2">너무 어렵고 부담돼요.</span></div>
+
+    <div id="lab2" class="abs chip-label" style="left:1000px;top:356px"><svg width="26" height="26" style="color:#9AA0AA"><use href="#i-store"/></svg>자영업 소상공인</div>
+    <div id="win" class="abs win" style="left:1000px;top:420px">
+      <div class="win-top"><span class="d"></span><span class="d"></span><span class="d"></span><span style="margin-left:14px">사장님 커뮤니티 &nbsp;›&nbsp; 홍보 · 마케팅</span></div>
+      <div class="post">다들 가게 홍보 어떻게 하세요?<small>조회 2,341 · 댓글 <span id="cmtN">96</span></small></div>
+      <div id="c1" class="cmt">
+        <div class="av"><svg width="30" height="30" style="color:#8A9099"><use href="#i-store"/></svg></div>
+        <div><div class="nm">카페 운영 3년차 · 방금</div>
+          <div class="tx">가게 운영만으로도 벅찬데<br><span class="hl" id="h3">홍보는 언제 하나요?</span></div>
+          <div class="lk"><span>공감 <b id="lk1">12</b></span><span>답글</span></div></div>
+      </div>
+      <div id="c2" class="cmt" style="border-bottom:0">
+        <div class="av"><svg width="30" height="30" style="color:#8A9099"><use href="#i-store"/></svg></div>
+        <div><div class="nm">분식집 사장님 · 방금</div>
+          <div class="tx"><span class="hl" id="h4">광고비 부담 없이</span> 단골에게<br>바로 알릴 방법이 없을까요?</div>
+          <div class="lk"><span>공감 <b id="lk2">8</b></span><span>답글</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= S3 : MODULE MERGE (22 - 31) ================= -->
+  <div id="s3" class="layer" data-win="21.9,30.9">
+    <div id="mod" class="abs" style="left:610px;top:300px;width:700px;height:330px;border-radius:34px;background:rgba(22,24,32,.85);border:1px solid rgba(139,108,255,.45);box-shadow:0 0 0 8px rgba(91,75,255,.08),0 40px 120px rgba(91,75,255,.35);transform-origin:50% 50%">
+      <div style="position:absolute;left:0;right:0;top:52px;display:flex;justify-content:center;align-items:center;gap:22px">
+        <svg width="84" height="84"><use href="#mark"/></svg>
+        <div style="font-size:78px;font-weight:800;letter-spacing:-.02em;color:#fff">PBaaS</div>
+      </div>
+    </div>
+    <div id="chip0" class="abs" style="left:655px;top:510px"><div style="display:flex;gap:10px;align-items:center;background:#fff;color:#14161A;border-radius:16px;padding:16px 22px;font-size:24px;font-weight:800;white-space:nowrap"><svg width="28" height="28" style="color:#5B4BFF"><use href="#i-page"/></svg>전용 페이지</div></div>
+    <div id="chip1" class="abs" style="left:880px;top:510px"><div style="display:flex;gap:10px;align-items:center;background:#fff;color:#14161A;border-radius:16px;padding:16px 22px;font-size:24px;font-weight:800;white-space:nowrap"><svg width="28" height="28" style="color:#5B4BFF"><use href="#i-qr"/></svg>QR 코드</div></div>
+    <div id="chip2" class="abs" style="left:1068px;top:510px"><div style="display:flex;gap:10px;align-items:center;background:#34E0C2;color:#0B2B26;border-radius:16px;padding:16px 22px;font-size:24px;font-weight:800;white-space:nowrap"><svg width="28" height="28" style="color:#0B2B26"><use href="#i-bot"/></svg>AI 비서</div></div>
+    <div id="modCap" class="abs" style="left:0;width:1920px;top:690px;text-align:center;font-size:44px;font-weight:700;color:#fff">전용 페이지 · QR · AI 비서 <span style="color:var(--mint)">즉시 생성</span></div>
+  </div>
+
+  <!-- ================= S4 : BRAND (31 - 35.5) ================= -->
+  <div id="s4" class="layer" data-win="30.7,35.6">
+    <div id="s4logo" class="abs" style="left:0;width:1920px;top:330px;display:flex;justify-content:center;align-items:center;gap:40px;transform-origin:960px 430px">
+      <svg id="s4mark" width="190" height="190" style="transform-origin:50% 50%"><use href="#markW"/></svg>
+      <div id="s4word" style="font-size:190px;font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1">PBaaS</div>
+    </div>
+    <div id="s4slo" class="abs" style="left:0;width:1920px;top:620px;text-align:center;font-size:54px;font-weight:600;color:rgba(255,255,255,.92)">누구나 바로 시작하는 <b style="font-weight:800;color:#fff">나만의 플랫폼</b></div>
+  </div>
+
+  <!-- ================= S5 : SIGNUP → AUTO GENERATE (35.5 - 52) ================= -->
+  <div id="s5" class="layer" data-win="35.3,52.3">
+    <div class="abs sec" data-in="35.9"><b>01</b>가입 즉시, 자동 생성</div>
+
+    <div id="signup" class="abs ui" style="left:760px;top:300px;width:400px;height:420px;transform-origin:50% 50%">
+      <div style="padding:52px 40px 0;text-align:center">
+        <svg width="110" height="110" viewBox="0 0 110 110" style="margin:0 auto">
+          <circle cx="55" cy="55" r="50" fill="#EEECFF"/>
+          <circle id="suRing" cx="55" cy="55" r="50" fill="none" stroke="#5B4BFF" stroke-width="6" stroke-linecap="round" stroke-dasharray="314.2" stroke-dashoffset="314.2" transform="rotate(-90 55 55)"/>
+          <path id="suChk" d="M33 57 L48 71 L78 41" stroke="#5B4BFF" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="70" stroke-dashoffset="70"/>
+        </svg>
+        <div style="font-size:30px;font-weight:800;margin-top:28px">가입이 완료되었어요</div>
+        <div id="suMsg" style="font-size:19px;color:#6B7280;margin-top:12px">나만의 공간을 만드는 중… <b id="suPct" style="color:#5B4BFF">0%</b></div>
+        <div style="height:10px;border-radius:99px;background:#EEF0F4;margin:26px 10px 0;overflow:hidden"><div id="suBar" style="height:100%;width:0;background:linear-gradient(90deg,#8B6CFF,#5B4BFF);border-radius:99px"></div></div>
+      </div>
+    </div>
+
+    <!-- profile page -->
+    <div id="prof" class="abs ui" style="left:190px;top:190px;width:600px;height:720px" data-in="39.6" data-dy="60" data-s=".94" data-d=".8">
+      <div class="chrome"><span class="d"></span><span class="d"></span><span class="d"></span><div class="url"><svg width="14" height="14" style="color:#9CA3AF"><use href="#i-lock"/></svg><span><span class="dom">pbaas.me</span>/jiwon</span></div></div>
+      <div style="height:150px;background:linear-gradient(120deg,#5B4BFF,#8B6CFF 60%,#34E0C2)" data-in="40.1" data-dy="0"></div>
+      <div style="padding:0 34px">
+        <div class="mono" style="width:104px;height:104px;font-size:44px;margin-top:-52px;border:6px solid #fff" data-in="40.4" data-dy="20" data-s=".7" data-e="back">김</div>
+        <div style="font-size:32px;font-weight:800;margin-top:14px" data-in="40.7">김지원</div>
+        <div style="font-size:18px;color:#6B7280;margin-top:6px" data-in="40.9">리더십·조직문화 강사 | 前 대기업 HR 총괄 20년</div>
+        <div class="lbl" style="margin-top:26px" data-in="41.2">경력 하이라이트</div>
+        <div style="font-size:18px;line-height:1.9;margin-top:6px;color:#2B2F38">
+          <div data-in="41.4" data-dx="-20" data-dy="0">● 리더십 아카데미 설계·운영 10년</div>
+          <div data-in="41.6" data-dx="-20" data-dy="0">● 사내 코치 120명 양성</div>
+          <div data-in="41.8" data-dx="-20" data-dy="0">● 공공기관·중소기업 HR 자문</div>
+        </div>
+        <div class="lbl" style="margin-top:20px" data-in="42.1">강의 분야</div>
+        <div style="margin-top:10px" data-in="42.3"><span class="tag">리더십</span><span class="tag">조직문화</span><span class="tag">신임 팀장</span><span class="tag">코칭</span></div>
+        <div class="btn" style="height:58px;font-size:20px;margin-top:20px" data-in="42.6">강의 문의하기</div>
+      </div>
+    </div>
+
+    <!-- link card -->
+    <div id="lnk" class="abs ui" style="left:850px;top:240px;width:470px;height:230px" data-in="40.6" data-dy="50" data-d=".8">
+      <div style="padding:30px 34px">
+        <div class="lbl" style="display:flex;gap:8px;align-items:center"><svg width="18" height="18" style="color:#8B8FA0"><use href="#i-link"/></svg>공유 링크</div>
+        <div style="font-size:38px;font-weight:800;margin-top:16px;letter-spacing:-.02em"><span class="dom">pbaas.me</span>/<span style="color:#5B4BFF">jiwon</span></div>
+        <div style="display:flex;gap:12px;margin-top:26px">
+          <div id="copyBtn" class="btn" style="height:52px;flex:1;font-size:19px">링크 복사</div>
+          <div class="btn" style="height:52px;flex:1;font-size:19px;background:#F2F3F6;color:#14161A">미리보기</div>
+        </div>
+      </div>
+    </div>
+    <div id="copyToast" class="abs toast" style="left:930px;top:490px"><svg width="22" height="22" style="color:var(--mint)"><use href="#i-check"/></svg>링크가 복사되었어요</div>
+
+    <!-- AI ready -->
+    <div id="aiReady" class="abs ui" style="left:850px;top:590px;width:470px;height:150px" data-in="45.6" data-dy="40" data-d=".8">
+      <div style="display:flex;gap:20px;align-items:center;padding:30px 34px">
+        <div style="width:84px;height:84px;border-radius:24px;background:#34E0C2;display:grid;place-items:center;flex:none"><svg width="48" height="48" style="color:#0B2B26"><use href="#i-bot"/></svg></div>
+        <div><div style="font-size:24px;font-weight:800">AI 비서 준비 완료</div><div style="font-size:17px;color:#6B7280;margin-top:6px">내 소개·안내를 24시간 대신 응답</div></div>
+      </div>
+    </div>
+
+    <!-- QR card -->
+    <div id="qrc" class="abs ui" style="left:1380px;top:190px;width:380px;height:470px" data-in="41.2" data-dy="60" data-d=".8">
+      <div style="padding:30px 34px">
+        <div class="lbl" style="display:flex;gap:8px;align-items:center"><svg width="18" height="18" style="color:#8B8FA0"><use href="#i-qr"/></svg>나의 QR 코드</div>
+        <svg id="qrA" width="312" height="312" style="margin-top:18px"></svg>
+        <div style="font-size:18px;color:#6B7280;margin-top:16px;text-align:center">명함 · 전단 · 매장 어디든 바로 부착</div>
+      </div>
+    </div>
+
+    <div class="abs ok" style="left:190px;top:930px" data-in="43.2" data-dy="10"><svg width="24" height="24"><use href="#i-check"/></svg>전용 페이지 자동 생성</div>
+    <div class="abs ok" style="left:850px;top:760px" data-in="44.2" data-dy="10"><svg width="24" height="24"><use href="#i-check"/></svg>공유 링크 자동 생성</div>
+    <div class="abs ok" style="left:1380px;top:680px" data-in="44.6" data-dy="10"><svg width="24" height="24"><use href="#i-check"/></svg>QR 코드 자동 생성</div>
+    <div class="abs" style="left:1380px;top:740px;width:380px;font-size:46px;font-weight:800;line-height:1.25;color:#fff" data-in="47.0" data-dy="24">복잡한 세팅 없이<br><span style="color:var(--mint)">바로 시작</span></div>
+  </div>
+
+  <!-- ================= S6 : QR → AI → SHARE (52 - 72) ================= -->
+  <div id="s6" class="layer" data-win="52.0,72.4">
+    <div class="abs sec" data-in="52.4"><b>02</b>QR 스캔 · AI 비서 · 간편 공유</div>
+
+    <!-- poster with QR -->
+    <div id="poster" class="abs ui" style="left:210px;top:260px;width:380px;height:520px;transform-origin:50% 50%" data-in="52.5" data-dx="-60" data-dy="0" data-d=".9">
+      <div style="height:120px;background:linear-gradient(120deg,#5B4BFF,#8B6CFF);color:#fff;padding:26px 30px;box-sizing:border-box">
+        <div style="font-size:16px;opacity:.85;font-weight:600">리더십 특강 안내</div>
+        <div style="font-size:30px;font-weight:800;margin-top:6px">김지원 강사</div>
+      </div>
+      <div style="padding:26px 34px;text-align:center">
+        <svg id="qrB" width="250" height="250" style="margin:0 auto"></svg>
+        <div style="font-size:20px;font-weight:700;margin-top:18px">스캔하면 <span style="color:#5B4BFF">AI 비서</span>가 안내해요</div>
+      </div>
+    </div>
+
+    <!-- phone -->
+    <div id="phone" class="abs phone" style="left:760px;top:130px">
+      <div class="notch"></div>
+      <div class="screen">
+        <!-- A: camera -->
+        <div id="scrA" class="abs" style="inset:0;background:radial-gradient(400px 500px at 50% 45%,#3A3F4A,#16181D)">
+          <div style="position:absolute;left:56px;top:200px;width:260px;height:260px;background:#fff;border-radius:10px;padding:20px;box-sizing:border-box;transform:rotate(-4deg);filter:blur(.4px)"><svg id="qrC" width="220" height="220"></svg></div>
+          <svg id="vf" class="abs" style="left:36px;top:180px" width="300" height="300" viewBox="0 0 300 300" fill="none" stroke-width="7" stroke-linecap="round">
+            <path d="M6 60V18a12 12 0 0 1 12-12h42M240 6h42a12 12 0 0 1 12 12v42M294 240v42a12 12 0 0 1-12 12h-42M60 294H18a12 12 0 0 1-12-12v-42"/>
+          </svg>
+          <div id="scanLine" class="abs" style="left:52px;width:268px;height:3px;top:200px;background:var(--mint);box-shadow:0 0 18px 4px rgba(52,224,194,.7)"></div>
+          <div id="scanOk" class="abs toast" style="left:50%;top:520px;transform:translateX(-50%);background:var(--mint);color:#0B2B26">인식 완료</div>
+          <div class="abs" style="left:0;right:0;top:620px;text-align:center;color:#C9CDD4;font-size:17px">QR 코드를 화면에 맞춰주세요</div>
+        </div>
+        <!-- B: AI chat -->
+        <div id="scrB" class="abs" style="inset:0;background:#F6F7FB">
+          <div style="padding:66px 22px 16px;background:#fff;display:flex;gap:12px;align-items:center;border-bottom:1px solid #EEF0F4">
+            <svg width="44" height="44"><use href="#mark"/></svg>
+            <div><div style="font-size:18px;font-weight:800;color:#14161A">김지원 강사 · AI 비서</div><div style="font-size:13px;color:#10B981;font-weight:700">● 지금 응답 가능</div></div>
+          </div>
+          <div id="wave" style="display:flex;gap:4px;align-items:center;justify-content:center;height:60px;margin-top:14px"></div>
+          <div style="padding:6px 18px">
+            <div id="aiDots" class="typing" style="display:inline-flex;background:#fff;border-color:#EEF0F4;padding:16px 18px"><i style="background:#B8BCC6;width:10px;height:10px"></i><i style="background:#B8BCC6;width:10px;height:10px"></i><i style="background:#B8BCC6;width:10px;height:10px"></i></div>
+            <div id="aiBub" style="background:#fff;border:1px solid #EEF0F4;border-radius:20px 20px 20px 6px;padding:16px 18px;font-size:18px;line-height:1.55;color:#14161A;min-height:28px"><span id="aiMsg"></span></div>
+            <div id="qr1" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+              <span style="font-size:15px;font-weight:700;color:#5B4BFF;border:1.5px solid #CFC9FF;border-radius:999px;padding:9px 14px;background:#fff">강의 일정 보기</span>
+              <span style="font-size:15px;font-weight:700;color:#5B4BFF;border:1.5px solid #CFC9FF;border-radius:999px;padding:9px 14px;background:#fff">출강 문의</span>
+              <span style="font-size:15px;font-weight:700;color:#5B4BFF;border:1.5px solid #CFC9FF;border-radius:999px;padding:9px 14px;background:#fff">경력 자세히</span>
+            </div>
+          </div>
+          <!-- C: share sheet -->
+          <div id="dim" class="abs" style="inset:0;background:rgba(10,11,14,.45)"></div>
+          <div id="sheet" class="abs" style="left:0;right:0;bottom:0;height:330px;background:#fff;border-radius:30px 30px 0 0;padding:16px 24px;box-sizing:border-box">
+            <div style="width:44px;height:5px;border-radius:9px;background:#D9DBE1;margin:0 auto 18px"></div>
+            <div style="font-size:20px;font-weight:800;color:#14161A">공유하기</div>
+            <div style="font-size:14px;color:#6B7280;margin-top:4px"><span class="dom">pbaas.me</span>/jiwon</div>
+            <div style="display:flex;gap:14px;margin-top:22px">
+              <div id="shK" style="flex:1;text-align:center;position:relative">
+                <div style="width:86px;height:86px;border-radius:26px;background:#FEE500;margin:0 auto;display:grid;place-items:center;position:relative;overflow:hidden"><svg width="42" height="42" style="color:#3A1D1D"><use href="#i-chat"/></svg><div id="rpK" class="abs" style="left:43px;top:43px;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:rgba(0,0,0,.22)"></div></div>
+                <div style="font-size:15px;font-weight:700;margin-top:10px;color:#14161A">카카오톡</div></div>
+              <div id="shS" style="flex:1;text-align:center;position:relative">
+                <div style="width:86px;height:86px;border-radius:26px;background:#34C759;margin:0 auto;display:grid;place-items:center;position:relative;overflow:hidden"><svg width="42" height="42" style="color:#fff"><use href="#i-chat"/></svg><div id="rpS" class="abs" style="left:43px;top:43px;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:rgba(0,0,0,.2)"></div></div>
+                <div style="font-size:15px;font-weight:700;margin-top:10px;color:#14161A">문자</div></div>
+              <div style="flex:1;text-align:center">
+                <div style="width:86px;height:86px;border-radius:26px;background:#EEF0F4;margin:0 auto;display:grid;place-items:center"><svg width="40" height="40" style="color:#14161A"><use href="#i-link"/></svg></div>
+                <div style="font-size:15px;font-weight:700;margin-top:10px;color:#14161A">링크 복사</div></div>
+            </div>
+          </div>
+          <div id="phToast" class="abs toast" style="left:50%;top:290px;transform:translateX(-50%);font-size:16px;padding:12px 18px"><svg width="18" height="18" style="color:var(--mint)"><use href="#i-check"/></svg><span id="phToastT">카카오톡으로 보냈어요</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- right typography -->
+    <div id="ty1" class="abs" style="left:1240px;top:300px;font-size:66px;font-weight:800;line-height:1.25;color:#fff;white-space:nowrap">QR 스캔 한 번으로<br><span style="color:var(--mint)">AI 비서</span>가<br>대신 소개합니다</div>
+    <div id="ty2" class="abs" style="left:1240px;top:230px;font-size:66px;font-weight:800;line-height:1.25;color:#fff;white-space:nowrap">카카오톡 · 문자로<br><span style="color:var(--mint)">간편하게</span> 공유</div>
+    <div id="lp1" class="abs ui" style="left:1240px;top:470px;width:470px;border-radius:20px">
+      <div style="display:flex">
+        <div style="width:120px;background:linear-gradient(135deg,#8B6CFF,#5B4BFF);display:grid;place-items:center"><svg width="56" height="56"><use href="#markW"/></svg></div>
+        <div style="padding:18px 20px"><div style="font-size:14px;color:#8B8FA0;font-weight:700">카카오톡 · 링크 미리보기</div><div style="font-size:21px;font-weight:800;margin-top:6px">김지원 강사 | 리더십·조직문화</div><div style="font-size:15px;color:#6B7280;margin-top:4px"><span><span class="dom">pbaas.me</span>/jiwon</span></div></div>
+      </div>
+    </div>
+    <div id="lp2" class="abs" style="left:1240px;top:640px;max-width:470px;background:#34C759;color:#fff;border-radius:24px 24px 6px 24px;padding:18px 22px;font-size:21px;line-height:1.45;font-weight:600">강의 소개 페이지 보내드려요!<br><span style="opacity:.9"><span class="dom">pbaas.me</span>/jiwon</span></div>
+  </div>
+
+  <!-- ================= S7 : LIVE UPDATE & PERSONAS (72 - 105) ================= -->
+  <div id="s7" class="layer" data-win="72.0,105.4">
+    <div class="abs sec" data-in="72.4"><b>03</b>실시간 업데이트 · 맞춤 활용</div>
+    <div class="abs" style="right:120px;top:88px;font-size:24px;font-weight:700;color:var(--mint);white-space:nowrap" data-in="88.6" data-dy="12">QR · 링크는 그대로, 내용은 언제나 최신으로</div>
+
+    <div id="ed" class="abs ed" style="left:110px;top:220px" data-in="72.6" data-dx="-50" data-dy="0" data-d=".8">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:22px;font-weight:800;color:#fff">내 페이지 관리</div>
+        <div style="font-size:14px;font-weight:800;color:#0B2B26;background:var(--mint);padding:5px 12px;border-radius:999px" id="live">● LIVE</div>
+      </div>
+      <div class="tabs"><div id="tab0" class="tab on">강사 페이지</div><div id="tab1" class="tab">매장 페이지</div></div>
+      <div class="f" id="f0"><div class="k">상단 배너</div><div class="v"><span id="v0"></span><i class="caret" id="cr0"></i></div></div>
+      <div class="f" id="f1"><div class="k">공지</div><div class="v"><span id="v1"></span><i class="caret" id="cr1"></i></div></div>
+      <div class="f" id="f2"><div class="k">프로모션</div><div class="v"><span id="v2"></span><i class="caret" id="cr2"></i></div></div>
+      <div id="edBtn" class="btn" style="height:62px;font-size:21px;margin-top:8px;transform-origin:50% 50%">변경사항 바로 반영</div>
+    </div>
+
+    <!-- persona titles -->
+    <div id="pt0" class="abs persona" style="left:680px;top:160px">강사 · 자문가 <span>→ 디지털 프로필</span></div>
+    <div id="pt1" class="abs persona" style="left:1270px;top:160px">소상공인 <span>→ 홍보 채널</span></div>
+
+    <!-- instructor page -->
+    <div id="pg0" class="abs ui pg" style="left:680px;top:220px;transform-origin:50% 50%" data-in="73.0" data-dy="60" data-d=".8">
+      <div class="chrome"><span class="d"></span><span class="d"></span><span class="d"></span><div class="url"><span><span class="dom">pbaas.me</span>/jiwon</span></div></div>
+      <div class="area" id="a00" style="height:140px;background:linear-gradient(120deg,#5B4BFF,#8B6CFF);color:#fff;padding:24px 28px;box-sizing:border-box">
+        <div style="font-size:14px;font-weight:700;opacity:.8">상단 배너</div>
+        <div id="t00" style="font-size:30px;font-weight:800;margin-top:10px;white-space:nowrap"></div>
+        <div class="flash" id="fl00" style="border-radius:0"></div>
+      </div>
+      <div style="padding:20px 28px 0;display:flex;gap:16px;align-items:center">
+        <div class="mono" style="width:64px;height:64px;font-size:28px">김</div>
+        <div><div style="font-size:22px;font-weight:800">김지원</div><div style="font-size:15px;color:#6B7280">리더십·조직문화 강사</div></div>
+      </div>
+      <div style="padding:16px 28px 0">
+        <div class="area" id="a01" style="display:flex;gap:12px;align-items:center;background:#F6F7FB;border-radius:14px;padding:16px 18px">
+          <svg width="22" height="22" style="color:#5B4BFF;flex:none"><use href="#i-mega"/></svg><div id="t01" style="font-size:18px;font-weight:600;white-space:nowrap"></div>
+          <div class="flash" id="fl01" style="border-radius:14px"></div>
+        </div>
+        <div class="lbl" style="margin-top:20px">경력 · 강의</div>
+        <div style="font-size:16px;line-height:1.85;color:#2B2F38;margin-top:4px">● 리더십 아카데미 설계·운영 10년<br>● 신임 팀장 리더십 과정 300회+<br>● 공공기관·중소기업 HR 자문</div>
+        <div class="area" id="a02" style="margin-top:16px;border:2px dashed #CFC9FF;border-radius:16px;padding:16px 18px">
+          <div style="font-size:13px;font-weight:800;color:#5B4BFF">프로모션</div>
+          <div id="t02" style="font-size:19px;font-weight:800;margin-top:4px;white-space:nowrap"></div>
+          <div class="flash" id="fl02" style="border-radius:16px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- store page -->
+    <div id="pg1" class="abs ui pg" style="left:1270px;top:220px;transform-origin:50% 50%" data-in="73.4" data-dy="60" data-d=".8">
+      <div class="chrome"><span class="d"></span><span class="d"></span><span class="d"></span><div class="url"><span><span class="dom">pbaas.me</span>/golmok-bakery</span></div></div>
+      <div class="area" id="a10" style="height:140px;background:linear-gradient(120deg,#FF7A3D,#FFB547);color:#fff;padding:24px 28px;box-sizing:border-box">
+        <div style="font-size:14px;font-weight:700;opacity:.85">상단 배너</div>
+        <div id="t10" style="font-size:30px;font-weight:800;margin-top:10px;white-space:nowrap"></div>
+        <div class="flash" id="fl10" style="border-radius:0"></div>
+      </div>
+      <div style="padding:20px 28px 0;display:flex;gap:16px;align-items:center">
+        <div style="width:64px;height:64px;border-radius:18px;background:#FFF1E6;display:grid;place-items:center"><svg width="34" height="34" style="color:#FF7A3D"><use href="#i-store"/></svg></div>
+        <div><div style="font-size:22px;font-weight:800">골목 베이커리</div><div style="font-size:15px;color:#6B7280">동네 빵집 · 매일 08:00 오픈</div></div>
+      </div>
+      <div style="padding:16px 28px 0">
+        <div class="area" id="a11" style="display:flex;gap:12px;align-items:center;background:#FFF6EE;border-radius:14px;padding:16px 18px">
+          <svg width="22" height="22" style="color:#FF7A3D;flex:none"><use href="#i-mega"/></svg><div id="t11" style="font-size:18px;font-weight:600;white-space:nowrap"></div>
+          <div class="flash" id="fl11" style="border-radius:14px"></div>
+        </div>
+        <div class="lbl" style="margin-top:20px">오늘의 메뉴</div>
+        <div style="display:flex;gap:10px;margin-top:10px">
+          <div style="flex:1;height:86px;border-radius:14px;background:linear-gradient(135deg,#F7D9A8,#E9B872);display:flex;align-items:flex-end;padding:8px 12px;box-sizing:border-box;font-size:15px;font-weight:800;color:#5A3A12">소금빵</div>
+          <div style="flex:1;height:86px;border-radius:14px;background:linear-gradient(135deg,#F3C98B,#D99A4E);display:flex;align-items:flex-end;padding:8px 12px;box-sizing:border-box;font-size:15px;font-weight:800;color:#4A2E0C">크루아상</div>
+          <div style="flex:1;height:86px;border-radius:14px;background:linear-gradient(135deg,#E9D5C3,#C8A27E);display:flex;align-items:flex-end;padding:8px 12px;box-sizing:border-box;font-size:15px;font-weight:800;color:#4A2E0C">바게트</div>
+        </div>
+        <div class="area" id="a12" style="margin-top:16px;border:2px dashed #FFC9A3;border-radius:16px;padding:16px 18px">
+          <div style="font-size:13px;font-weight:800;color:#FF7A3D">프로모션</div>
+          <div id="t12" style="font-size:19px;font-weight:800;margin-top:4px;white-space:nowrap"></div>
+          <div class="flash" id="fl12" style="border-radius:16px"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="abs tagrow" style="left:680px;top:892px" data-in="75.0" data-dy="14"><span class="tg">#이력</span><span class="tg">#강의 안내</span><span class="tg">#출강 문의</span></div>
+    <div class="abs tagrow" style="left:1270px;top:892px" data-in="81.0" data-dy="14"><span class="tg">#매장 소식</span><span class="tg">#이벤트</span><span class="tg">#단골 홍보</span></div>
+  </div>
+
+  <!-- ================= S8 : NETWORK (105 - 120) ================= -->
+  <div id="s8" class="layer" data-win="105.0,120.6">
+    <div class="abs sec" data-in="105.4"><b>04</b>확장되는 연결 구조</div>
+    <svg id="net" class="abs" style="left:0;top:0" width="1920" height="1080" viewBox="0 0 1920 1080"><g id="cam"></g></svg>
+    <div class="abs" style="right:120px;top:88px;font-size:24px;font-weight:700;color:#D5D8DD;white-space:nowrap" data-in="116.0" data-dy="12">개인 <span style="color:var(--mint)">→</span> 협회 · 기관 · 브랜드 네트워크</div>
+  </div>
+
+  <!-- ================= S9 : CLOSING (120 - 135) ================= -->
+  <div id="s9" class="layer" data-win="120.0,140">
+    <div class="abs" style="left:0;width:1920px;top:170px;display:flex;justify-content:center;align-items:center;gap:22px" data-in="120.6" data-dy="0" data-s=".85" data-d="1">
+      <svg width="88" height="88"><use href="#markW"/></svg>
+      <div style="font-size:84px;font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1">PBaaS</div>
+    </div>
+    <div class="abs" style="left:0;width:1920px;top:340px;text-align:center;font-size:76px;font-weight:600;line-height:1.3;color:rgba(255,255,255,.88)">
+      <div data-in="121.4" data-dy="30" data-d=".9">필요한 건 복잡한 개발이 아니라,</div>
+      <div data-in="122.3" data-dy="30" data-d=".9" style="color:#fff;font-weight:800">바로 움직이는 나만의 플랫폼</div>
+    </div>
+    <div class="abs" style="left:0;width:1920px;top:600px;display:flex;justify-content:center" data-in="126.0" data-dy="20" data-s=".9" data-e="back">
+      <div style="background:#fff;color:#4B3BFF;font-size:34px;font-weight:800;border-radius:999px;padding:24px 54px;box-shadow:0 20px 50px rgba(20,10,80,.35)">지금 PBaaS로 시작하기 →</div>
+    </div>
+    <div id="contact" class="abs" style="left:0;width:1920px;top:760px;display:flex;justify-content:center;gap:56px;font-size:26px;font-weight:600;color:rgba(255,255,255,.92)" data-in="127.0" data-dy="16"></div>
+    <div class="abs" style="left:1570px;top:560px;width:220px;background:#fff;border-radius:22px;padding:18px;box-sizing:border-box;text-align:center;box-shadow:0 20px 50px rgba(20,10,80,.35)" data-in="126.6" data-dy="30">
+      <svg id="qrD" width="184" height="184"></svg>
+      <div style="font-size:16px;font-weight:800;color:#14161A;margin-top:10px">스캔하고 바로 시작</div>
+    </div>
+  </div>
+
+  <div id="grain" class="layer"></div>
+  <div id="fadeBlack" class="layer" style="background:#000;opacity:0"></div>
+  <div id="cap" class="abs"></div>
+</div>
+
+<div id="ctl">
+  <button id="play" title="재생/일시정지 (Space)">▶</button>
+  <span id="tc">0:00.0 / 2:15</span>
+  <input type="range" id="seek" min="0" max="135" step="0.01" value="0">
+  <label><input type="checkbox" id="capT" checked> 자막</label>
+  <label><input type="checkbox" id="ttsT"> AI 나레이션 미리듣기(TTS)</label>
+</div>
+
+<script>
+/* =====================================================================
+   CONFIG — 실제 정보로 교체하세요
+   ===================================================================== */
+const CONFIG = {
+  domain: 'pbaas.me',               // 화면 속 데모 URL 도메인
+  contacts: [                        // 클로징 문의 채널
+    ['홈페이지', '[홈페이지 주소]'],
+    ['카카오톡 채널', '[채널명]'],
+    ['대표 문의', '[전화번호]'],
+  ],
+};
+
+const DURATION = 135;
+
+/* 나레이션 / 자막 큐 (초) — narration_script.md · pbaas_narration.srt 와 동일 */
+const CUES = [
+  [1.0, 10.4, '은퇴 후 프리랜서 강사와 자문가로 새로운 길을 여는 순간,'],
+  [11.6, 21.4, '매일 현장을 지키며 홍보까지 챙겨야 하는 소상공인까지.'],
+  [22.8, 29.8, '복잡한 제작 과정 없이, 나만의 공간과 AI 비서가 바로 만들어지는 경험.'],
+  [30.4, 35.4, '내 일을 알리고 기회를 연결하는 가장 세련된 방법, PBaaS입니다.'],
+  [36.2, 43.6, '가입하는 순간, 나만의 전용 페이지와 QR 코드가 자동으로 생성됩니다.'],
+  [44.0, 51.4, '별도의 복잡한 세팅 없이 기본 구조를 바로 갖출 수 있습니다.'],
+  [53.2, 62.6, 'QR 스캔 한 번으로 AI 비서가 나를 대신해 소개와 안내를 전하고,'],
+  [63.4, 71.4, '카카오톡이나 문자로 간편하게 공유할 수 있습니다.'],
+  [73.2, 80.2, '강사와 자문가에게는 경력과 강의를 한눈에 보여주는 디지털 프로필로,'],
+  [80.6, 88.6, '소상공인에게는 매장 소식과 이벤트를 빠르게 전하는 홍보 채널로 작동합니다.'],
+  [106.0, 118.4, '개인의 시작에서 출발해 협회, 기관, 브랜드 네트워크까지 자연스럽게 확장되는 구조.'],
+  [121.2, 127.6, '필요한 건 복잡한 개발이 아니라, 바로 움직이는 나만의 플랫폼입니다.'],
+  [128.2, 133.6, 'PBaaS와 함께 시작해 보십시오.'],
+];
+
+/* ---------------- helpers ---------------- */
+const $ = id => document.getElementById(id);
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const lerp = (a, b, p) => a + (b - a) * p;
+const E = {
+  lin: p => p,
+  out: p => 1 - Math.pow(1 - p, 3),
+  in: p => p * p * p,
+  inOut: p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2,
+  back: p => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); },
+};
+const pr = (t, a, d, e = E.out) => e(clamp((t - a) / d));
+function W(t, a, b, fi = .6, fo = .6) {
+  if (t <= a || t >= b) return 0;
+  return E.out(Math.min(clamp((t - a) / fi), clamp((b - t) / fo)));
+}
+function set(el, { o = 1, x = 0, y = 0, s = 1, r = 0, b = 0 } = {}) {
+  const st = el.style;
+  st.opacity = o;
+  st.visibility = o <= 0.002 ? 'hidden' : 'visible';
+  st.transform = `translate(${x}px,${y}px) scale(${s}) rotate(${r}deg)`;
+  st.filter = b > 0.05 ? `blur(${b}px)` : 'none';
+}
+function setText(el, s) { if (el._t !== s) { el.textContent = s; el._t = s; } }
+const typed = (str, t, a, b) => str.slice(0, Math.floor(clamp((t - a) / (b - a)) * str.length + 1e-6));
+
+document.querySelectorAll('.dom').forEach(e => e.textContent = CONFIG.domain);
+$('contact').innerHTML = CONFIG.contacts.map(([k, v]) => `<span><span style="opacity:.7;font-weight:500">${k}</span>&nbsp;&nbsp;${v}</span>`).join('');
+
+/* ---------------- fake QR ---------------- */
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function buildQR(svg, seed, color = '#14161A', n = 29) {
+  svg.setAttribute('viewBox', `-1 -1 ${n + 2} ${n + 2}`);
+  svg.setAttribute('shape-rendering', 'crispEdges');
+  const R = rng(seed), NS = 'http://www.w3.org/2000/svg', mods = [];
+  const inFinder = (x, y) => (x < 8 && y < 8) || (x >= n - 8 && y < 8) || (x < 8 && y >= n - 8);
+  const add = (x, y, w, h, o) => { const r = document.createElementNS(NS, 'rect'); r.setAttribute('x', x); r.setAttribute('y', y); r.setAttribute('width', w); r.setAttribute('height', h); r.setAttribute('fill', color); svg.appendChild(r); mods.push({ r, o }); };
+  for (const [fx, fy] of [[0, 0], [n - 7, 0], [0, n - 7]]) {
+    const o = R() * .08;
+    add(fx, fy, 7, 1, o); add(fx, fy + 6, 7, 1, o); add(fx, fy, 1, 7, o); add(fx + 6, fy, 1, 7, o); add(fx + 2, fy + 2, 3, 3, o + .03);
+  }
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+    if (inFinder(x, y)) continue;
+    const timing = (x === 6 || y === 6);
+    const on = timing ? ((x + y) % 2 === 0) : R() < .5;
+    if (on) { const d = Math.hypot(x - n / 2, y - n / 2) / (n * .72); add(x, y, 1.02, 1.02, .1 + clamp(d * .55 + R() * .35) * .88); }
+  }
+  return { mods, last: -1 };
+}
+function setQR(q, p) {
+  if (Math.abs(q.last - p) < 1e-4) return; q.last = p;
+  for (const m of q.mods) m.r.style.opacity = p >= m.o ? 1 : 0;
+}
+const QA = buildQR($('qrA'), 11), QB = buildQR($('qrB'), 11), QC = buildQR($('qrC'), 11), QD = buildQR($('qrD'), 27, '#2A1FB0');
+setQR(QB, 1); setQR(QC, 1);
+
+/* ---------------- generic reveals ---------------- */
+const REV = [...document.querySelectorAll('[data-in]')].map(el => ({
+  el, t0: +el.dataset.in, d: +(el.dataset.d || .7), dx: +(el.dataset.dx || 0), dy: +(el.dataset.dy ?? 24),
+  s0: +(el.dataset.s || 1), e: E[el.dataset.e || 'out'],
+}));
+const WINS = [...document.querySelectorAll('[data-win]')].map(el => { const [a, b] = el.dataset.win.split(',').map(Number); return { el, a, b }; });
+
+/* ---------------- waveform bars ---------------- */
+const waveBars = [];
+for (let i = 0; i < 26; i++) { const b = document.createElement('i'); b.style.cssText = 'display:block;width:5px;border-radius:3px;background:linear-gradient(#8B6CFF,#34E0C2)'; $('wave').appendChild(b); waveBars.push(b); }
+
+/* ---------------- network graph ---------------- */
+const NS = 'http://www.w3.org/2000/svg';
+const cam = $('cam');
+const mk = (tag, attrs, parent = cam) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
+const ME = { x: 960, y: 540 };
+const HUBS = [
+  { name: '협회', x: 540, y: 560, t: 107.6 },
+  { name: '기관', x: 1300, y: 280, t: 110.2 },
+  { name: '브랜드 네트워크', x: 1280, y: 740, t: 112.8 },
+];
+const gEdges = mk('g', {}), gPulse = mk('g', {}), gNodes = mk('g', {});
+const EDGES = [], NODES = [];
+function edge(a, b, t0, d = .8, w = 2.2, col = 'rgba(160,140,255,.55)') {
+  const len = Math.hypot(b.x - a.x, b.y - a.y);
+  const l = mk('line', { x1: a.x, y1: a.y, x2: b.x, y2: b.y, stroke: col, 'stroke-width': w, 'stroke-dasharray': len, 'stroke-dashoffset': len, 'stroke-linecap': 'round' }, gEdges);
+  const pulse = mk('circle', { r: 5, fill: '#34E0C2', opacity: 0 }, gPulse);
+  EDGES.push({ l, a, b, len, t0, d, pulse, ph: (EDGES.length * .37) % 1 });
+}
+function leafNode(x, y, t0) {
+  const g = mk('g', {}, gNodes);
+  mk('rect', { x: -22, y: -28, width: 44, height: 56, rx: 8, fill: '#fff' }, g);
+  mk('rect', { x: -22, y: -28, width: 44, height: 14, rx: 8, fill: '#8B6CFF' }, g);
+  mk('rect', { x: -22, y: -20, width: 44, height: 6, fill: '#8B6CFF' }, g);
+  for (let i = 0; i < 3; i++) mk('rect', { x: -14, y: -4 + i * 9, width: i === 2 ? 18 : 28, height: 4, rx: 2, fill: '#D5D8E2' }, g);
+  NODES.push({ g, x, y, t0, kind: 'leaf' });
+}
+function hubNode(h) {
+  const g = mk('g', {}, gNodes);
+  mk('circle', { r: 74, fill: 'rgba(91,75,255,.18)' }, g);
+  mk('circle', { r: 50, fill: 'url(#hubg)', stroke: 'rgba(255,255,255,.5)', 'stroke-width': 2 }, g);
+  const ic = mk('use', { href: '#i-store', x: -20, y: -20, width: 40, height: 40, color: '#fff' }, g);
+  if (h.name === '협회') ic.setAttribute('href', '#i-chat');
+  if (h.name === '기관') ic.setAttribute('href', '#i-page');
+  const tx = mk('text', { y: 98, 'text-anchor': 'middle', fill: '#fff', 'font-size': 30, 'font-weight': 800, 'font-family': 'Pretendard Variable, Pretendard, Malgun Gothic, sans-serif' }, g);
+  tx.textContent = h.name;
+  NODES.push({ g, x: h.x, y: h.y, t0: h.t, kind: 'hub' });
+}
+HUBS.forEach((h, hi) => {
+  edge(ME, h, h.t - .5, .9, 3, 'rgba(52,224,194,.55)');
+  const dir = Math.atan2(h.y - ME.y, h.x - ME.x);
+  [-70, -25, 25, 70].forEach((deg, i) => {
+    const a = dir + deg * Math.PI / 180, r = hi === 2 ? 160 : 200;
+    const L = { x: h.x + Math.cos(a) * r, y: h.y + Math.sin(a) * r };
+    edge(h, L, h.t + .3 + i * .18, .5);
+    leafNode(L.x, L.y, h.t + .55 + i * .18);
+  });
+});
+edge(HUBS[0], HUBS[1], 115.0, 1.0, 2, 'rgba(255,255,255,.28)');
+edge(HUBS[1], HUBS[2], 115.3, 1.0, 2, 'rgba(255,255,255,.28)');
+edge(HUBS[2], HUBS[0], 115.6, 1.0, 2, 'rgba(255,255,255,.28)');
+HUBS.forEach(hubNode);
+{ // me
+  const g = mk('g', {}, gNodes);
+  const halo = mk('circle', { r: 60, fill: 'rgba(52,224,194,.18)' }, g);
+  mk('circle', { r: 40, fill: '#34E0C2' }, g);
+  mk('use', { href: '#i-page', x: -18, y: -18, width: 36, height: 36, color: '#0B2B26' }, g);
+  const tx = mk('text', { y: 82, 'text-anchor': 'middle', fill: '#fff', 'font-size': 28, 'font-weight': 800, 'font-family': 'Pretendard Variable, Pretendard, Malgun Gothic, sans-serif' }, g);
+  tx.textContent = '나의 페이지';
+  NODES.push({ g, x: ME.x, y: ME.y, t0: 105.3, kind: 'me', halo });
+}
+
+/* ---------------- S7 data ---------------- */
+const INIT = [
+  ['11월 리더십 특강 마감 임박', '강의 문의는 AI 비서에게 먼저 물어보세요', '첫 상담 30분 무료'],
+  ['오늘의 빵 나왔어요', '매주 월요일 정기 휴무', '스탬프 10개 = 아메리카노 1잔'],
+];
+const EDITS = [
+  { p: 0, f: 0, s: '12월 리더십 특강 수강생 모집', t0: 74.6, t1: 77.2, ap: 77.9 },
+  { p: 1, f: 2, s: '주말 한정 소금빵 1+1', t0: 79.6, t1: 81.6, ap: 82.3 },
+  { p: 0, f: 1, s: '1월 기업 출강 일정 오픈', t0: 84.2, t1: 86.4, ap: 87.1 },
+  { p: 1, f: 0, s: '크리스마스 케이크 예약 시작', t0: 88.8, t1: 91.2, ap: 91.9 },
+  { p: 0, f: 2, s: '기업 출강 문의 시 조직 진단 무료', t0: 93.4, t1: 96.2, ap: 96.9 },
+  { p: 1, f: 1, s: '12/25 성탄절 정상 영업합니다', t0: 98.0, t1: 100.4, ap: 101.1 },
+];
+function areaState(p, f, t) {
+  let val = INIT[p][f], ap = -99;
+  for (const e of EDITS) if (e.p === p && e.f === f && e.ap <= t) { val = e.s; ap = e.ap; }
+  return { val, ap };
+}
+
+/* ======================================================================
+   RENDER
+   ====================================================================== */
+function renderAt(t) {
+  /* backgrounds */
+  const brandGlow = t < 22 ? 0 : t < 31 ? pr(t, 22, 3) * .9 : t < 36 ? .9 : .75;
+  $('bgB').style.opacity = brandGlow;
+  const bgc = Math.max(W(t, 30.5, 35.8, .7, .9), pr(t, 119.6, 1.4, E.inOut));
+  $('bgC').style.opacity = bgc;
+  $('fadeBlack').style.opacity = pr(t, 134.2, .8, E.lin);
+
+  for (const w of WINS) set(w.el, { o: W(t, w.a, w.b) });
+  for (const r of REV) {
+    const p = pr(t, r.t0, r.d, r.e), o = clamp((t - r.t0) / (r.d * .6));
+    set(r.el, { o, x: (1 - p) * r.dx, y: (1 - p) * r.dy, s: lerp(r.s0, 1, p) });
+  }
+  document.querySelectorAll('.typing i').forEach((d, k) => d.style.transform = `translateY(${-7 * Math.max(0, Math.sin(t * 9 - k * .9))}px)`);
+
+  if (t < 24) renderPain(t); else set($('pain'), { o: 0 });
+  if (t > 21.5 && t < 31.5) renderS3(t);
+  if (t > 30.5 && t < 36) renderS4(t);
+  if (t > 35 && t < 52.5) renderS5(t);
+  if (t > 51.8 && t < 72.6) renderS6(t);
+  if (t > 71.8 && t < 105.6) renderS7(t);
+  if (t > 104.8 && t < 121) renderS8(t);
+  if (t > 120) setQR(QD, pr(t, 126.8, 1.6, E.lin));
+
+  renderCap(t);
+}
+
+function renderPain(t) {
+  // exit
+  const ex = pr(t, 22.0, 1.3, E.inOut);
+  set($('pain'), { o: 1 - ex, s: lerp(1, .42, ex), b: ex * 6 });
+  const dim = lerp(1, .38, pr(t, 11.0, .9));
+  // S1
+  const pl = pr(t, .3, .9);
+  set($('lab1'), { o: clamp((t - .3) / .6) * dim, x: lerp(-30, 0, pl) });
+  set($('dots1'), { o: W(t, .7, 1.55, .2, .15) });
+  const p1 = pr(t, 1.5, .8, E.back);
+  set($('b1'), { o: clamp((t - 1.5) / .35) * dim, x: lerp(-50, 0, p1), s: lerp(.85, 1, p1) });
+  set($('dots2'), { o: W(t, 3.7, 4.55, .2, .15) });
+  const p2 = pr(t, 4.5, .8, E.back);
+  set($('b2'), { o: clamp((t - 4.5) / .35) * dim, x: lerp(-50, 0, p2), s: lerp(.85, 1, p2) });
+  $('h1').style.backgroundSize = `${pr(t, 2.6, .8) * 100}% 100%`;
+  $('h2').style.backgroundSize = `${pr(t, 5.6, .8) * 100}% 100%`;
+  const pc = pr(t, 6.6, 1.3);
+  set($('card'), { o: clamp((t - 6.6) / .8) * lerp(1, .22, pr(t, 10.6, .9)), y: lerp(50, 0, pc), r: lerp(-12, -5, pc) + Math.sin(t * .6) * .4 });
+  // S2
+  set($('lab2'), { o: clamp((t - 11.0) / .5), y: lerp(16, 0, pr(t, 11.0, .7)) });
+  const pw = pr(t, 11.2, 1.0);
+  set($('win'), { o: clamp((t - 11.2) / .5), y: lerp(140, 0, pw) });
+  const c1 = pr(t, 12.6, .7, E.back), c2 = pr(t, 15.6, .7, E.back);
+  set($('c1'), { o: clamp((t - 12.6) / .4), y: lerp(30, 0, c1) });
+  set($('c2'), { o: clamp((t - 15.6) / .4), y: lerp(30, 0, c2) });
+  $('h3').style.backgroundSize = `${pr(t, 13.8, .8) * 100}% 100%`;
+  $('h4').style.backgroundSize = `${pr(t, 16.8, .8) * 100}% 100%`;
+  setText($('lk1'), String(12 + Math.floor(pr(t, 13.2, 7, E.out) * 47)));
+  setText($('lk2'), String(8 + Math.floor(pr(t, 16.4, 5, E.out) * 38)));
+  setText($('cmtN'), String(96 + Math.floor(pr(t, 12.0, 9, E.lin) * 32)));
+}
+
+function renderS3(t) {
+  const pm = pr(t, 23.0, .9, E.back);
+  const ex = pr(t, 29.9, .9, E.inOut);
+  set($('mod'), { o: clamp((t - 23.0) / .4) * (1 - ex), s: lerp(.6, 1, pm) * lerp(1, 1.12, ex) });
+  const from = [[-520, -140], [0, -330], [520, -140]];
+  for (let i = 0; i < 3; i++) {
+    const t0 = 24.1 + i * .5, p = pr(t, t0, .85, E.back);
+    set($('chip' + i), { o: clamp((t - t0) / .35) * (1 - ex), x: lerp(from[i][0], 0, p), y: lerp(from[i][1], 0, p) + ex * 0, s: lerp(.7, 1, p) * lerp(1, 1.12, ex) });
+  }
+  const pc = pr(t, 26.2, .8);
+  set($('modCap'), { o: clamp((t - 26.2) / .5) * (1 - ex), y: lerp(24, 0, pc) });
+}
+
+function renderS4(t) {
+  const pm = pr(t, 31.0, 1.0, E.back);
+  set($('s4mark'), { o: clamp((t - 31) / .4), s: lerp(.4, 1, pm), r: lerp(-20, 0, pm) });
+  const pw = pr(t, 31.5, .9);
+  set($('s4word'), { o: clamp((t - 31.5) / .6), x: lerp(-40, 0, pw) });
+  const ps = pr(t, 32.3, .9);
+  set($('s4slo'), { o: clamp((t - 32.3) / .6), y: lerp(26, 0, ps) });
+  const ex = pr(t, 34.7, .9, E.inOut);
+  set($('s4logo'), { o: 1, s: lerp(1, 1.06, ex) });
+}
+
+function renderS5(t) {
+  // signup card
+  const pin = pr(t, 35.6, .8, E.back), pout = pr(t, 39.0, .7, E.inOut);
+  set($('signup'), { o: clamp((t - 35.6) / .4) * (1 - pout), s: lerp(.85, 1, pin) * lerp(1, .8, pout), y: lerp(0, -60, pout) });
+  $('suRing').setAttribute('stroke-dashoffset', 314.2 * (1 - pr(t, 35.9, .8)));
+  $('suChk').setAttribute('stroke-dashoffset', 70 * (1 - pr(t, 36.5, .5)));
+  const pct = pr(t, 36.6, 2.2, E.inOut);
+  $('suBar').style.width = (pct * 100) + '%';
+  setText($('suPct'), Math.round(pct * 100) + '%');
+  // QR build
+  setQR(QA, pr(t, 41.7, 2.4, E.lin));
+  // copy
+  const tap = W(t, 43.5, 43.9, .08, .2);
+  $('copyBtn').style.transform = `scale(${1 - tap * .06})`;
+  const pt = pr(t, 43.8, .5, E.back);
+  set($('copyToast'), { o: W(t, 43.8, 46.4, .3, .4), y: lerp(16, 0, pt), s: lerp(.9, 1, pt) });
+}
+
+function renderS6(t) {
+  const pp = pr(t, 52.3, 1.0);
+  set($('phone'), { o: clamp((t - 52.3) / .5), y: lerp(160, 0, pp) });
+  // screen A: camera
+  set($('scrA'), { o: t < 57.2 ? 1 : 1 - pr(t, 57.2, .4) });
+  const scanning = t < 56.0;
+  const sp = ((t - 52.5) * .9) % 2, sy = sp < 1 ? sp : 2 - sp;
+  set($('scanLine'), { o: scanning ? 1 : 0, y: E.inOut(sy) * 260 });
+  $('vf').setAttribute('stroke', scanning ? '#fff' : '#34E0C2');
+  const vfp = pr(t, 56.0, .4, E.back);
+  $('vf').style.transform = `scale(${scanning ? 1 : lerp(1.08, 1, vfp)})`;
+  set($('scanOk'), { o: W(t, 56.0, 57.4, .2, .3), x: -186 + 186, s: lerp(.8, 1, pr(t, 56, .4, E.back)) });
+  $('scanOk').style.transform += ' translateX(-50%)';
+  // poster reacts
+  const ping = W(t, 55.9, 56.8, .1, .6);
+  $('poster').style.boxShadow = `0 40px 90px rgba(0,0,0,.45), 0 0 0 ${ping * 10}px rgba(52,224,194,${ping * .55})`;
+  // screen B: chat
+  set($('scrB'), { o: pr(t, 57.0, .5) });
+  set($('aiDots'), { o: W(t, 57.6, 58.3, .2, .1) });
+  $('aiDots').style.display = t < 58.3 ? 'inline-flex' : 'none';
+  $('aiBub').style.display = t >= 58.3 ? 'block' : 'none';
+  setText($('aiMsg'), typed('안녕하세요! 김지원 강사의 AI 비서입니다. 20년 HR 현장 경험을 담은 리더십·조직문화 강의를 소개해 드릴게요.', t, 58.3, 62.0));
+  set($('qr1'), { o: clamp((t - 62.3) / .5), y: lerp(14, 0, pr(t, 62.3, .6)) });
+  const talking = t > 58.2 && t < 62.4;
+  waveBars.forEach((b, i) => {
+    const h = talking ? 8 + 34 * Math.abs(Math.sin(t * 7 + i * .7)) * (.4 + .6 * Math.abs(Math.sin(t * 2.3 + i * 1.3))) : 6;
+    b.style.height = h + 'px';
+  });
+  // screen C: sheet
+  const sh = pr(t, 64.6, .7);
+  set($('dim'), { o: sh });
+  set($('sheet'), { o: t > 64.5 ? 1 : 0, y: lerp(340, 0, sh) });
+  const tapK = 66.4, tapS = 68.9;
+  const rK = clamp((t - tapK) / .6), rS = clamp((t - tapS) / .6);
+  set($('rpK'), { o: t > tapK && rK < 1 ? 1 - rK : 0, s: lerp(.2, 4, E.out(rK)) });
+  set($('rpS'), { o: t > tapS && rS < 1 ? 1 - rS : 0, s: lerp(.2, 4, E.out(rS)) });
+  $('shK').style.transform = `scale(${1 - W(t, tapK - .1, tapK + .25, .08, .2) * .08})`;
+  $('shS').style.transform = `scale(${1 - W(t, tapS - .1, tapS + .25, .08, .2) * .08})`;
+  setText($('phToastT'), t < 68.6 ? '카카오톡으로 보냈어요' : '문자로 보냈어요');
+  const tq = Math.max(W(t, 66.9, 68.5, .3, .3), W(t, 69.4, 71.6, .3, .3));
+  set($('phToast'), { o: tq, y: lerp(-14, 0, tq) });
+  $('phToast').style.transform += ' translateX(-50%)';
+  // typography
+  const ty1o = W(t, 53.0, 64.3, .8, .5), ty2o = W(t, 64.5, 80, .8, .5);
+  set($('ty1'), { o: ty1o, x: lerp(40, 0, pr(t, 53.0, .9)) });
+  set($('ty2'), { o: ty2o, x: lerp(40, 0, pr(t, 64.5, .9)) });
+  const l1 = pr(t, 67.0, .8, E.back), l2 = pr(t, 69.5, .8, E.back);
+  set($('lp1'), { o: clamp((t - 67.0) / .4), x: lerp(-120, 0, l1), s: lerp(.8, 1, l1) });
+  set($('lp2'), { o: clamp((t - 69.5) / .4), x: lerp(-120, 0, l2), s: lerp(.8, 1, l2) });
+}
+
+function renderS7(t) {
+  // persona titles + emphasis
+  set($('pt0'), { o: clamp((t - 73.4) / .6), y: lerp(14, 0, pr(t, 73.4, .7)) });
+  set($('pt1'), { o: clamp((t - 80.6) / .6), y: lerp(14, 0, pr(t, 80.6, .7)) });
+  const em0 = W(t, 73.4, 80.4, .6, .6), em1 = W(t, 80.6, 88.6, .6, .6);
+  [[0, em0], [1, em1]].forEach(([k, em]) => {
+    const el = $('pg' + k);
+    if (t > 73.0 + k * .4 + .8) el.style.transform = `scale(${1 + em * .025})`;
+    el.style.boxShadow = `0 40px 90px rgba(0,0,0,.45), 0 0 0 ${em * 4}px rgba(52,224,194,${em * .7})`;
+  });
+  // page areas
+  for (let p = 0; p < 2; p++) for (let f = 0; f < 3; f++) {
+    const { val, ap } = areaState(p, f, t);
+    const tx = $('t' + p + f);
+    setText(tx, val);
+    const sp = pr(t, ap, .45);
+    tx.style.transform = `translateY(${(1 - sp) * 18}px)`;
+    tx.style.opacity = ap < 0 ? 1 : clamp((t - ap) / .3);
+    $('fl' + p + f).style.opacity = ap < 0 ? 0 : 1 - clamp((t - ap - .2) / 1.4);
+  }
+  // editor
+  let cur = EDITS[0];
+  for (const e of EDITS) if (t >= e.t0 - .9) cur = e;
+  $('tab0').classList.toggle('on', cur.p === 0);
+  $('tab1').classList.toggle('on', cur.p === 1);
+  for (let f = 0; f < 3; f++) {
+    const active = f === cur.f && t >= cur.t0 - .6 && t < cur.ap + .5;
+    $('f' + f).classList.toggle('on', active);
+    let v;
+    if (f === cur.f && t >= cur.t0 - .6 && t < cur.ap) v = typed(cur.s, t, cur.t0, cur.t1);
+    else v = areaState(cur.p, f, t).val;
+    setText($('v' + f), v);
+    $('cr' + f).style.opacity = active && t < cur.ap && (Math.floor(t * 2.4) % 2 === 0 || (t > cur.t0 && t < cur.t1)) ? 1 : 0;
+  }
+  const press = W(t, cur.ap - .25, cur.ap + .15, .1, .15);
+  $('edBtn').style.transform = `scale(${1 - press * .05})`;
+  $('edBtn').style.background = press > 0 ? '#7A6CFF' : '#5B4BFF';
+  $('live').style.opacity = .55 + .45 * Math.abs(Math.sin(t * 2.2));
+}
+
+function renderS8(t) {
+  const pz = pr(t, 105.3, 10.5, E.inOut);
+  const s = lerp(2.1, 1, pz);
+  const cx = lerp(ME.x, 975, pz), cy = lerp(ME.y, 560, pz);
+  cam.setAttribute('transform', `translate(960 540) scale(${s}) translate(${-cx} ${-cy})`);
+  for (const e of EDGES) {
+    const p = pr(t, e.t0, e.d, E.inOut);
+    e.l.setAttribute('stroke-dashoffset', e.len * (1 - p));
+    if (t > 115.8 && p >= 1) {
+      const q = ((t - 115.8) * .55 + e.ph) % 1;
+      e.pulse.setAttribute('cx', lerp(e.a.x, e.b.x, q)); e.pulse.setAttribute('cy', lerp(e.a.y, e.b.y, q));
+      e.pulse.setAttribute('opacity', Math.min(1, (t - 115.8) / .5) * Math.sin(q * Math.PI));
+    } else e.pulse.setAttribute('opacity', 0);
+  }
+  for (const n of NODES) {
+    const p = pr(t, n.t0, n.kind === 'leaf' ? .5 : .8, E.back);
+    const o = clamp((t - n.t0) / .3);
+    n.g.setAttribute('transform', `translate(${n.x} ${n.y}) scale(${Math.max(0.001, p)})`);
+    n.g.setAttribute('opacity', o);
+    if (n.halo) n.halo.setAttribute('r', 54 + 10 * Math.sin(t * 2.6));
+  }
+}
+
+let capOn = true;
+function renderCap(t) {
+  const el = $('cap');
+  const c = CUES.find(c => t >= c[0] && t < c[1]);
+  if (!c || !capOn) { el.style.opacity = 0; return; }
+  setText(el, c[2]);
+  el.style.opacity = Math.min(clamp((t - c[0]) / .25), clamp((c[1] - t) / .25));
+}
+
+/* ======================================================================
+   PLAYER
+   ====================================================================== */
+const stage = $('stage');
+function fit() {
+  const s = Math.min(innerWidth / 1920, innerHeight / 1080);
+  stage.style.transform = `translate(${(innerWidth - 1920 * s) / 2}px,${(innerHeight - 1080 * s) / 2}px) scale(${s})`;
+}
+const params = new URLSearchParams(location.search);
+const RENDER = params.has('render');
+if (params.get('captions') === '0') { capOn = false; $('capT').checked = false; }
+if (RENDER) { document.body.classList.add('render'); stage.style.transform = 'none'; }
+else { fit(); addEventListener('resize', fit); }
+
+let T = +(params.get('t') || 0), playing = false, t0w = 0, tStart = 0, lastCue = -1;
+const seek = $('seek'), tc = $('tc'), playBtn = $('play');
+const fmt = s => `${Math.floor(s / 60)}:${(s % 60).toFixed(1).padStart(4, '0')}`;
+function draw() { renderAt(T); seek.value = T; tc.textContent = `${fmt(T)} / 2:15`; }
+function speak(text) {
+  if (!$('ttsT').checked || !window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ko-KR'; u.rate = 1.0;
+  const v = speechSynthesis.getVoices().find(v => /ko/i.test(v.lang));
+  if (v) u.voice = v;
+  speechSynthesis.speak(u);
+}
+function loop(now) {
+  if (!playing) return;
+  T = tStart + (now - t0w) / 1000;
+  if (T >= DURATION) { T = DURATION; playing = false; playBtn.textContent = '▶'; }
+  const ci = CUES.findIndex(c => T >= c[0] && T < c[0] + .5);
+  if (ci >= 0 && ci !== lastCue) { lastCue = ci; speak(CUES[ci][2]); }
+  draw();
+  if (playing) requestAnimationFrame(loop);
+}
+function toggle() {
+  if (T >= DURATION) T = 0;
+  playing = !playing; playBtn.textContent = playing ? '❚❚' : '▶';
+  if (playing) { tStart = T; t0w = performance.now(); lastCue = CUES.findIndex(c => T >= c[0] && T < c[1]); requestAnimationFrame(loop); }
+  else if (window.speechSynthesis) speechSynthesis.cancel();
+}
+playBtn.onclick = toggle;
+seek.oninput = () => { T = +seek.value; if (playing) { tStart = T; t0w = performance.now(); } lastCue = -1; if (window.speechSynthesis) speechSynthesis.cancel(); draw(); };
+$('capT').onchange = e => { capOn = e.target.checked; draw(); };
+addEventListener('keydown', e => {
+  if (e.code === 'Space') { e.preventDefault(); toggle(); }
+  if (e.code === 'ArrowRight') { T = Math.min(DURATION, T + 5); seek.oninput && (seek.value = T, seek.oninput()); }
+  if (e.code === 'ArrowLeft') { T = Math.max(0, T - 5); seek.value = T; seek.oninput(); }
+});
+let hideT; addEventListener('mousemove', () => { $('ctl').classList.add('show'); clearTimeout(hideT); hideT = setTimeout(() => $('ctl').classList.remove('show'), 1800); });
+
+window.renderAt = renderAt;
+window.FILM_READY = document.fonts.ready.then(() => { draw(); return true; });
+draw();
+</script>
+</body>
+</html>
