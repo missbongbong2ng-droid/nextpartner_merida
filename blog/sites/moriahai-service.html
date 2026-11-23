@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>서비스 소개 - 모리아AI 현장 운영형 AI 솔루션</title>
+  <meta name="description" content="개발 인력 없이도 현장에 맞춰 만드는 AI 솔루션. 채용·행사·공공 현장에 필요한 기능만 골라 맞춤 제작하고 운영까지 함께하는 모리아AI를 소개합니다.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>window.BLOG_SITE = 'moriahai';</script>
+  <style>
+    .sv-hero { position: relative; overflow: hidden; text-align: center; background: linear-gradient(180deg, #F2F5FF 0%, #fff 100%); }
+    .sv-hero-inner { min-height: calc(100vh - 69px); min-height: calc(100svh - 69px); box-sizing: border-box; padding: 64px 0;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .sv-hero h1 { font-size: clamp(36px, 8.6vw, 120px); line-height: 1.04; letter-spacing: -.045em; margin: 0 0 28px; }
+    .sv-hero h1 span { background: linear-gradient(90deg, #3B82F6, #8B5CF6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    /* 반전 레이어: 같은 내용을 짙은 남색 배경·흰 글씨로 겹쳐 두고, 왼쪽부터 쓸어 채운다 */
+    .sv-hero-inv { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(135deg, #0B1530 0%, #1A2C6B 60%, #3A2C8C 100%);
+      clip-path: inset(0 100% 0 0); animation: svFill 3.2s .35s forwards; }
+    .sv-hero .sv-hero-inv h1 { color: #fff; }
+    .sv-hero .sv-hero-inv h1 span { background: linear-gradient(90deg, #5EEAD4, #60A5FA); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .sv-hero .sv-hero-inv p { color: rgba(255,255,255,.82); }
+    .sv-hero .sv-hero-inv .btn { border-color: rgba(255,255,255,.5); color: #fff; background: transparent; }
+    .sv-hero .sv-hero-inv .btn-primary { background: #fff; border-color: #fff; color: var(--brand); }
+    @keyframes svFill {
+      0%   { clip-path: inset(0 100% 0 0); animation-timing-function: cubic-bezier(.77,0,.18,1); }
+      34%  { clip-path: inset(0 0 0 0); }
+      62%  { clip-path: inset(0 0 0 0); animation-timing-function: cubic-bezier(.77,0,.18,1); }
+      100% { clip-path: inset(0 0 0 100%); }
+    }
+    @media (prefers-reduced-motion: reduce) { .sv-hero-inv { display: none; } }
+    .sv-hero p { font-size: clamp(16px, 1.7vw, 22px); color: var(--ink-2); margin: 0 0 40px; line-height: 1.6; }
+    .sv-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .btn-lg { height: 52px; padding: 0 26px; font-size: 16px; border-radius: 12px; }
+
+    .sv-video { padding: 56px 0; }
+    .video-frame { max-width: 1040px; margin: 0 auto; border-radius: 20px; overflow: hidden; aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #0B1530, #1A2C6B 60%, #3A2C8C); display: grid; place-items: center; color: rgba(255,255,255,.75); text-align: center; }
+    .video-frame .soon b { display: block; font-size: 22px; color: #fff; margin-bottom: 6px; letter-spacing: -.02em; }
+    .video-frame .soon { font-size: 15px; }
+    .video-cap { text-align: center; font-size: 14px; color: var(--muted); margin-top: 14px; }
+
+    .sv-sec { padding: 56px 0; }
+    .sv-sec.alt { background: var(--bg-2); }
+    .sv-head { text-align: center; margin-bottom: 32px; }
+    .sv-head .k { font-size: 13px; font-weight: 800; letter-spacing: .1em; color: var(--brand); }
+    .sv-head h2 { font-size: 30px; line-height: 1.35; letter-spacing: -.03em; margin: 10px 0 10px; }
+    .sv-head p { margin: 0; color: var(--ink-2); font-size: 17px; }
+
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .step { background: #fff; border-radius: 18px; padding: 28px 24px; border: 1px solid var(--line); }
+    .step .no { font-size: 15px; font-weight: 800; color: var(--brand); }
+    .step .tag { display: inline-block; font-size: 12px; font-weight: 700; color: var(--brand); background: var(--brand-soft); border-radius: 999px; padding: 2px 9px; margin-left: 6px; vertical-align: 2px; }
+    .step h3 { font-size: 20px; margin: 10px 0 8px; letter-spacing: -.02em; }
+    .step p { margin: 0; color: var(--ink-2); font-size: 15px; }
+
+    .areas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .area { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 22px; }
+    .area .en { font-size: 12px; font-weight: 800; letter-spacing: .08em; color: var(--brand); }
+    .area h3 { font-size: 18px; margin: 6px 0 10px; letter-spacing: -.02em; }
+    .area h3 small { font-size: 13px; color: var(--muted); font-weight: 600; margin-left: 4px; }
+    .area ul { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 14px; line-height: 1.7; }
+    .sv-more { text-align: center; margin-top: 32px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 960px) { .steps, .areas { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 760px) { .sv-hero-inner { min-height: calc(100svh - 95px); } }
+    @media (max-width: 640px) {
+      .sv-hero-inner { min-height: 0; padding: 88px 0 80px; }
+      .sv-hero h1 { font-size: 13vw; margin-bottom: 22px; }
+      .sv-hero p { margin-bottom: 32px; padding: 0 8px; word-break: keep-all; }
+      .sv-video { padding: 40px 0; }
+      .sv-sec { padding: 64px 0; }
+      .sv-head h2 { font-size: 26px; }
+      .steps, .areas { grid-template-columns: 1fr; }
+      .video-frame { border-radius: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header id="site-header"></header>
+  <!-- 헤더는 본문보다 먼저 그린다(글 데이터 posts.js는 이 페이지에 필요 없어 불러오지 않음) -->
+  <script src="assets/common.js"></script>
+  <script>renderHeader(null, 'service');</script>
+
+  <main>
+    <section class="sv-hero">
+      <div class="wrap sv-hero-inner">
+        <h1>가능성을 현실로<br><span>MoriahAI</span></h1>
+        <p>아이디어를 AI 솔루션으로 바꿉니다.<br>기획에서 실행까지, 생각이 멈추지 않도록 함께합니다.</p>
+        <div class="sv-actions">
+          <a class="btn btn-primary btn-lg cta-link" href="https://moriahai.com/contact" target="_blank" rel="noopener">도입 문의</a>
+          <a class="btn btn-lg" href="https://moriahai.com/cases" target="_blank" rel="noopener">도입사례 보기</a>
+        </div>
+      </div>
+      <!-- 반전 레이어(꾸밈용): 클릭은 아래 원본 버튼으로 통과 -->
+      <div class="sv-hero-inv" aria-hidden="true">
+        <div class="wrap sv-hero-inner">
+          <h1>가능성을 현실로<br><span>MoriahAI</span></h1>
+          <p>아이디어를 AI 솔루션으로 바꿉니다.<br>기획에서 실행까지, 생각이 멈추지 않도록 함께합니다.</p>
+          <div class="sv-actions">
+            <span class="btn btn-primary btn-lg">도입 문의</span>
+            <span class="btn btn-lg">도입사례 보기</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 소개 영상: 준비되면 아래 .soon 대신 video 태그를 넣는다 -->
+    <section class="sv-video" id="film">
+      <div class="wrap">
+        <div class="video-frame">
+          <div class="soon"><b>소개 영상 준비 중</b>현장에서 모리아AI가 일하는 모습을 곧 영상으로 보여 드릴게요.</div>
+        </div>
+        <p class="video-cap">모리아AI 소개 영상</p>
+      </div>
+    </section>
+
+    <section class="sv-sec alt">
+      <div class="wrap">
+        <div class="sv-head">
+          <div class="k">HOW IT WORKS</div>
+          <h2>필요한 기능만 골라, 현장에 맞게 만들어요</h2>
+          <p>정해진 기능을 파는 대신 운영 목적에 맞는 구조만 골라 솔루션으로 만듭니다.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="no">01<span class="tag">현장 분석</span></div><h3>운영 흐름 정리</h3><p>운영 목적, 사용자 흐름, 현장 조건을 먼저 정리해 시작점을 잡아요.</p></div>
+          <div class="step"><div class="no">02<span class="tag">맞춤 설계</span></div><h3>필요 기능 선별</h3><p>필요한 기능만 골라 사용자 화면과 운영 구조를 함께 설계해요.</p></div>
+          <div class="step"><div class="no">03<span class="tag">운영 연결</span></div><h3>관리까지 연결</h3><p>사용자 경험과 관리자 흐름이 따로 놀지 않도록 하나의 구조로 이어요.</p></div>
+          <div class="step"><div class="no">04<span class="tag">확장 계획</span></div><h3>단계적 확장</h3><p>기관·행사·공공 환경에 맞춰 도입 이후 확장 단계까지 함께 설계해요.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sv-sec">
+      <div class="wrap">
+        <div class="sv-head">
+          <div class="k">SERVICES</div>
+          <h2>7개 분야 25종, 현장에 필요한 것만 골라 쓰세요</h2>
+          <p>채용·상담·행사 운영 현장에서 필요한 기능만 골라 조합해 도입할 수 있어요.</p>
+        </div>
+        <div class="areas">
+          <div class="area"><div class="en">PHOTO</div><h3>사진<small>3종</small></h3><ul><li>AI 증명사진</li><li>AI 프로필 사진</li><li>체험형 Fun Photo</li></ul></div>
+          <div class="area"><div class="en">DOCUMENT</div><h3>서류<small>6종</small></h3><ul><li>채팅형 이력서 작성</li><li>OCR 문서 작성</li><li>커리어 포트폴리오</li><li>이력서 · OCR + 증명사진</li><li>박람회 정형 이력서</li></ul></div>
+          <div class="area"><div class="en">CAREER</div><h3>취업 준비<small>4종</small></h3><ul><li>나의 직무 찾기</li><li>실전 일자리 매칭</li><li>음성 모의면접</li><li>영상 모의면접</li></ul></div>
+          <div class="area"><div class="en">BRIEFING</div><h3>기업 정보<small>3종</small></h3><ul><li>기업 브리핑</li><li>참여기업 안내</li><li>기업 브리핑 + 대기화면 광고</li></ul></div>
+          <div class="area"><div class="en">CHAT</div><h3>대화형 AI<small>1종</small></h3><ul><li>Gemini 챗 어시스턴트</li></ul></div>
+          <div class="area"><div class="en">CONTENT</div><h3>운영 콘텐츠<small>6종</small></h3><ul><li>교육 커리큘럼 설계</li><li>강사 프로필 제작</li><li>판플렛 · 홍보 전단</li><li>상품 상세페이지 설계</li><li>전자계약 문서 · Veo 영상</li></ul></div>
+          <div class="area"><div class="en">ANALYSIS</div><h3>기업 분석<small>2종</small></h3><ul><li>경쟁사 벤치마킹</li><li>비즈니스모델 캔버스</li></ul></div>
+          <div class="area"><div class="en">FOR</div><h3>이런 곳에 필요해요</h3><ul><li>개발자가 없거나 부족한 조직</li><li>공공기관 · 지자체 프로젝트</li><li>도입 이후 운영까지 필요한 곳</li></ul></div>
+        </div>
+        <div class="sv-more">
+          <a class="btn btn-primary" href="https://moriahai.com/services" target="_blank" rel="noopener">서비스 25종 자세히 보기</a>
+          <a class="btn" href="https://moriahai.com/contact" target="_blank" rel="noopener">도입 문의</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script>
+    renderFooter();
+  </script>
+  <script src="assets/service-intro.js"></script>
+  <script>
+  </script>
+</body>
+</html>

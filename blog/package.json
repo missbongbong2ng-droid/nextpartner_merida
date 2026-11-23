@@ -1,0 +1,16 @@
+{
+  "name": "pbaas-blog",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate": "wrangler d1 migrations apply pbaas-blog-db --remote",
+    "db:seed": "node worker/seed.cjs > worker/seed.sql && wrangler d1 execute pbaas-blog-db --remote --file worker/seed.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "1.6.0"
+  }
+}

@@ -1,0 +1,31 @@
+// PBaaS 블로그 · Cloudflare Workers 설정 (운영 계정에 배포)
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pbaas-blog",
+  // 운영 계정(rnd1.moriah) 고정: 다른 계정으로 로그인되어 있으면 배포가 실패한다
+  "account_id": "b9c4e41a2d307fc68657a8639f9e3ba8",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": true,
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    // posts.js는 로컬 파일 대신 DB 내용으로 내려준다
+    "run_worker_first": ["/posts.js", "/api/*", "/img/*", "/write", "/write.html", "/moriahai", "/moriahai/*", "/sites/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "selb-blog-db",
+      "database_id": "90fe6ee3-4b8c-4486-ba40-025e24bb5c3e",
+      "migrations_dir": "worker/migrations"
+    }
+  ],
+  // 매일 자동 초안 알람은 2026-11-23 사용자 요청으로 끔 (다시 쓰려면: "triggers": { "crons": ["0 21 * * *"] })
+  "triggers": { "crons": [] },
+  "r2_buckets": [
+    { "binding": "IMAGES", "bucket_name": "selb-blog-images" }
+  ]
+  // 관리자 비밀번호: npx wrangler secret put ADMIN_PASSWORD
+}

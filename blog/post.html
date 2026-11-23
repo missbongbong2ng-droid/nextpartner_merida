@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SelB BLOG</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header id="site-header"></header>
+  <div id="notice"></div>
+  <main id="main"></main>
+  <footer id="site-footer"></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.7/dist/purify.min.js"></script>
+  <script src="posts.js"></script>
+  <script src="assets/common.js"></script>
+  <script src="assets/inline-edit.js" defer></script>
+  <script src="assets/survey.js" defer></script>
+  <script>
+    // 잠시 쓰였던 selb 글 주소는 원래 주소로 옮긴다
+    const OLD_SLUGS = { 'selb-launch': 'pbaas-launch', 'news-selb-chat': 'news-pibi-chat', 'selb-service-guide': 'pbaas-service-guide' };
+    const slug0 = new URLSearchParams(location.search).get('slug');
+    if (OLD_SLUGS[slug0]) { const q = new URLSearchParams(location.search); q.set('slug', OLD_SLUGS[slug0]); location.replace(location.pathname + '?' + q); }
+    const slug = OLD_SLUGS[slug0] || slug0;
+    const preview = new URLSearchParams(location.search).get('preview') === '1';
+    const posts = sitePosts();
+    // 관리자는 발행 전 글도 볼 수 있다 (블로그 화면에서 바로 수정)
+    const post = posts.find(p => p.slug === slug && (p.status === 'published' || preview || window.BLOG_ADMIN));
+
+    renderHeader(post ? post.category : null);
+    renderFooter();
+    document.getElementById('notice').innerHTML = localNotice();
+    const main = document.getElementById('main');
+
+    if (!post) {
+      main.innerHTML = `<div class="wrap empty" style="padding:120px 0">글을 찾을 수 없습니다.<br><br><a class="btn" href="index.html">블로그 홈으로</a></div>`;
+    } else {
+      document.title = post.title + ' - ' + SITE.name;
+      const meta = document.createElement('meta');
+      meta.name = 'description'; meta.content = post.summary || '';
+      document.head.appendChild(meta);
+
+      const pub = publishedPosts().filter(p => p.slug !== post.slug);
+      const related = [
+        ...pub.filter(p => p.category === post.category),
+        ...pub.filter(p => p.category !== post.category),
+      ].slice(0, 3);
+
+      const ctaText = post.ctaText || SITE.postCtaText;
+      const ctaUrl = post.ctaUrl || SITE.ctaUrl;
+
+      main.innerHTML = `
+        ${(preview || window.BLOG_ADMIN) && post.status !== 'published' ? `<div class="local-notice wrap">미리보기 · 아직 발행되지 않은 글(${statusLabel(post.status)})입니다.</div>` : ''}
+        <article class="article">
+          <header class="article-head">
+            <a class="cat-label" href="index.html?cat=${esc(post.category)}">${esc(catLabel(post.category))}</a>
+            <h1>${esc(post.title)}</h1>
+            ${post.summary ? `<p class="article-summary">${esc(post.summary)}</p>` : ''}
+            <div class="article-meta">
+              <span class="meta">${fmtDate(post.date)} · ${viewsHTML(post)}</span>
+              <button class="btn btn-sm" id="copyBtn">링크 복사</button>
+            </div>
+          </header>
+          <div class="article-hero">${thumbHTML(post)}</div>
+          <div class="prose">${renderBody(post)}</div>
+
+          <div class="post-cta ${SITE.postCtaClass || ''}">
+            <div><strong>${esc(ctaText)}</strong><span>${esc(SITE.postCtaSub)}</span>${(SITE.postCtaPoints || []).length ? `<ul class="cta-points">${SITE.postCtaPoints.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : ''}</div>
+            <a class="btn" href="${esc(ctaUrl)}" target="_blank" rel="noopener">${esc(SITE.postCtaBtn || SITE.ctaText)}</a>
+          </div>
+
+          ${(post.tags || []).length ? `<div class="tags">${post.tags.map(t => `<span>#${esc(t)}</span>`).join('')}</div>` : ''}
+
+          <div class="author-box">
+            <div class="avatar">${esc(SITE.avatar)}</div>
+            <div><strong>${esc(SITE.author.name)}</strong><span>${esc(SITE.author.bio)}</span></div>
+          </div>
+          <div class="copyright">${esc(SITE.copyright)}</div>
+        </article>
+
+        ${related.length ? `<section class="related-wrap"><div class="wrap">
+          <h2>함께 읽으면 좋은 글</h2>
+          <div class="related">
+            ${related.map(p => `<a href="${postUrl(p)}">
+              ${thumbHTML(p, 'thumb-sm')}
+              <h3>${esc(p.title)}</h3>
+              <p>${esc(p.summary)}</p>
+              <span class="meta">${esc(catLabel(p.category))} · ${fmtDate(p.date)}</span>
+            </a>`).join('')}
+          </div>
+        </div></section>` : ''}
+      `;
+
+      // 조회수: 발행 글만, 같은 브라우저에서 같은 글은 하루 1번 (관리자·로봇은 서버에서 제외)
+      if (window.BLOG_ONLINE && post.status === 'published' && !window.BLOG_ADMIN) {
+        const key = 'pv_' + post.id + '_' + new Date().toISOString().slice(0, 10);
+        let seen = false;
+        try { seen = !!localStorage.getItem(key); localStorage.setItem(key, '1'); } catch (e) {}
+        if (!seen) {
+          const data = JSON.stringify({ id: post.id });
+          if (!(navigator.sendBeacon && navigator.sendBeacon('/api/view', data))) fetch('/api/view', { method: 'POST', body: data, keepalive: true }).catch(() => {});
+        }
+      }
+
+      document.getElementById('copyBtn').addEventListener('click', e => {
+        const btn = e.currentTarget;
+        const done = () => { btn.textContent = '복사됨'; setTimeout(() => btn.textContent = '링크 복사', 1500); };
+        if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(done, done);
+        else done();
+      });
+    }
+  </script>
+</body>
+</html>

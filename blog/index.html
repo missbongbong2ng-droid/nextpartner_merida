@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SelB BLOG - AI로 나를 발견하고 브랜드를 만드는 이야기</title>
+  <meta name="description" content="AI 퍼스널 브랜딩 · AI 명함 서비스 SelB의 소식, 브랜딩 팁, 고객 이야기">
+  <script>
+    // 블로그에 처음 들어오면(이번 방문 처음, 주소에 조건 없음, 다른 사이트에서 온 경우) 서비스 소개 페이지를 먼저 보여 준다
+    (function () {
+      try {
+        var inside = document.referrer && new URL(document.referrer).origin === location.origin;
+        if (!location.search && !inside && !sessionStorage.getItem('blog_entered')) { sessionStorage.setItem('blog_entered', '1'); location.replace('service.html'); return; }
+        sessionStorage.setItem('blog_entered', '1');
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header id="site-header"></header>
+  <div id="notice"></div>
+  <main id="main"></main>
+  <footer id="site-footer"></footer>
+
+  <script src="posts.js"></script>
+  <script src="assets/common.js"></script>
+  <script src="assets/inline-edit.js" defer></script>
+  <script>
+    const PER_PAGE = 10;
+    const params = new URLSearchParams(location.search);
+    const cat = params.get('cat');
+    const page = Math.max(1, parseInt(params.get('page') || '1', 10));
+    const validCat = CATEGORIES.some(c => c.id === cat) ? cat : null;
+
+    renderHeader(validCat, 'home');
+    if (!validCat) document.title = SITE.name + ' - ' + SITE.tagline;
+    renderFooter();
+    document.getElementById('notice').innerHTML = localNotice();
+
+    const all = publishedPosts();
+    const main = document.getElementById('main');
+
+    function listItem(p) {
+      return `<a class="list-item" href="${postUrl(p)}">
+        <div>
+          <span class="cat-label">${esc(catLabel(p.category))}</span>
+          <h3>${esc(p.title)}</h3>
+          <p>${esc(p.summary)}</p>
+          <span class="meta">${fmtDate(p.date)} · ${viewsHTML(p)}</span>
+        </div>
+        ${thumbHTML(p, 'thumb-sm')}
+      </a>`;
+    }
+
+    function pagination(total) {
+      const pages = Math.ceil(total / PER_PAGE);
+      if (pages <= 1) return '';
+      const href = n => 'index.html?' + (validCat ? 'cat=' + validCat + '&' : '') + 'page=' + n;
+      let h = '';
+      if (page > 1) h += `<a href="${href(page - 1)}">이전</a>`;
+      for (let i = 1; i <= pages; i++) {
+        h += i === page ? `<span class="current">${i}</span>` : `<a href="${href(i)}">${i}</a>`;
+      }
+      if (page < pages) h += `<a href="${href(page + 1)}">다음</a>`;
+      return `<nav class="pagination" aria-label="페이지">${h}</nav>`;
+    }
+
+    function sidebar() {
+      return `<aside class="side">
+        <div class="side-cta">
+          <div class="eyebrow">${SITE.side.eyebrow}</div>
+          <h4>${SITE.side.title}</h4>
+          <p>${SITE.side.text}</p>
+          <a class="btn" href="${SITE.side.href}"${linkAttrs(SITE.side)}>${SITE.side.btn}</a>
+        </div>
+      </aside>`;
+    }
+
+    let html = '';
+    if (validCat) {
+      const posts = all.filter(p => p.category === validCat);
+      document.title = catLabel(validCat) + ' - ' + SITE.name;
+      const pagePosts = posts.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+      html = `<div class="wrap">
+        <div class="cat-head"><h1>${esc(catLabel(validCat))}</h1><p>${esc(CATEGORIES.find(c => c.id === validCat).desc)} · 글 ${posts.length}개</p></div>
+        <div class="section-title">&nbsp;</div>
+        <div class="layout">
+          <div>
+            <div class="list">${pagePosts.map(listItem).join('') || '<div class="empty">아직 이 카테고리에 발행된 글이 없습니다.</div>'}</div>
+            ${pagination(posts.length)}
+          </div>
+          ${sidebar()}
+        </div>
+      </div>`;
+    } else {
+      // 추천글을 먼저, 5개가 안 되면 최신 글로 채움
+      const featured = [...all.filter(p => p.featured), ...all.filter(p => !p.featured)].slice(0, 5);
+      const [first, ...rest] = featured;
+      const pagePosts = all.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+      html = `<div class="wrap">
+        <section class="intro">
+          <h1>${SITE.introTitle}</h1>
+          <p>${esc(SITE.tagline)}</p>
+        </section>
+        ${first && page === 1 ? `
+        <div class="section-title">FEATURED POST</div>
+        <section class="featured">
+          <a class="feat-main" href="${postUrl(first)}">
+            ${thumbHTML(first)}
+            <h2>${esc(first.title)}</h2>
+            <p>${esc(first.summary)}</p>
+            <span class="meta">${esc(catLabel(first.category))} · ${fmtDate(first.date)}</span>
+          </a>
+          <div class="feat-side">
+            ${rest.map(p => `<a href="${postUrl(p)}">
+              ${thumbHTML(p, 'thumb-sm')}
+              <h3>${esc(p.title)}</h3>
+              <span class="meta">${fmtDate(p.date)}</span>
+            </a>`).join('')}
+          </div>
+        </section>` : ''}
+        <div class="section-title">최신 글</div>
+        <div class="layout">
+          <div>
+            <div class="list">${pagePosts.map(listItem).join('') || '<div class="empty">아직 발행된 글이 없습니다.</div>'}</div>
+            ${pagination(all.length)}
+          </div>
+          ${sidebar()}
+        </div>
+      </div>`;
+    }
+    main.innerHTML = html;
+  </script>
+</body>
+</html>

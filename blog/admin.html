@@ -1,0 +1,1538 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>글 관리 - SelB BLOG</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/suneditor@2.47.12/dist/css/suneditor.min.css">
+  <style>
+    body { background: var(--bg-2); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar { height: 60px; flex: none; background: #fff; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 10px; padding: 0 20px; }
+    .topbar .logo { font-size: 16px; margin-right: auto; }
+    .topbar .logo small { font-size: 13px; color: var(--muted); font-weight: 500; margin-left: 4px; }
+    .seg { display: inline-flex; background: var(--bg-2); border: 1px solid var(--line); border-radius: 9px; padding: 2px; }
+    .seg button { border: 0; background: none; font: inherit; font-size: 13px; padding: 0 12px; height: 28px; border-radius: 7px; color: var(--ink-2); cursor: pointer; }
+    .seg button.on { background: #fff; color: var(--ink); font-weight: 700; box-shadow: 0 1px 3px rgba(27,32,51,.12); }
+
+    /* 도구 줄 */
+    .toolbar { flex: none; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 14px 20px; }
+    .quick { display: flex; gap: 6px; flex: 1 1 420px; max-width: 560px; }
+    .quick input { flex: 1; min-width: 0; }
+    .quick select { width: auto; flex: none; }
+    #search { flex: 0 1 220px; }
+    .chips { display: flex; gap: 4px; flex-wrap: wrap; }
+    .chips button { height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 13px; color: var(--ink-2); cursor: pointer; }
+    .chips button.on { background: var(--ink); border-color: var(--ink); color: #fff; font-weight: 600; }
+    .merge-bar { width: 100%; background: #FFF8DB; border-radius: 10px; padding: 10px 12px; font-size: 13px; color: #7A5B00; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .merge-bar[hidden] { display: none; }
+    .merge-bar span { flex: 1; min-width: 140px; }
+
+    input[type=text], input[type=search], input[type=date], input[type=url], select, textarea {
+      font: inherit; font-size: 14px; color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px 11px; background: #fff; width: 100%;
+    }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--brand-soft); border-color: var(--brand); }
+
+    /* 보드 */
+    .main { flex: 1; min-height: 0; padding: 0 20px 20px; }
+    .board { height: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .col { background: #EEF0F7; border-radius: 14px; display: flex; flex-direction: column; min-height: 0; min-width: 0; border: 2px solid transparent; }
+    .col.over { border-color: var(--brand); background: var(--brand-soft); }
+    .col-head { display: flex; align-items: center; gap: 8px; padding: 12px 14px 8px; }
+    .col-head h2 { margin: 0; font-size: 15px; }
+    .col-head .n { font-size: 13px; color: var(--muted); font-weight: 600; }
+    .col-head .add { margin-left: auto; width: 28px; height: 28px; border: 0; border-radius: 8px; background: transparent; font-size: 18px; color: var(--ink-2); cursor: pointer; }
+    .col-head .add:hover { background: #fff; }
+    .col-hint { font-size: 12px; color: var(--muted); padding: 0 14px 8px; }
+    .col-body { flex: 1; overflow-y: auto; padding: 4px 10px 12px; display: flex; flex-direction: column; gap: 8px; }
+    .col-empty { font-size: 13px; color: var(--muted); text-align: center; padding: 24px 8px; }
+    .kcard { position: relative; display: flex; gap: 10px; text-align: left; width: 100%; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; font: inherit; cursor: pointer; }
+    .kcard:hover { border-color: #C9D0E6; box-shadow: 0 2px 8px rgba(27,32,51,.06); }
+    .kcard.on { border-color: var(--brand); box-shadow: 0 0 0 2px var(--brand-soft); }
+    .kcard.dragging { opacity: .4; }
+    .kcard .k-main { flex: 1; min-width: 0; }
+    .kcard .k-meta { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+    .kcard .k-title { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .kcard .k-memo { font-size: 12px; color: var(--muted); margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .kcard .k-thumb { width: 64px; height: 36px; flex: none; border-radius: 6px; object-fit: cover; background: var(--bg-2); align-self: center; }
+    .cat { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; }
+    .cat.news { background: #E6EAFF; color: var(--brand); }
+    .cat.brand { background: #E8E9EE; color: var(--ink); }
+    .cat.event { background: #FFF1C2; color: #8A6A00; }
+    .cat.field { background: #E3E9FF; color: #1E3A8A; }
+    .cat.service { background: #EDE7FF; color: #5B21B6; }
+    .cat.guide { background: #DDF6F6; color: #0E6E76; }
+    .cat.insight { background: #F1E8FF; color: #6D28D9; }
+    .topbar .logo { margin-right: 0; }
+    .topbar-gap { flex: 1; }
+    .site-tabs { display: flex; gap: 4px; margin-left: 12px; }
+    .site-tabs button { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; border: 1px solid var(--line); border-radius: 10px; background: #fff; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink-2); cursor: pointer; }
+    .site-tabs button .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .site-tabs button small { font-size: 12px; color: var(--muted); font-weight: 500; }
+    .site-tabs button.on { border-color: var(--ink); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+    @media (max-width: 900px) { .site-tabs { margin-left: 4px; } .site-tabs button { padding: 0 10px; } .site-tabs button small { display: none; } }
+    .badge { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; }
+    .badge.idea { background: #FFF3C4; color: #8A6A00; }
+    .badge.draft { background: #E8ECF5; color: var(--ink-2); }
+    .badge.published { background: #DDF7EE; color: #0E8A60; }
+    .star { color: #E0A800; }
+    .kcard .views { margin-left: auto; color: var(--ink-2); font-weight: 600; white-space: nowrap; }
+    .kcard .views small { color: #0E8A60; font-weight: 600; font-size: 11px; }
+    .list td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink-2); }
+    .ed-views { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
+    /* 설문 결과 */
+    body.view-wide .toolbar { display: none; }
+    body.view-wide .main { padding-top: 16px; }
+    /* 설정 */
+    .st-wrap { height: 100%; overflow-y: auto; }
+    .st-wrap > .inner { max-width: 980px; margin: 0 auto; padding-bottom: 40px; }
+    .st-card { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; }
+    .st-card h3 { margin: 0 0 4px; font-size: 16px; }
+    .st-card > p.d { margin: 0 0 14px; font-size: 13px; color: var(--muted); }
+    .st-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .st-head .st-state { margin-right: auto; font-size: 13px; color: var(--muted); }
+    .st-head .st-state.dirty { color: #D07A00; font-weight: 600; }
+    .st-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 18px; }
+    .st-field { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; color: var(--ink-2); }
+    .st-field small { font-weight: 400; color: var(--muted); }
+    .st-field .unit { display: flex; align-items: center; gap: 6px; }
+    .st-field .unit input { width: 90px; font: inherit; font-size: 14px; color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: #fff; }
+    .st-field .unit input:focus { outline: 2px solid var(--brand-soft); border-color: var(--brand); }
+    .st-field .unit span { font-weight: 500; color: var(--ink-2); }
+    .st-switch { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 700; }
+    .st-switch input { width: 18px; height: 18px; accent-color: var(--brand); }
+    .btn:disabled { opacity: .45; cursor: default; }
+    .ad-cats { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 10px 0 14px 28px; font-size: 14px; font-weight: 600; }
+    .ad-cats label { display: inline-flex; align-items: center; gap: 6px; }
+    .ad-cats input { width: 16px; height: 16px; accent-color: var(--brand); }
+    .ad-cats .off { color: var(--muted); }
+    .ad-run { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-top: 12px; border-top: 1px solid var(--line); }
+    .ad-run select { width: auto; padding: 6px 9px; }
+    .ad-log { margin-top: 12px; font-size: 13px; }
+    .ad-row { display: grid; grid-template-columns: 110px 54px 40px 1fr; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+    .ad-row:last-child { border-bottom: 0; }
+    .ad-row .t, .ad-row .w { color: var(--muted); font-variant-numeric: tabular-nums; }
+    .ad-row .c { font-weight: 700; }
+    .ad-row.fail .r { color: #D33A3A; }
+    .ad-row .r a { color: var(--ink); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+    .ad-row small { color: var(--muted); margin-left: 4px; }
+    @media (max-width: 640px) { .ad-row { grid-template-columns: 1fr 1fr; } .ad-row .r { grid-column: 1 / -1; } }
+    .st-q { border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-bottom: 10px; background: var(--bg-2); }
+    .st-q .row1 { display: grid; grid-template-columns: 130px 1fr 150px 120px auto; gap: 8px; align-items: end; }
+    .st-q .row2 { display: grid; grid-template-columns: 1fr 260px; gap: 8px; margin-top: 8px; }
+    .st-q label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 600; color: var(--muted); }
+    .st-q textarea { min-height: 86px; resize: vertical; font-size: 13px; }
+    .st-q .tools { display: flex; gap: 4px; }
+    .st-q .tools button { height: 36px; min-width: 36px; padding: 0 8px; border: 1px solid var(--line); border-radius: 8px; background: #fff; font: inherit; font-size: 13px; cursor: pointer; }
+    .st-q .tools button.danger { color: #D33A3A; }
+    .st-q .qid { font-size: 11px; color: var(--muted); margin-top: 6px; }
+    .st-q .hint { font-size: 12px; color: var(--muted); font-weight: 400; }
+    @media (max-width: 900px) { .st-grid { grid-template-columns: 1fr 1fr; } .st-q .row1, .st-q .row2 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 520px) { .st-grid, .st-q .row1, .st-q .row2 { grid-template-columns: 1fr; } }
+    .sv-wrap { height: 100%; overflow-y: auto; }
+    .sv-period { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-bottom: 14px; }
+    .sv-period .seg button { padding: 0 11px; }
+    .sv-period .sv-pfsel { display: inline-flex; gap: 6px; }
+    .sv-period .sv-pfsel select { width: auto; padding: 5px 8px; font-size: 13px; }
+    .sv-filter-note { background: #FFF8DB; color: #7A5B00; border-radius: 10px; padding: 10px 14px; font-size: 13px; margin-bottom: 14px; }
+    .sv-filter-note a { color: inherit; font-weight: 700; margin-left: 6px; }
+    .sv-pf-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 900px) { .sv-pf-grid { grid-template-columns: 1fr; } }
+    .sv-period .sv-range { font-size: 13px; color: var(--ink-2); font-weight: 600; margin-right: auto; }
+    .sv-period .sv-dates { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+    .sv-period .sv-dates input { width: auto; padding: 5px 8px; font-size: 13px; }
+    .sv-chart { display: flex; align-items: flex-end; gap: 3px; height: 150px; padding-top: 18px; }
+    .sv-chart .ch { flex: 1; min-width: 0; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; }
+    .sv-chart .bar { width: 100%; max-width: 34px; min-height: 2px; background: var(--brand); border-radius: 4px 4px 0 0; opacity: .85; }
+    .sv-chart .ch:hover .bar { opacity: 1; }
+    .sv-chart .v { font-size: 10px; color: var(--ink-2); margin-bottom: 2px; font-variant-numeric: tabular-nums; }
+    .sv-chart .d { position: absolute; bottom: -18px; font-size: 10px; color: var(--muted); white-space: nowrap; }
+    .sv-chart + * { margin-top: 22px; }
+    .sv-box:has(.sv-chart) { padding-bottom: 30px; }
+    .sv-sum { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 24px; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin-bottom: 14px; }
+    .sv-sum b { font-size: 22px; letter-spacing: -.02em; }
+    .sv-sum span { font-size: 13px; color: var(--muted); display: block; }
+    .sv-sum .sv-note { margin-left: auto; font-size: 12px; color: var(--muted); max-width: 420px; }
+    .sv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; margin-bottom: 14px; }
+    .sv-q { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+    .sv-q .tp { font-size: 11px; font-weight: 700; color: var(--brand); }
+    .sv-q h4 { margin: 4px 0 2px; font-size: 15px; }
+    .sv-q .cnt { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+    .sv-q .avg { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+    .sv-bar { display: grid; grid-template-columns: 112px 1fr 64px; align-items: center; gap: 8px; font-size: 13px; margin-bottom: 6px; }
+    .sv-bar .lb { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink-2); }
+    .sv-bar .tr { display: block; height: 10px; background: var(--bg-2); border-radius: 999px; overflow: hidden; }
+    .sv-bar .fl { display: block; height: 100%; background: var(--brand); border-radius: 999px; }
+    .sv-bar .pc { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .sv-box { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin-bottom: 14px; }
+    .sv-box h3 { margin: 0 0 10px; font-size: 15px; }
+    .sv-box table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .sv-box th, .sv-box td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); }
+    .sv-box th { color: var(--muted); font-weight: 600; font-size: 12px; }
+    .sv-box td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .sv-box tr[data-id] { cursor: pointer; }
+    .sv-box tr[data-id]:hover td { background: var(--bg-2); }
+    .sv-cm { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+    .sv-cm:last-child { border-bottom: 0; }
+    .sv-cm .meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .sv-empty { color: var(--muted); font-size: 14px; padding: 8px 0; }
+    .warn { color: #D07A00; font-weight: 700; }
+
+    /* 목록(표) */
+    .table-wrap { height: 100%; overflow: auto; background: #fff; border: 1px solid var(--line); border-radius: 14px; }
+    table.list { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .list th { position: sticky; top: 0; background: #fff; text-align: left; font-size: 12px; color: var(--muted); font-weight: 600; padding: 10px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; cursor: pointer; user-select: none; }
+    .list th.sorted { color: var(--ink); }
+    .list td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+    .list tr.row { cursor: pointer; }
+    .list tr.row:hover td { background: var(--bg-2); }
+    .list tr.row.on td { background: var(--brand-soft); }
+    .list .t { font-weight: 600; }
+    .list .memo { font-size: 12px; color: var(--muted); max-width: 420px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .list .th-img { width: 56px; height: 32px; border-radius: 5px; object-fit: cover; display: block; background: var(--bg-2); }
+    .list select { width: auto; padding: 4px 8px; font-size: 13px; }
+    .list .nowrap { white-space: nowrap; color: var(--ink-2); }
+
+    /* 편집 창 (오른쪽에서 열림) */
+    .backdrop { position: fixed; inset: 0; background: rgba(27,32,51,.28); z-index: 40; }
+    .drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(1080px, 100%); background: var(--bg-2); z-index: 41; display: flex; flex-direction: column; box-shadow: -12px 0 40px rgba(27,32,51,.18); }
+    .backdrop[hidden], .drawer[hidden] { display: none; }
+    .ed-head { flex: none; display: flex; align-items: center; gap: 8px; padding: 12px 20px; background: #fff; border-bottom: 1px solid var(--line); }
+    .ed-head .state { font-size: 13px; color: var(--muted); margin-right: auto; }
+    .ed-head .state.dirty { color: #D07A00; }
+    .ed-body { flex: 1; overflow-y: auto; padding: 20px; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin-bottom: 14px; }
+    .card h3 { margin: 0 0 12px; font-size: 14px; color: var(--ink-2); }
+    .card h3 small { font-weight: 400; color: var(--muted); }
+    .title-input { font-size: 22px !important; font-weight: 700; padding: 10px 12px !important; border-color: transparent !important; background: var(--bg-2) !important; }
+    .title-input:focus { background: #fff !important; border-color: var(--brand) !important; }
+    .meta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
+    .meta-row label { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-2); font-weight: 600; }
+    .meta-row select, .meta-row input[type=date] { width: auto; padding: 6px 9px; }
+    .status-seg button { height: 32px; padding: 0 14px; }
+    .status-seg button.on.idea { background: #FFF3C4; color: #8A6A00; }
+    .status-seg button.on.draft { background: #E8ECF5; }
+    .status-seg button.on.published { background: #DDF7EE; color: #0E8A60; }
+    textarea.memo { min-height: 110px; resize: vertical; background: #FFFCEF; border-color: #F1E5B5; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .col-2 { grid-column: span 2; } .col-4 { grid-column: 1 / -1; }
+    label.f { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; color: var(--ink-2); }
+    label.f small { font-weight: 400; color: var(--muted); }
+    .thumb-box { display: flex; gap: 16px; align-items: center; margin-top: 14px; }
+    .thumb-box .thumb { width: 220px; flex: none; }
+    .thumb-box .btns { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+    .thumb-box small { font-size: 12px; color: var(--muted); }
+    details.card > summary { cursor: pointer; font-size: 14px; font-weight: 700; color: var(--ink-2); list-style: none; }
+    details.card > summary::before { content: '▸ '; }
+    details.card[open] > summary::before { content: '▾ '; }
+    details.card[open] > summary { margin-bottom: 12px; }
+
+    /* 본문 에디터 (SunEditor) */
+    .body-card { padding: 0; overflow: visible; }
+    .body-card > h3 { padding: 16px 20px 0; }
+    .body-card .help { padding: 0 20px 14px; }
+    .ed-body .sun-editor { border: 0; border-top: 1px solid var(--line); border-radius: 0 0 var(--radius) var(--radius); font-family: inherit; }
+    /* 편집 창을 내려도 도구 막대가 위에 붙어 있게 */
+    .ed-body .sun-editor .se-toolbar { position: sticky; top: -20px; z-index: 6; background: #fff; outline: 0; border-bottom: 1px solid var(--line); padding: 4px 8px; }
+    .ed-body .sun-editor .se-btn-module-border { border-color: transparent; }
+    .ed-body .sun-editor .se-wrapper { background: #fff; }
+    .ed-body .sun-editor-editable { padding: 28px 40px 60px; max-width: 820px; margin: 0 auto; }
+    .ed-body .sun-editor .se-resizing-bar { border-radius: 0 0 var(--radius) var(--radius); }
+    /* 에디터 안 글 모양을 실제 블로그 글과 비슷하게 */
+    .sun-editor-editable h2 { font-size: 25px; line-height: 1.4; margin: 40px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .sun-editor-editable h3 { font-size: 20px; margin: 30px 0 10px; }
+    .sun-editor-editable blockquote { margin: 20px 0; padding: 16px 20px; background: var(--brand-soft); border: 0 !important; border-radius: 12px; color: var(--ink); }
+    .sun-editor-editable hr { border: 0; border-top: 1px solid var(--line); margin: 32px 0; }
+    .sun-editor-editable figcaption { text-align: center; font-size: 14px; color: var(--muted); background: none !important; }
+    .help { font-size: 12px; color: var(--muted); margin-top: 8px; }
+
+    .menu { position: relative; }
+    .menu-pop { display: none; position: absolute; right: 0; top: 40px; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 6px; min-width: 220px; z-index: 20; box-shadow: 0 8px 24px rgba(27,32,51,.1); }
+    .menu.open .menu-pop { display: block; }
+    .menu-pop button { display: block; width: 100%; text-align: left; border: 0; background: none; font: inherit; font-size: 14px; padding: 9px 12px; border-radius: 6px; cursor: pointer; }
+    .menu-pop button:hover { background: var(--bg-2); }
+    .menu-pop .danger { color: #D33A3A; }
+    .menu-pop hr { border: 0; border-top: 1px solid var(--line); margin: 4px 0; }
+
+    .login { position: fixed; inset: 0; z-index: 50; background: var(--bg-2); display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .login[hidden] { display: none; }
+    .login form { width: min(360px, 100%); background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 28px; display: flex; flex-direction: column; gap: 12px; }
+    .login h2 { margin: 0 0 4px; font-size: 20px; }
+    .login p { margin: 0 0 8px; color: var(--muted); font-size: 14px; }
+    .login input { height: 44px; border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; font: inherit; }
+    .login .err { color: #D33A3A; font-size: 13px; min-height: 18px; margin: 0; }
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 10px; font-size: 14px; display: none; z-index: 60; }
+
+    @media (max-width: 900px) {
+      .topbar { padding: 0 12px; gap: 8px; }
+      .topbar .hide-m { display: none; }
+      .toolbar { padding: 12px; }
+      .quick, #search { flex: 1 1 100%; max-width: none; }
+      .main { padding: 0 0 12px; }
+      /* 보드: 칸을 옆으로 넘겨 보기 */
+      .board { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 12px; gap: 10px; }
+      .col { flex: 0 0 86%; scroll-snap-align: center; }
+      .table-wrap { margin: 0 12px; height: 100%; }
+      .list .hide-m { display: none; }
+      .ed-head { padding: 10px 12px; flex-wrap: wrap; }
+      .ed-head .state { order: 9; width: 100%; margin: 0; }
+      .ed-body { padding: 12px; }
+      .card { padding: 16px; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .body-area { grid-template-columns: 1fr; }
+      .thumb-box { flex-direction: column; align-items: flex-start; }
+      .thumb-box .thumb { width: 100%; }
+    }
+    /* 휴대폰: 맨 위 줄을 두 줄로(로고·서비스·더보기 / 보기 전환), 편집 도구는 한 줄로 옆으로 넘겨 쓰기 */
+    @media (max-width: 640px) {
+      body { height: 100dvh; }
+      .topbar { height: auto; flex-wrap: wrap; row-gap: 8px; padding: 8px 12px; }
+      .site-tabs { margin-left: 2px; min-width: 0; }
+      .site-tabs button { height: 34px; padding: 0 10px; font-size: 13px; }
+      #viewSeg { order: 10; width: 100%; }
+      #viewSeg button { flex: 1; height: 30px; }
+      .menu-pop .only-m { display: block; }
+      .toolbar { gap: 8px; padding: 10px 12px; }
+      .chips { flex-wrap: nowrap; overflow-x: auto; width: 100%; scrollbar-width: none; }
+      .chips::-webkit-scrollbar { display: none; }
+      .chips button { flex: none; }
+      .col { flex-basis: 88%; }
+      .ed-body { padding: 10px; }
+      .card { padding: 14px; border-radius: 12px; }
+      .title-input { font-size: 18px !important; }
+      .body-card > h3 { padding: 14px 14px 0; }
+      .body-card .help { padding: 0 14px 12px; }
+      .ed-body .sun-editor .se-toolbar { top: -10px; padding: 4px; }
+      .ed-body .sun-editor-editable { padding: 18px 16px 40px; }
+      .sun-editor-editable h2 { font-size: 21px; margin-top: 32px; }
+      .sun-editor .se-toolbar .se-btn-tray { display: flex; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+      .sun-editor .se-toolbar .se-btn-tray::-webkit-scrollbar { display: none; }
+      .sun-editor .se-toolbar .se-btn-module { flex: none; float: none; }
+    }
+    .menu-pop .only-m { display: none; }
+    @media (max-width: 520px) {
+      .grid { grid-template-columns: 1fr; }
+      .col-2 { grid-column: 1 / -1; }
+      .topbar .logo-txt { display: none; }
+      .pv { min-height: 320px; padding: 4px 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="logo" href="/admin"><span class="logo-mark">B</span><span class="logo-txt">블로그 <b>관리</b></span></a>
+    <div class="site-tabs" id="siteTabs" aria-label="서비스"></div>
+    <span class="topbar-gap"></span>
+    <div class="seg" id="viewSeg">
+      <button data-view="board">보드</button>
+      <button data-view="list">목록</button>
+      <button data-view="survey">설문</button>
+      <button data-view="settings">설정</button>
+    </div>
+    <a class="btn btn-sm hide-m" id="viewBlog" href="index.html" target="_blank">블로그 보기</a>
+    <button class="btn btn-sm btn-primary local-only hide-m" id="exportBtn">posts.js 내보내기</button>
+    <div class="menu" id="menu">
+      <button class="btn btn-sm" id="menuBtn" aria-label="더보기">···</button>
+      <div class="menu-pop">
+        <a class="only-m" href="index.html" target="_blank" id="viewBlogM" style="padding:9px 12px;font-size:14px;color:inherit;text-decoration:none">블로그 보기</a>
+        <button id="importBtn">파일에서 가져오기 (.js / .json)</button>
+        <button id="exportJsonBtn">JSON 백업 내려받기</button>
+        <button id="exportJsBtn" class="online-only">posts.js 형식으로 내려받기</button>
+        <hr>
+        <button id="resetBtn" class="danger local-only">브라우저 저장 내용 지우기</button>
+        <button id="logoutBtn" class="online-only">로그아웃</button>
+      </div>
+    </div>
+    <input type="file" id="importFile" accept=".js,.json" hidden>
+  </div>
+
+  <div class="toolbar">
+    <form class="quick" id="quickForm">
+      <input type="text" id="quickInput" placeholder="글감 한 줄 적고 Enter" autocomplete="off">
+      <select id="quickCat" aria-label="카테고리"></select>
+      <button class="btn" type="submit">추가</button>
+    </form>
+    <input type="search" id="search" placeholder="제목·메모·태그 검색">
+    <div class="chips" id="catChips"></div>
+    <div class="merge-bar" id="mergeBar" hidden></div>
+  </div>
+
+  <main class="main" id="main"></main>
+
+  <div class="backdrop" id="backdrop" hidden></div>
+  <aside class="drawer" id="drawer" hidden aria-label="글 편집"></aside>
+
+  <input type="file" id="thumbFile" accept="image/*" hidden>
+  <div class="toast" id="toast"></div>
+  <div class="login" id="login" hidden>
+    <form id="loginForm">
+      <h2>글 관리 로그인</h2>
+      <p>관리자 비밀번호를 입력하세요.</p>
+      <input type="password" id="loginPw" autocomplete="current-password" placeholder="비밀번호" required>
+      <p class="err" id="loginErr"></p>
+      <button class="btn btn-primary" type="submit">로그인</button>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.7/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/suneditor@2.47.12/dist/suneditor.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/suneditor@2.47.12/src/lang/ko.js"></script>
+  <script src="posts.js?all=1"></script>
+  <script src="assets/common.js"></script>
+  <script src="assets/thumb-editor.js"></script>
+  <script>
+    let posts = loadAll();
+    posts.forEach(p => { if (!p.id) p.id = uid(); });
+    let draft = null;          // 편집 중인 글 복사본
+    let dirty = false;
+    let editVer = 0;           // 입력할 때마다 증가 (자동 저장 중 입력 감지)
+    let saving = null;         // 진행 중인 저장(Promise)
+    const unsavedIds = new Set(); // 아직 한 번도 저장되지 않은 새 글
+    let catFilter = 'all';
+    let sortKey = 'date', sortDir = -1;
+    let VIEWS = {};   // 글별 조회수 { id: { total, d7, today } }
+    const vw = id => VIEWS[id] || { total: 0, d7: 0, today: 0 };
+    const fmtN = n => Number(n || 0).toLocaleString('ko-KR');
+    let view = 'board';
+    let siteFilter = 'selb';
+    try { if (SITES[localStorage.getItem('selb_admin_site')]) siteFilter = localStorage.getItem('selb_admin_site'); } catch (e) {}
+    const curSite = () => SITES[siteFilter];
+    try { view = localStorage.getItem('selb_write_view') || 'board'; } catch (e) {}
+    const AUTOSAVE_MS = 1200;
+
+    function uid() { return Math.random().toString(36).slice(2, 10); }
+    function $(id) { return document.getElementById(id); }
+    function toast(msg) {
+      const t = $('toast'); t.textContent = msg; t.style.display = 'block';
+      clearTimeout(toast._t); toast._t = setTimeout(() => t.style.display = 'none', 2200);
+    }
+    function clone(o) { return JSON.parse(JSON.stringify(o)); }
+
+    /* ---------- 저장소: 서버에서는 DB(API), 파일로 열면 브라우저 저장소 ---------- */
+    document.querySelectorAll(ONLINE ? '.local-only' : '.online-only').forEach(el => el.remove());
+    async function api(method, path, body, contentType) {
+      const opt = { method, headers: {}, credentials: 'same-origin' };
+      if (body !== undefined) {
+        opt.headers['content-type'] = contentType || 'application/json';
+        opt.body = contentType ? body : JSON.stringify(body);
+      }
+      const r = await fetch('/api/' + path, opt);
+      const data = await r.json().catch(() => ({}));
+      if (r.status === 401 && path !== 'login') { showLogin('로그인이 만료되었어요. 다시 로그인하세요.'); throw new Error('로그인이 필요합니다'); }
+      if (!r.ok) throw new Error(data.error || ('오류 ' + r.status));
+      return data;
+    }
+    function persistLocal() {
+      try { saveAll(posts); return true; }
+      catch (e) {
+        alert('브라우저 저장 공간이 부족합니다. 큰 이미지를 줄이거나 지운 뒤 다시 저장하세요.\n(먼저 posts.js 내보내기로 백업해 두는 것을 권장합니다)');
+        return false;
+      }
+    }
+    async function persistOne(p) {
+      if (!ONLINE) return persistLocal();
+      try { await api('PUT', 'posts/' + p.id, p); return true; }
+      catch (e) { alert('저장하지 못했습니다.\n' + e.message); return false; }
+    }
+    async function persistDelete(id) {
+      if (!ONLINE) return persistLocal();
+      try { await api('DELETE', 'posts/' + id); return true; }
+      catch (e) { alert('삭제하지 못했습니다.\n' + e.message); return false; }
+    }
+    async function persistAll() {
+      if (!ONLINE) return persistLocal();
+      try { await api('PUT', 'posts', posts); return true; }
+      catch (e) { alert('저장하지 못했습니다.\n' + e.message); return false; }
+    }
+    /* 이미지: 서버에서는 R2에 올리고 주소를, 파일로 열면 data URL을 쓴다 */
+    async function imageValue(file, maxW) {
+      const dataUrl = await compressImage(file, maxW, 0.82);
+      if (!ONLINE) return dataUrl;
+      const blob = await (await fetch(dataUrl)).blob();
+      toast('이미지를 올리는 중…');
+      const { url } = await api('POST', 'upload', blob, 'image/jpeg');
+      return url;
+    }
+    function compressImage(file, maxW, quality) {
+      return new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => {
+          const img = new Image();
+          img.onload = () => {
+            const scale = Math.min(1, maxW / img.width);
+            const c = document.createElement('canvas');
+            c.width = Math.round(img.width * scale); c.height = Math.round(img.height * scale);
+            const ctx = c.getContext('2d');
+            ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, c.width, c.height);
+            ctx.drawImage(img, 0, 0, c.width, c.height);
+            resolve(c.toDataURL('image/jpeg', quality));
+          };
+          img.onerror = reject;
+          img.src = r.result;
+        };
+        r.onerror = reject;
+        r.readAsDataURL(file);
+      });
+    }
+    function showLogin(msg) {
+      $('login').hidden = false;
+      $('loginErr').textContent = msg || '';
+      setTimeout(() => $('loginPw').focus(), 0);
+    }
+
+    function newPost(fields) {
+      return Object.assign({
+        id: uid(), site: siteFilter, slug: '', slugAuto: true, title: '', category: curSite().categories[0].id, status: 'idea',
+        date: todayStr(), summary: '', tags: [], thumbnail: '', featured: false,
+        ctaText: '', ctaUrl: '', memo: '', body: '', images: {},
+      }, fields || {});
+    }
+
+    /* 저장 전에 주소·이미지 정리. 주소는 발행 전까지 제목을 따라간다 (직접 고치면 고정) */
+    function normalize(p) {
+      const autoSlug = p.status !== 'published' && (!p.slug || p.slugAuto);
+      if (autoSlug && p.title.trim()) { p.slug = makeSlug(p.title); p.slugAuto = true; }
+      else if (p.slug) p.slug = makeSlug(p.slug);
+      if (p.slug) {
+        let base = p.slug, n = 2;
+        while (posts.some(o => o.slug === p.slug && o.id !== p.id)) p.slug = base + '-' + n++;
+      }
+      if (p.status === 'published' && !p.date) p.date = todayStr();
+      const used = {};
+      Object.keys(p.images || {}).forEach(id => { if ((p.body || '').includes('img:' + id)) used[id] = p.images[id]; });
+      p.images = used;
+    }
+
+    /* 하나의 글 저장 (목록 갱신 포함) */
+    async function storePost(p) {
+      const idx = posts.findIndex(o => o.id === p.id);
+      const prev = idx >= 0 ? posts[idx] : null;
+      const copy = clone(p);
+      if (idx >= 0) posts[idx] = copy; else posts.push(copy);
+      if (!(await persistOne(copy))) {
+        if (idx >= 0) posts[idx] = prev; else posts.splice(posts.indexOf(copy), 1);
+        return false;
+      }
+      unsavedIds.delete(p.id);
+      renderMain();
+      return true;
+    }
+
+    /* ---------- 상단 필터 ---------- */
+    function renderSiteTabs() {
+      $('siteTabs').innerHTML = Object.values(SITES).map(s => {
+        const n = posts.filter(p => siteOf(p) === s.id).length;
+        return `<button data-site="${s.id}" class="${s.id === siteFilter ? 'on' : ''}"><span class="dot" style="background:${s.color}"></span>${esc(s.brandName)} <small>${n}</small></button>`;
+      }).join('');
+    }
+    function applySiteUI() {
+      $('quickCat').innerHTML = curSite().categories.map(c => `<option value="${c.id}">${c.label}</option>`).join('');
+      $('viewBlog').href = $('viewBlogM').href = curSite().base;
+      $('quickInput').placeholder = curSite().brandName + ' 글감 한 줄 적고 Enter';
+    }
+    $('siteTabs').addEventListener('click', e => {
+      const b = e.target.closest('[data-site]'); if (!b || b.dataset.site === siteFilter) return;
+      siteFilter = b.dataset.site; catFilter = 'all';
+      try { localStorage.setItem('selb_admin_site', siteFilter); } catch (err) {}
+      applySiteUI(); renderMain();
+    });
+    function sitePostsAdmin() { return posts.filter(p => siteOf(p) === siteFilter); }
+    function renderChips() {
+      const chips = [{ id: 'all', label: '전체' }, ...curSite().categories];
+      renderSiteTabs();
+      const mine = sitePostsAdmin();
+      $('catChips').innerHTML = chips.map(c => {
+        const n = c.id === 'all' ? mine.length : mine.filter(p => p.category === c.id).length;
+        return `<button data-cat="${c.id}" class="${catFilter === c.id ? 'on' : ''}">${c.label} ${n}</button>`;
+      }).join('');
+      $('viewSeg').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.view === view));
+    }
+    function filtered() {
+      const q = $('search').value.trim().toLowerCase();
+      return sitePostsAdmin()
+        .filter(p => catFilter === 'all' || p.category === catFilter)
+        .filter(p => !q || [p.title, p.memo, p.summary, (p.tags || []).join(' ')].join(' ').toLowerCase().includes(q));
+    }
+
+    /* ---------- 보드 / 목록 ---------- */
+    const COL_HINT = { idea: '떠오른 주제를 쌓아 두는 곳', draft: '본문을 쓰는 중인 글', published: '블로그에 공개된 글' };
+    function cardHTML(p) {
+      const memo = (p.memo || '').split('\n').find(l => l.trim()) || '';
+      const hasWarn = /⚠|\[ *\]/.test((p.memo || '') + (p.body || ''));
+      return `<button class="kcard ${draft && draft.id === p.id ? 'on' : ''}" draggable="true" data-id="${p.id}">
+        <div class="k-main">
+          <div class="k-meta"><span class="cat ${esc(p.category)}">${esc(catLabel(p.category))}</span>${p.featured ? '<span class="star" title="추천글">★</span>' : ''}${hasWarn ? '<span class="warn" title="확인할 곳이 있어요">⚠</span>' : ''}<span>${fmtDate(p.date)}</span>${p.status === 'published' ? `<span class="views" title="전체 조회 ${fmtN(vw(p.id).total)} · 최근 7일 ${fmtN(vw(p.id).d7)}">👁 ${fmtN(vw(p.id).total)}${vw(p.id).d7 ? ` <small>+${fmtN(vw(p.id).d7)}</small>` : ''}</span>` : ''}</div>
+          <div class="k-title">${esc(p.title || '(제목 없음)')}</div>
+          ${memo ? `<div class="k-memo">${esc(memo)}</div>` : ''}
+        </div>
+        ${p.thumbnail ? `<img class="k-thumb" src="${esc(p.thumbnail)}" alt="" loading="lazy">` : ''}
+      </button>`;
+    }
+    function renderBoard() {
+      const list = filtered();
+      $('main').innerHTML = `<div class="board">${STATUSES.map(s => {
+        const items = list.filter(p => p.status === s.id)
+          .sort((a, b) => (b.featured - a.featured) || byDateDesc(a, b));
+        return `<section class="col" data-status="${s.id}">
+          <div class="col-head"><h2>${s.label}</h2><span class="n">${items.length}</span>
+            <button class="add" data-add="${s.id}" title="${s.label}에 새 글">+</button></div>
+          <div class="col-hint">${COL_HINT[s.id]}</div>
+          <div class="col-body">${items.map(cardHTML).join('') || '<div class="col-empty">카드를 여기로 끌어 놓을 수 있어요</div>'}</div>
+        </section>`;
+      }).join('')}</div>`;
+    }
+    function renderTable() {
+      const order = { idea: 0, draft: 1, published: 2 };
+      const val = {
+        title: p => p.title || '', status: p => order[p.status], category: p => p.category || '', date: p => p.date || '', views: p => vw(p.id).total, d7: p => vw(p.id).d7,
+      };
+      const list = filtered().sort((a, b) => {
+        const x = val[sortKey](a), y = val[sortKey](b);
+        return (x < y ? -1 : x > y ? 1 : 0) * sortDir || byDateDesc(a, b);
+      });
+      const th = (k, label, cls = '') => `<th data-sort="${k}" class="${cls} ${sortKey === k ? 'sorted' : ''}">${label}${sortKey === k ? (sortDir > 0 ? ' ▲' : ' ▼') : ''}</th>`;
+      $('main').innerHTML = `<div class="table-wrap"><table class="list">
+        <thead><tr><th class="hide-m"></th>${th('title', '제목')}${th('status', '상태')}${th('category', '카테고리', 'hide-m')}${th('date', '날짜', 'hide-m')}${th('views', '조회수')}${th('d7', '최근 7일', 'hide-m')}</tr></thead>
+        <tbody>${list.map(p => `<tr class="row ${draft && draft.id === p.id ? 'on' : ''}" data-id="${p.id}">
+          <td class="hide-m">${p.thumbnail ? `<img class="th-img" src="${esc(p.thumbnail)}" alt="" loading="lazy">` : ''}</td>
+          <td><div class="t">${p.featured ? '<span class="star">★</span> ' : ''}${esc(p.title || '(제목 없음)')}</div>${p.memo ? `<div class="memo">${esc(p.memo.split('\n')[0])}</div>` : ''}</td>
+          <td><select data-status-of="${p.id}" aria-label="상태">${STATUSES.map(s => `<option value="${s.id}" ${p.status === s.id ? 'selected' : ''}>${s.label}</option>`).join('')}</select></td>
+          <td class="hide-m nowrap"><span class="cat ${esc(p.category)}">${esc(catLabel(p.category))}</span></td>
+          <td class="hide-m nowrap">${fmtDate(p.date)}</td>
+          <td class="num">${p.status === 'published' || vw(p.id).total ? fmtN(vw(p.id).total) : '-'}</td>
+          <td class="num hide-m">${vw(p.id).d7 ? '+' + fmtN(vw(p.id).d7) : '-'}</td>
+        </tr>`).join('') || '<tr><td colspan="7" class="col-empty">글이 없습니다</td></tr>'}</tbody>
+      </table></div>`;
+    }
+    /* ---------- 설문 결과 ---------- */
+    /* 설문 결과는 서비스 + 기간별로 불러온다 (한국 시간 기준) */
+    const SURVEY_DATA = {};   // '서비스|from|to' → 응답 목록
+    const KST = 9 * 3600e3, DAYMS = 864e5;
+    const kstToday = () => new Date(Date.now() + KST).toISOString().slice(0, 10);
+    const dayStart = d => Date.parse(d + 'T00:00:00+09:00');           // 'YYYY-MM-DD' → 그날 0시(밀리초)
+    const ymd = ms => new Date(ms + KST).toISOString().slice(0, 10);     // 밀리초 → 'YYYY-MM-DD'
+    const addDays = (d, n) => ymd(dayStart(d) + n * DAYMS);
+    const PERIODS = [
+      { id: 'today', label: '오늘' }, { id: '7d', label: '최근 7일' }, { id: '30d', label: '최근 30일' },
+      { id: 'month', label: '이번 달' }, { id: 'lastmonth', label: '지난 달' }, { id: 'all', label: '전체' }, { id: 'custom', label: '직접 지정' },
+    ];
+    let svPeriod = { id: '30d', from: '', to: '' };
+    let svProfile = { gender: '', age: '' };   // 응답자 거르기 (빈 값 = 전체)
+    try { const sp = JSON.parse(localStorage.getItem('selb_admin_svperiod') || 'null'); if (sp && sp.id) svPeriod = sp; } catch (e) {}
+    // 고른 기간 → { from, to(다음 날 0시, 미포함), label }
+    function periodRange(pr) {
+      const t = kstToday(), tomorrow = dayStart(addDays(t, 1));
+      const m1 = t.slice(0, 8) + '01';
+      if (pr.id === 'today') return { from: dayStart(t), to: tomorrow };
+      if (pr.id === '7d') return { from: dayStart(addDays(t, -6)), to: tomorrow };
+      if (pr.id === '30d') return { from: dayStart(addDays(t, -29)), to: tomorrow };
+      if (pr.id === 'month') return { from: dayStart(m1), to: tomorrow };
+      if (pr.id === 'lastmonth') { const lm = ymd(dayStart(m1) - DAYMS).slice(0, 8) + '01'; return { from: dayStart(lm), to: dayStart(m1) }; }
+      if (pr.id === 'custom' && pr.from && pr.to) {
+        const a = pr.from <= pr.to ? pr.from : pr.to, b = pr.from <= pr.to ? pr.to : pr.from;
+        return { from: dayStart(a), to: dayStart(addDays(b, 1)) };
+      }
+      return { from: 0, to: tomorrow }; // 전체
+    }
+    const svKey = () => { const r = periodRange(svPeriod); return siteFilter + '|' + r.from + '|' + r.to; };
+    async function loadSurvey(force) {
+      if (!ONLINE || !window.BLOG_ADMIN) return;
+      const key = svKey();
+      if (SURVEY_DATA[key] && !force) return;
+      const r = periodRange(svPeriod);
+      try { SURVEY_DATA[key] = await api('GET', 'survey?site=' + siteFilter + '&from=' + r.from + '&to=' + r.to); } catch (e) { SURVEY_DATA[key] = []; }
+      if (view === 'survey') renderMain();
+    }
+    /* ---------- 설정 (서비스별 설문) ---------- */
+    const ST = {};   // 서비스별 편집 중인 설정 { cfg, dirty }
+    function stState() {
+      if (!ST[siteFilter]) ST[siteFilter] = { cfg: surveyConfig(siteFilter), dirty: false };
+      return ST[siteFilter];
+    }
+    const stSaved = () => !!(window.BLOG_SURVEY && window.BLOG_SURVEY[siteFilter]);
+    /* ---------- 매일 자동 초안 (SelB) ---------- */
+    let AD = null, adBusy = false;   // { config, log, hasKey, categories }
+    async function loadAutodraft() {
+      if (!ONLINE || !window.BLOG_ADMIN) return;
+      try { AD = await api('GET', 'autodraft'); } catch (e) { AD = { error: e.message }; }
+      if (view === 'settings' && siteFilter === 'selb') renderSettings();
+    }
+    function autodraftCard() {
+      if (!ONLINE) return '<div class="st-card"><h3>매일 자동 초안</h3><p class="d">블로그 서버의 관리자 페이지에서 설정할 수 있어요.</p></div>';
+      if (!AD) { loadAutodraft(); return '<div class="st-card"><h3>매일 자동 초안</h3><p class="d">불러오는 중…</p></div>'; }
+      if (AD.error) return `<div class="st-card"><h3>매일 자동 초안</h3><p class="d">불러오지 못했어요: ${esc(AD.error)}</p></div>`;
+      const c = AD.config, cats = AD.categories;
+      const when = t => new Date(t).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      return `<div class="st-card ad-card">
+        <div class="st-head"><h3>매일 자동 초안</h3>
+          <span class="st-state">${AD.hasKey ? (c.enabled ? '켜짐 · 매일 오전 6시' : '꺼짐') : '<b style="color:#D33A3A">Claude API 키가 없어 아직 동작하지 않아요</b>'}</span></div>
+        <p class="d" style="margin-top:6px">매일 오전 6시(한국 시간)에 고른 카테고리마다 글 한 편씩 Claude가 써서 <b>초안</b>으로 저장해요. 이벤트, 고객 인터뷰·고객 이야기·후기처럼 실제 사례로 보일 수 있는 글은 만들지 않아요. 발행은 직접 확인한 뒤에 해 주세요.</p>
+        ${AD.hasKey ? '' : '<p class="d" style="color:#D33A3A">터미널에서 <code>npx wrangler secret put ANTHROPIC_API_KEY</code> 로 키를 넣으면 바로 동작해요.</p>'}
+        <label class="st-switch"><input type="checkbox" id="adEnabled" ${c.enabled ? 'checked' : ''}> 매일 자동으로 초안 만들기</label>
+        <div class="ad-cats">${Object.entries(cats).map(([id, x]) => `<label><input type="checkbox" data-adcat="${id}" ${c.categories.includes(id) ? 'checked' : ''}> ${x.label}</label>`).join('')}<label class="off"><input type="checkbox" disabled> 이벤트 <small>(만들지 않아요)</small></label></div>
+        <div class="ad-run">
+          <select id="adRunCat">${Object.entries(cats).map(([id, x]) => `<option value="${id}">${x.label}</option>`).join('')}</select>
+          <button class="btn btn-sm btn-primary" id="adRun" ${AD.hasKey && !adBusy ? '' : 'disabled'}>${adBusy ? '만드는 중… 1~3분 걸려요' : '지금 한 편 만들어 보기'}</button>
+          <button class="btn btn-sm" id="adReload">기록 새로고침</button>
+        </div>
+        <div class="ad-log">${(AD.log || []).slice(0, 14).map(l => `<div class="ad-row ${l.ok ? 'ok' : 'fail'}">
+            <span class="t">${when(l.at)}</span><span class="c">${esc((cats[l.category] || {}).label || l.category)}</span><span class="w">${l.trigger === 'cron' ? '매일' : '직접'}</span>
+            <span class="r">${l.ok ? `<a href="#" data-open="${l.postId}">${esc(l.title)}</a> <small>${l.chars ? l.chars + '자' : ''}</small>` : '실패 · ' + esc(l.error || '')}</span></div>`).join('') || '<div class="sv-empty">아직 만든 초안이 없어요.</div>'}</div>
+      </div>`;
+    }
+    async function saveAutodraft() {
+      const cfg = { enabled: $('adEnabled').checked, categories: [...document.querySelectorAll('[data-adcat]')].filter(x => x.checked).map(x => x.dataset.adcat) };
+      try { AD.config = await api('PUT', 'autodraft', cfg); toast(cfg.enabled ? '자동 초안 설정을 저장했어요' : '자동 초안을 껐어요'); renderSettings(); }
+      catch (err) { alert('저장하지 못했어요.\n' + err.message); }
+    }
+    async function runAutodraft() {
+      if (adBusy) return;
+      adBusy = true; renderSettings();
+      try {
+        const r = await api('POST', 'autodraft/run', { category: $('adRunCat').value });
+        if (r.ok) {
+          // 새 초안을 목록에 넣는다
+          const all = await api('GET', 'posts');
+          posts = migrate(all);
+          toast('초안을 만들었어요: ' + r.title);
+        } else alert('초안을 만들지 못했어요.\n' + r.error);
+      } catch (err) { alert('초안을 만들지 못했어요.\n' + err.message); }
+      adBusy = false;
+      AD = null; await loadAutodraft();
+    }
+
+    function renderSettings() {
+      const st = stState(), c = st.cfg;
+      const prevPost = posts.find(p => siteOf(p) === siteFilter && p.status === 'published' && p.slug);
+      const qHTML = (q, i) => {
+        const scale = q.type === 'scale';
+        return `<div class="st-q" data-i="${i}">
+          <div class="row1">
+            <label>주제<input type="text" data-q="topic" value="${esc(q.topic || '')}" maxlength="20" placeholder="글 품질"></label>
+            <label>질문<input type="text" data-q="q" value="${esc(q.q || '')}" maxlength="80" placeholder="이 글이 도움이 되었나요?"></label>
+            <label>형식<select data-q="type"><option value="choice" ${!scale ? 'selected' : ''}>객관식</option><option value="scale" ${scale ? 'selected' : ''}>1~5점</option></select></label>
+            <label>자주 나오는 정도<select data-q="weight">${[1, 2, 3, 4, 5].map(n => `<option value="${n}" ${Number(q.weight || 1) === n ? 'selected' : ''}>${n}${n === 1 ? ' (드물게)' : n === 5 ? ' (자주)' : ''}</option>`).join('')}</select></label>
+            <div class="tools">
+              <button type="button" data-qa="up" title="위로" ${i === 0 ? 'disabled' : ''}>↑</button>
+              <button type="button" data-qa="down" title="아래로" ${i === c.questions.length - 1 ? 'disabled' : ''}>↓</button>
+              <button type="button" data-qa="preview" title="이 질문 미리보기">미리보기</button>
+              <button type="button" data-qa="del" class="danger" title="삭제">삭제</button>
+            </div>
+          </div>
+          <div class="row2">
+            ${scale
+              ? `<label>1~5점 아래 작은 설명 <span class="hint">다섯 칸을 쉼표로 (예: 전혀, 별로, 보통, 도움됨, 아주 많이)</span><input type="text" data-q="labels" value="${esc((q.labels || []).join(', '))}"></label>`
+              : `<label>선택지 <span class="hint">한 줄에 하나씩 · 2~8개</span><textarea data-q="options">${esc((q.options || []).join('\n'))}</textarea></label>`}
+            <div class="qid">질문 ID: ${esc(q.id || '(저장할 때 정해져요)')}<br>결과는 이 ID로 모여요. 질문 문구를 고쳐도 지난 응답은 그대로 이어져요.</div>
+          </div>
+        </div>`;
+      };
+      $('main').innerHTML = `<div class="st-wrap"><div class="inner">
+        ${siteFilter === 'selb' ? autodraftCard() : ''}
+        <div class="st-card">
+          <div class="st-head">
+            <h3>${esc(curSite().brandName)} 독자 설문</h3>
+            <span class="st-state ${st.dirty ? 'dirty' : ''}">${st.dirty ? '저장 안 됨' : stSaved() ? '저장된 설정을 쓰는 중' : '기본 설정을 쓰는 중'}</span>
+            ${prevPost ? `<a class="btn btn-sm" href="${curSite().base}post.html?slug=${encodeURIComponent(prevPost.slug)}&survey=1" target="_blank">설문 미리보기</a>` : ''}
+            <button class="btn btn-sm" id="stReset" ${stSaved() || st.dirty ? '' : 'disabled'}>기본값으로 되돌리기</button>
+            <button class="btn btn-sm btn-primary" id="stSave" ${st.dirty ? '' : 'disabled'}>저장</button>
+          </div>
+          <p class="d" style="margin-top:8px">저장하면 블로그에 바로 반영돼요. 미리보기는 관리자에게만 보이고 응답이 저장되지 않아요(저장한 설정 기준).</p>
+          <label class="st-switch"><input type="checkbox" data-s="enabled" ${c.enabled ? 'checked' : ''}> 글 페이지에서 설문 보여 주기</label>
+          <label class="st-switch" style="margin-top:10px"><input type="checkbox" data-s="askProfile" ${c.askProfile !== false ? 'checked' : ''}> 응답 후 마지막에 성별·나이대 묻기 <small style="font-weight:400;color:var(--muted)">(선택 응답 · 건너뛸 수 있어요)</small></label>
+        </div>
+        <div class="st-card">
+          <h3>언제, 누구에게</h3>
+          <p class="d">조건을 모두 만족하는 방문자에게 한 문항을 무작위로 보여 줘요. 관리자에게는 보이지 않아요.</p>
+          <div class="st-grid">
+            <label class="st-field">보여 줄 비율 <small>글을 연 방문자 중</small><span class="unit"><input type="number" min="0" max="100" step="5" data-s="chance" value="${Math.round(c.chance * 100)}"><span>%</span></span></label>
+            <label class="st-field">글을 이만큼 읽으면 <small>스크롤 기준</small><span class="unit"><input type="number" min="10" max="100" step="10" data-s="minRead" value="${Math.round(c.minRead * 100)}"><span>%</span></span></label>
+            <label class="st-field">또는 머문 시간이 <small>먼저 되는 쪽에 띄워요</small><span class="unit"><input type="number" min="5" max="600" step="5" data-s="delaySec" value="${c.delaySec}"><span>초</span></span></label>
+            <label class="st-field">답한 사람은 <small>다시 묻지 않는 기간</small><span class="unit"><input type="number" min="0" max="365" data-s="answeredDays" value="${c.answeredDays}"><span>일</span></span></label>
+            <label class="st-field">닫은 사람은 <small>다시 묻지 않는 기간</small><span class="unit"><input type="number" min="0" max="365" data-s="closedDays" value="${c.closedDays}"><span>일</span></span></label>
+          </div>
+        </div>
+        <div class="st-card">
+          <div class="st-head"><h3>질문 (${c.questions.length}개)</h3><span class="st-state"></span><button class="btn btn-sm" id="stAdd" ${c.questions.length >= 20 ? 'disabled' : ''}>질문 추가</button></div>
+          <p class="d" style="margin-top:6px">'자주 나오는 정도'가 클수록 그 질문이 더 자주 뽑혀요. 글 품질을 재는 질문은 1~5점 형식을 쓰면 관리자 '설문' 탭에서 글별 평균 점수로 볼 수 있어요(질문 ID가 helpful인 질문).</p>
+          ${c.questions.map(qHTML).join('') || '<div class="sv-empty">질문이 없어요. 질문을 추가해 주세요.</div>'}
+        </div>
+      </div></div>`;
+    }
+    const stTouch = () => { const st = stState(); if (!st.dirty) { st.dirty = true; const el = document.querySelector('.st-state'); if (el) { el.textContent = '저장 안 됨'; el.classList.add('dirty'); } $('stSave').disabled = false; $('stReset').disabled = false; } };
+    function stRead(el) {
+      const c = stState().cfg;
+      if (el.dataset.s) {
+        const k = el.dataset.s;
+        if (el.type === 'checkbox') c[k] = el.checked;
+        else if (k === 'chance' || k === 'minRead') c[k] = Math.min(100, Math.max(0, Number(el.value) || 0)) / 100;
+        else c[k] = Math.max(0, Number(el.value) || 0);
+        return false;
+      }
+      const box = el.closest('.st-q'); if (!box || !el.dataset.q) return false;
+      const q = c.questions[Number(box.dataset.i)], k = el.dataset.q;
+      if (k === 'options') q.options = el.value.split('\n').map(x => x.trim()).filter(Boolean);
+      else if (k === 'labels') q.labels = el.value.split(',').map(x => x.trim());
+      else if (k === 'weight') q.weight = Number(el.value);
+      else if (k === 'type') {
+        q.type = el.value;
+        if (q.type === 'scale') { q.options = ['1', '2', '3', '4', '5']; q.labels = q.labels && q.labels.length === 5 ? q.labels : ['전혀', '별로', '보통', '도움됨', '아주 많이']; }
+        else { q.options = (q.options || []).filter(o => !/^[1-5]$/.test(o)); delete q.labels; }
+        return true; // 다시 그리기
+      }
+      else q[k] = el.value;
+      return false;
+    }
+    $('main').addEventListener('click', e => {
+      if (view !== 'settings') return;
+      const t = e.target;
+      if (t.id === 'adRun') { e.stopImmediatePropagation(); runAutodraft(); }
+      else if (t.id === 'adReload') { e.stopImmediatePropagation(); AD = null; loadAutodraft(); }
+      else if (t.dataset && t.dataset.open) { e.preventDefault(); e.stopImmediatePropagation(); openPost(t.dataset.open); }
+    }, true);
+    $('main').addEventListener('change', e => {
+      if (view !== 'settings') return;
+      if (e.target.id === 'adEnabled' || e.target.dataset.adcat) { e.stopImmediatePropagation(); saveAutodraft(); }
+    }, true);
+    $('main').addEventListener('input', e => { if (view !== 'settings') return; if (e.target.id === 'adEnabled' || e.target.dataset.adcat) return; if (stRead(e.target) ) renderSettings(); stTouch(); });
+    $('main').addEventListener('change', e => { if (view !== 'settings' || e.target.type !== 'checkbox' && e.target.tagName !== 'SELECT') return; if (stRead(e.target)) renderSettings(); stTouch(); });
+    $('main').addEventListener('click', async e => {
+      if (view !== 'settings') return;
+      const st = stState(), c = st.cfg;
+      const qa = e.target.closest('[data-qa]');
+      if (qa) {
+        const i = Number(qa.closest('.st-q').dataset.i), a = qa.dataset.qa;
+        if (a === 'preview') {
+          const q = c.questions[i];
+          const pp = posts.find(p => siteOf(p) === siteFilter && p.status === 'published' && p.slug);
+          if (!pp) return alert('미리보기할 발행 글이 없어요.');
+          if (st.dirty) alert('미리보기는 저장된 설정으로 보여 드려요. 고친 내용을 보려면 먼저 저장해 주세요.');
+          window.open(curSite().base + 'post.html?slug=' + encodeURIComponent(pp.slug) + '&survey=1&q=' + encodeURIComponent(q.id || ''), '_blank');
+          return;
+        }
+        if (a === 'del') { if (!confirm('이 질문을 지울까요? 지난 응답은 남지만 설문 탭에는 보이지 않아요.')) return; c.questions.splice(i, 1); }
+        if (a === 'up' && i > 0) [c.questions[i - 1], c.questions[i]] = [c.questions[i], c.questions[i - 1]];
+        if (a === 'down' && i < c.questions.length - 1) [c.questions[i + 1], c.questions[i]] = [c.questions[i], c.questions[i + 1]];
+        renderSettings(); stTouch(); return;
+      }
+      const b = e.target.closest('button'); if (!b) return;
+      if (b.id === 'stAdd') { c.questions.push({ id: '', topic: '기타', q: '', type: 'choice', options: ['', ''], weight: 1 }); renderSettings(); stTouch(); const last = document.querySelectorAll('.st-q [data-q="q"]'); if (last.length) last[last.length - 1].focus(); return; }
+      if (b.id === 'stSave') {
+        for (const q of c.questions) {
+          if (!q.q.trim()) return alert('비어 있는 질문이 있어요. 질문을 적거나 지워 주세요.');
+          if (q.type !== 'scale' && q.options.filter(Boolean).length < 2) return alert('"' + q.q + '" 질문에 선택지를 두 개 이상 적어 주세요.');
+        }
+        if (!c.questions.length) return alert('질문이 하나 이상 있어야 해요.');
+        try {
+          const saved = await api('PUT', 'settings/survey/' + siteFilter, c);
+          window.BLOG_SURVEY = window.BLOG_SURVEY || {}; window.BLOG_SURVEY[siteFilter] = saved;
+          ST[siteFilter] = { cfg: surveyConfig(siteFilter), dirty: false };
+          renderSettings(); toast('저장했어요 · 블로그에 바로 반영돼요');
+        } catch (err) { alert('저장하지 못했어요.\n' + err.message); }
+        return;
+      }
+      if (b.id === 'stReset') {
+        if (!confirm('설문 설정을 처음 기본값으로 되돌릴까요? (질문·비율·기간 모두)')) return;
+        try {
+          if (stSaved()) await api('DELETE', 'settings/survey/' + siteFilter);
+          if (window.BLOG_SURVEY) delete window.BLOG_SURVEY[siteFilter];
+          ST[siteFilter] = { cfg: surveyConfig(siteFilter), dirty: false };
+          renderSettings(); toast('기본값으로 되돌렸어요');
+        } catch (err) { alert('되돌리지 못했어요.\n' + err.message); }
+      }
+    });
+    window.addEventListener('beforeunload', e => { if (Object.values(ST).some(x => x.dirty)) { e.preventDefault(); e.returnValue = ''; } });
+
+    function renderSurvey() {
+      const CFG = surveyConfig(siteFilter);
+      const qs = CFG.questions || [];
+      if (!ONLINE) { $('main').innerHTML = '<div class="sv-wrap"><div class="sv-box">설문 결과는 블로그 서버의 관리자 페이지에서 볼 수 있어요.</div></div>'; return; }
+      const R = periodRange(svPeriod);
+      const allRows = SURVEY_DATA[svKey()];
+      const pfMatch = (v, want) => !want || (want === '_blank' ? !v : v === want);
+      const rows = allRows && allRows.filter(r => pfMatch(r.gender || '', svProfile.gender) && pfMatch(r.age || '', svProfile.age));
+      const filtered = !!(svProfile.gender || svProfile.age);
+      const periodBar = `<div class="sv-period">
+        <div class="seg" id="svPeriods">${PERIODS.map(p => `<button data-p="${p.id}" class="${svPeriod.id === p.id ? 'on' : ''}">${p.label}</button>`).join('')}</div>
+        ${svPeriod.id === 'custom' ? `<span class="sv-dates"><input type="date" id="svFrom" value="${esc(svPeriod.from || addDays(kstToday(), -29))}" max="${kstToday()}"> ~ <input type="date" id="svTo" value="${esc(svPeriod.to || kstToday())}" max="${kstToday()}"><button class="btn btn-sm" id="svApply">보기</button></span>` : ''}
+        <span class="sv-pfsel">
+          <select id="svGender" aria-label="성별"><option value="">성별 전체</option>${SURVEY_PROFILE.genders.map(g => `<option value="${g.id}" ${svProfile.gender === g.id ? 'selected' : ''}>${g.id === 'none' ? '성별 응답 안 함' : g.label}</option>`).join('')}<option value="_blank" ${svProfile.gender === '_blank' ? 'selected' : ''}>성별 정보 없음</option></select>
+          <select id="svAge" aria-label="나이대"><option value="">나이대 전체</option>${SURVEY_PROFILE.ages.map(g => `<option value="${g.id}" ${svProfile.age === g.id ? 'selected' : ''}>${g.id === 'none' ? '나이 응답 안 함' : g.label}</option>`).join('')}<option value="_blank" ${svProfile.age === '_blank' ? 'selected' : ''}>나이대 정보 없음</option></select>
+        </span>
+        <span class="sv-range">${R.from ? ymd(R.from).replace(/-/g, '.') : '처음'} ~ ${ymd(R.to - 1).replace(/-/g, '.')}</span>
+        <button class="btn btn-sm" id="svReload">새로고침</button>
+        <button class="btn btn-sm" id="svCsv" ${rows && rows.length ? '' : 'disabled'}>CSV 내려받기</button>
+      </div>`;
+      if (!rows) { $('main').innerHTML = `<div class="sv-wrap">${periodBar}<div class="sv-box">설문 결과를 불러오는 중…</div></div>`; bindSurveyBar(); loadSurvey(); return; }
+
+      const pct = (n, t) => t ? Math.round(n / t * 100) : 0;
+      const title = id => { const p = posts.find(x => x.id === id); return p ? p.title : '(지운 글)'; };
+      const qName = id => (qs.find(q => q.id === id) || {}).q || '(지운 질문 ' + id + ')';
+      const helpful = rows.filter(r => r.qid === 'helpful');
+      const helpAvg = helpful.length ? (helpful.reduce((a, r) => a + Number(r.answer || 0), 0) / helpful.length).toFixed(1) : '-';
+      const comments = rows.filter(r => r.comment);
+
+      // 날짜별 응답 수 (기간이 92일을 넘으면 주 단위)
+      let chart = '';
+      if (rows.length) {
+        const first = R.from || dayStart(ymd(Math.min(...rows.map(r => r.created_at))));
+        const last = Math.min(R.to, dayStart(addDays(kstToday(), 1)));
+        const days = Math.max(1, Math.round((last - first) / DAYMS));
+        const weekly = days > 92;
+        const step = weekly ? 7 : 1;
+        const buckets = [];
+        for (let t = first; t < last; t += step * DAYMS) buckets.push({ from: t, to: Math.min(last, t + step * DAYMS), n: 0, c: 0 });
+        rows.forEach(r => { const i = Math.floor((r.created_at - first) / (step * DAYMS)); if (buckets[i]) { buckets[i].n++; if (r.comment) buckets[i].c++; } });
+        const max = Math.max(1, ...buckets.map(x => x.n));
+        const every = Math.ceil(buckets.length / 12);
+        chart = `<div class="sv-box"><h3>${weekly ? '주별' : '날짜별'} 응답 수</h3>
+          <div class="sv-chart">${buckets.map((x, i) => `<div class="ch" title="${ymd(x.from)}${weekly ? ' 주' : ''} · 응답 ${x.n}건 · 의견 ${x.c}건"><span class="v">${x.n || ''}</span><span class="bar" style="height:${Math.round(x.n / max * 100)}%"></span><span class="d">${i % every === 0 ? ymd(x.from).slice(5).replace('-', '.') : ''}</span></div>`).join('')}</div>
+        </div>`;
+      }
+
+      // 질문별 (지금 질문 + 기간 안에 응답이 있는 지운 질문)
+      const qList = qs.slice();
+      [...new Set(rows.map(r => r.qid))].filter(id => !qs.some(q => q.id === id)).forEach(id => qList.push({ id, topic: '지운 질문', q: '(지운 질문 ' + id + ')', options: [] }));
+      const qCards = qList.map(q => {
+        const rs = rows.filter(r => r.qid === q.id);
+        const cnt = {}; rs.forEach(r => cnt[r.answer] = (cnt[r.answer] || 0) + 1);
+        // 선택지를 바꾼 뒤에도 예전 답이 보이도록, 지금 선택지 + 응답에 나온 답
+        const opts = [...q.options, ...Object.keys(cnt).filter(a => !q.options.includes(a))];
+        const avg = q.type === 'scale' && rs.length ? (rs.reduce((s2, r) => s2 + Number(r.answer || 0), 0) / rs.length).toFixed(1) : null;
+        return `<div class="sv-q"><div class="tp">${esc(q.topic)}</div><h4>${esc(q.q)}</h4><div class="cnt">응답 ${fmtN(rs.length)}건</div>
+          ${avg ? `<div class="avg">평균 ${avg}점 / 5점</div>` : ''}
+          ${opts.map(o => { const i = q.options.indexOf(o); return `<div class="sv-bar"><span class="lb">${esc(o)}${q.labels && i >= 0 && q.labels[i] ? ' · ' + esc(q.labels[i]) : ''}${i < 0 && q.options.length ? ' <small>(예전 선택지)</small>' : ''}</span><span class="tr"><span class="fl" style="width:${pct(cnt[o] || 0, rs.length)}%"></span></span><span class="pc">${pct(cnt[o] || 0, rs.length)}% (${cnt[o] || 0})</span></div>`; }).join('')}
+        </div>`;
+      }).join('');
+
+      // 글별 도움 점수
+      const by = {};
+      helpful.filter(r => r.post_id).forEach(r => { (by[r.post_id] = by[r.post_id] || []).push(Number(r.answer)); });
+      const scored = Object.entries(by).map(([id, a]) => ({ id, n: a.length, avg: a.reduce((x, y) => x + y, 0) / a.length }))
+        .sort((x, y) => y.n - x.n || y.avg - x.avg);
+      const plabel = (PERIODS.find(p => p.id === svPeriod.id) || {}).label || '';
+
+      $('main').innerHTML = `<div class="sv-wrap">
+        ${periodBar}
+        <div class="sv-sum">
+          <div><b>${fmtN(rows.length)}</b><span>응답 (${esc(plabel)})</span></div>
+          <div><b>${helpAvg}</b><span>글 도움 평균 (5점)</span></div>
+          <div><b>${fmtN(new Set(rows.map(r => r.post_id).filter(Boolean)).size)}</b><span>응답이 있는 글</span></div>
+          <div><b>${fmtN(comments.length)}</b><span>남긴 의견</span></div>
+          <div class="sv-note">${CFG.enabled ? `글을 읽는 방문자 약 ${Math.round(CFG.chance * 100)}%에게 한 문항씩 무작위로 물어봐요. 답한 사람은 ${CFG.answeredDays}일, 닫은 사람은 ${CFG.closedDays}일 동안 다시 묻지 않아요.` : '<b style="color:#D33A3A">지금 설문이 꺼져 있어요.</b>'} <a href="#" id="svToSettings">설정 바꾸기</a></div>
+        </div>
+        ${filtered ? `<div class="sv-filter-note">응답자 거르기: ${[svProfile.gender && (svProfile.gender === '_blank' ? '성별 정보 없음' : profileLabel('genders', svProfile.gender)), svProfile.age && (svProfile.age === '_blank' ? '나이대 정보 없음' : profileLabel('ages', svProfile.age))].filter(Boolean).join(' · ')} · 기간 전체 ${fmtN(allRows.length)}건 중 ${fmtN(rows.length)}건 <a href="#" id="svPfClear">거르기 해제</a></div>` : ''}
+        ${rows.length ? '' : `<div class="sv-box"><div class="sv-empty">${filtered ? '조건에 맞는 응답이 없어요.' : '이 기간에는 응답이 없어요. 기간을 바꿔 보세요.'}</div></div>`}
+        ${allRows.length ? (() => {
+          const bar = (list, kind) => { const cnt = {}; allRows.forEach(r => { const v = r[kind] || ''; cnt[v] = (cnt[v] || 0) + 1; });
+            const items = [...list.map(x => ({ id: x.id, label: x.id === 'none' ? '응답 안 함' : x.label })), { id: '', label: '정보 없음(건너뜀)' }];
+            return items.map(x => `<div class="sv-bar"><span class="lb">${x.label}</span><span class="tr"><span class="fl" style="width:${pct(cnt[x.id] || 0, allRows.length)}%"></span></span><span class="pc">${pct(cnt[x.id] || 0, allRows.length)}% (${cnt[x.id] || 0})</span></div>`).join(''); };
+          const given = allRows.filter(r => r.gender || r.age).length;
+          return `<div class="sv-grid sv-pf-grid"><div class="sv-q"><div class="tp">응답자</div><h4>성별</h4><div class="cnt">기간 응답 ${fmtN(allRows.length)}건 · 정보를 남긴 응답 ${pct(given, allRows.length)}%</div>${bar(SURVEY_PROFILE.genders, 'gender')}</div>
+            <div class="sv-q"><div class="tp">응답자</div><h4>나이대</h4><div class="cnt">거르기와 상관없이 기간 전체 기준</div>${bar(SURVEY_PROFILE.ages, 'age')}</div></div>`;
+        })() : ''}
+        ${chart}
+        <div class="sv-grid">${qCards}</div>
+        <div class="sv-box"><h3>글별 도움 점수 <small style="font-weight:400;color:var(--muted)">'이 글이 도움이 되었나요?' 응답 기준 · 누르면 편집 창</small></h3>
+          ${scored.length ? `<table><thead><tr><th>글</th><th class="n">응답</th><th class="n">평균</th><th class="n">전체 조회수</th></tr></thead><tbody>${scored.map(x => `<tr data-id="${x.id}"><td>${esc(title(x.id))}</td><td class="n">${x.n}</td><td class="n">${x.avg.toFixed(1)}점</td><td class="n">${fmtN(vw(x.id).total)}</td></tr>`).join('')}</tbody></table>` : '<div class="sv-empty">이 기간에 응답이 없어요.</div>'}
+        </div>
+        <div class="sv-box"><h3>남긴 의견 <small style="font-weight:400;color:var(--muted)">${comments.length > 100 ? '최근 100개 · 전체는 CSV로' : ''}</small></h3>
+          ${comments.length ? comments.slice(0, 100).map(r => `<div class="sv-cm">${esc(r.comment)}<div class="meta">${esc(qName(r.qid))} → ${esc(r.answer)} · ${esc(title(r.post_id))}${r.gender || r.age ? ' · ' + [profileLabel('genders', r.gender), profileLabel('ages', r.age)].filter(x => x && x !== '응답 안 함').join(' ') : ''} · ${new Date(r.created_at).toLocaleString('ko-KR')}</div></div>`).join('') : '<div class="sv-empty">이 기간에 남긴 의견이 없어요.</div>'}
+        </div>
+      </div>`;
+      bindSurveyBar();
+      $('svToSettings').onclick = e => { e.preventDefault(); view = 'settings'; renderMain(); };
+      $('svCsv').onclick = () => {
+        const q = v => '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"';
+        const lines = [['응답 시각', '글', '주제', '질문', '답', '의견', '성별', '나이대'].map(q).join(',')];
+        rows.slice().reverse().forEach(r => {
+          const qq = qs.find(x => x.id === r.qid) || {};
+          lines.push([new Date(r.created_at).toLocaleString('ko-KR'), title(r.post_id), qq.topic || '', qName(r.qid), r.answer, r.comment, profileLabel('genders', r.gender), profileLabel('ages', r.age)].map(q).join(','));
+        });
+        download(`설문_${curSite().brandName}_${ymd(R.from || Math.min(...rows.map(r => r.created_at)))}_${ymd(R.to - 1)}.csv`, '\ufeff' + lines.join('\r\n'), 'text/csv;charset=utf-8');
+      };
+    }
+    // 기간 막대의 단추들
+    function bindSurveyBar() {
+      $('svPeriods').onclick = e => {
+        const b = e.target.closest('[data-p]'); if (!b) return;
+        svPeriod = { id: b.dataset.p, from: svPeriod.from, to: svPeriod.to };
+        if (svPeriod.id === 'custom' && !(svPeriod.from && svPeriod.to)) { svPeriod.from = addDays(kstToday(), -29); svPeriod.to = kstToday(); }
+        try { localStorage.setItem('selb_admin_svperiod', JSON.stringify(svPeriod)); } catch (err) {}
+        renderMain();
+      };
+      if ($('svApply')) $('svApply').onclick = () => {
+        svPeriod = { id: 'custom', from: $('svFrom').value, to: $('svTo').value };
+        if (!svPeriod.from || !svPeriod.to) return alert('시작일과 종료일을 골라 주세요.');
+        try { localStorage.setItem('selb_admin_svperiod', JSON.stringify(svPeriod)); } catch (err) {}
+        renderMain();
+      };
+      $('svReload').onclick = () => loadSurvey(true);
+      const pf = () => { svProfile = { gender: $('svGender').value, age: $('svAge').value }; renderMain(); };
+      $('svGender').onchange = pf; $('svAge').onchange = pf;
+      if ($('svPfClear')) $('svPfClear').onclick = e => { e.preventDefault(); svProfile = { gender: '', age: '' }; renderMain(); };
+    }
+
+    function renderMain() {
+      renderChips();
+      // 다시 그려도 스크롤 위치 유지
+      const key = el => el.classList.contains('col-body') ? 'col-' + el.closest('.col').dataset.status : el.className;
+      const pos = {};
+      document.querySelectorAll('#main .col-body, #main .table-wrap, #main .board').forEach(el => pos[key(el)] = [el.scrollTop, el.scrollLeft]);
+      document.body.classList.toggle('view-wide', view === 'survey' || view === 'settings');
+      view === 'list' ? renderTable() : view === 'survey' ? renderSurvey() : view === 'settings' ? renderSettings() : renderBoard();
+      document.querySelectorAll('#main .col-body, #main .table-wrap, #main .board').forEach(el => {
+        const p = pos[key(el)]; if (p) { el.scrollTop = p[0]; el.scrollLeft = p[1]; }
+      });
+    }
+
+    /* 상태 바꾸기 (끌어 놓기, 목록의 선택 상자) */
+    async function changeStatus(id, status) {
+      const p = draft && draft.id === id ? draft : posts.find(o => o.id === id);
+      if (!p || p.status === status) return;
+      if (status === 'published' && !p.title.trim()) { alert('제목이 있어야 발행할 수 있어요.'); renderMain(); return; }
+      if (status === 'published' && !confirm(`"${p.title}" 글을 발행할까요?\n저장하면 블로그에 바로 공개돼요.`)) { renderMain(); return; }
+      const next = clone(p);
+      next.status = status;
+      if (status === 'published') next.date = next.date || todayStr();
+      normalize(next);
+      if (await storePost(next)) {
+        if (draft && draft.id === id) { Object.assign(draft, { status: next.status, slug: next.slug, date: next.date, slugAuto: next.slugAuto }); dirty = false; refreshStatusUI(); const se = document.querySelector('[data-k="slug"]'); if (se) se.value = draft.slug; }
+        toast(`'${statusLabel(status)}'(으)로 옮겼어요`);
+      } else renderMain();
+    }
+
+    /* ---------- 편집 창 ---------- */
+    function openPost(id) {
+      const p = posts.find(o => o.id === id);
+      if (!p) return;
+      draft = clone(p);
+      dirty = false; editVer = 0;
+      $('drawer').hidden = false; $('backdrop').hidden = false;
+      renderEditor();
+      renderMain();
+      $('drawer').querySelector('.ed-body').scrollTop = 0;
+      if (!draft.title) setTimeout(() => $('drawer').querySelector('.title-input').focus(), 0);
+    }
+    async function closeEditor() {
+      if (!draft) return;
+      if (unsavedIds.has(draft.id) && !draft.title.trim()) {
+        // 제목 없이 만든 새 글은 그냥 버린다
+        posts = posts.filter(p => p.id !== draft.id);
+        unsavedIds.delete(draft.id);
+        dirty = false;
+      }
+      if (dirty) {
+        if (draft.status === 'published') {
+          if (!confirm('발행된 글의 바뀐 내용을 저장하지 않았어요. 저장하지 않고 닫을까요?')) return;
+        } else if (!(await save({ silent: true }))) {
+          if (!confirm('저장하지 못했어요. 그래도 닫을까요?')) return;
+        }
+      }
+      clearTimeout(autoTimer);
+      draft = null; dirty = false;
+      $('drawer').hidden = true; $('backdrop').hidden = true;
+      destroyEditor();
+      $('drawer').innerHTML = '';
+      renderMain();
+    }
+
+    function renderEditor() {
+      destroyEditor();
+      const d = draft;
+      const pub = d.status === 'published';
+      $('drawer').innerHTML = `
+        <div class="ed-head">
+          <button class="btn btn-sm" id="closeBtn" type="button">← 닫기</button>
+          <span class="state" id="state"></span>${d.status === 'published' ? `<span class="ed-views" title="오늘 ${fmtN(vw(d.id).today)}회">👁 조회 ${fmtN(vw(d.id).total)}회 · 최근 7일 ${fmtN(vw(d.id).d7)}회</span>` : ''}
+          <a class="btn btn-sm" id="previewBtn" target="_blank">페이지로 미리보기</a>
+          <button class="btn btn-sm btn-danger" id="deleteBtn">삭제</button>
+          <button class="btn btn-sm btn-primary" id="saveBtn">저장</button>
+        </div>
+        <div class="ed-body">
+          <div class="card">
+            <input type="text" class="title-input" data-k="title" value="${esc(d.title)}" placeholder="제목 (독자가 클릭하고 싶어지는 한 줄)">
+            <div class="meta-row">
+              <div class="seg status-seg" id="statusSeg">${STATUSES.map(s => `<button type="button" data-st="${s.id}" class="${s.id} ${d.status === s.id ? 'on' : ''}">${s.label}</button>`).join('')}</div>
+              <label>서비스 <select data-k="site">${Object.values(SITES).map(s => `<option value="${s.id}" ${siteOf(d) === s.id ? 'selected' : ''}>${esc(s.brandName)}</option>`).join('')}</select></label>
+              <label>카테고리 <select data-k="category">${SITES[siteOf(d)].categories.map(c => `<option value="${c.id}" ${d.category === c.id ? 'selected' : ''}>${c.label}</option>`).join('')}</select></label>
+              <label>날짜 <input type="date" data-k="date" value="${esc(d.date)}"></label>
+              <label><input type="checkbox" data-k="featured" ${d.featured ? 'checked' : ''}> 추천글</label>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>글감 메모 <small>블로그에 공개되지 않아요 · 기획 의도, 참고 자료, 타깃 독자</small></h3>
+            <textarea class="memo" data-k="memo" placeholder="이 글을 왜 쓰는지, 누구에게, 어떤 내용을 담을지 적어 두세요">${esc(d.memo)}</textarea>
+          </div>
+
+          <div class="card body-card">
+            <h3>본문</h3>
+            <p class="help">사진은 끌어다 놓거나 붙여넣어도 올라가요 · 영상 버튼(▶)에서 유튜브 주소를 넣거나 영상 파일(95MB 이하)을 올릴 수 있어요 · 사진·영상을 누르면 크기·정렬·설명을 바꿀 수 있어요</p>
+            <textarea id="bodyEditor" hidden></textarea>
+          </div>
+
+          <details class="card" ${pub || d.status === 'draft' ? 'open' : ''}>
+            <summary>발행 정보 · 썸네일 · 요약 · 태그</summary>
+            <div class="grid">
+              <label class="f col-4">요약 <small>목록과 글 상단에 보이는 한두 문장</small><input type="text" data-k="summary" value="${esc(d.summary)}"></label>
+              <label class="f col-2">태그 <small>쉼표로 구분</small><input type="text" data-k="tags" value="${esc((d.tags || []).join(', '))}" placeholder="AI명함, 퍼스널브랜딩"></label>
+              <label class="f col-2">주소(슬러그) <small>${pub ? '발행 후에는 바꾸지 않는 게 좋아요' : '비워 두면 제목을 따라 자동으로 정해져요'}</small><input type="text" data-k="slug" value="${esc(d.slug)}"></label>
+            </div>
+            <div class="thumb-box" id="thumbBox">${thumbBoxHTML(d)}</div>
+          </details>
+
+          <details class="card" ${d.ctaText || d.ctaUrl ? 'open' : ''}>
+            <summary>글 하단 버튼(CTA) <small style="font-weight:400;color:var(--muted)">비워 두면 <span id="ctaSiteName">${esc(SITES[siteOf(d)].brandName)}</span> 기본 문구·링크</small></summary>
+            <div class="grid">
+              <label class="f col-2">문구<input type="text" data-k="ctaText" value="${esc(d.ctaText)}" placeholder="${esc(SITES[siteOf(d)].postCtaText)}"></label>
+              <label class="f col-2">링크<input type="url" data-k="ctaUrl" value="${esc(d.ctaUrl)}" placeholder="${esc(SITES[siteOf(d)].ctaUrl)}"></label>
+            </div>
+          </details>
+        </div>`;
+      updatePreviewLink();
+      showState();
+      initBodyEditor();
+    }
+    function thumbBoxHTML(d) {
+      return `<div id="thumbPrev">${thumbHTML(d, 'thumb-sm')}</div>
+        <div class="btns">
+          <button class="btn btn-sm" id="thumbUp">${d.thumbnail ? '썸네일 편집' : '썸네일 넣기'}</button>
+          ${d.thumbnail ? '<button class="btn btn-sm btn-danger" id="thumbDel">썸네일 빼기</button>' : ''}
+          <small>자르기(16:9) · 좌우·상하 대칭 · 회전 · 밝기 보정을 할 수 있어요.<br>없으면 카테고리 색 배경에 제목이 들어가요.</small>
+        </div>`;
+    }
+    function refreshStatusUI() {
+      document.querySelectorAll('#statusSeg button').forEach(b => b.classList.toggle('on', b.dataset.st === draft.status));
+      showState();
+    }
+
+    /* ---------- 본문 에디터 (SunEditor) ---------- */
+    let editor = null;
+    let editorReady = false;
+    function destroyEditor() {
+      if (editor) { try { editor.destroy(); } catch (e) {} }
+      editor = null; editorReady = false;
+    }
+    const VIDEO_MAX = 95 * 1024 * 1024;
+    async function uploadMedia(file, kind) {
+      if (kind === 'image') {
+        // GIF는 움직임이 사라지지 않게 그대로 올린다
+        if (file.type === 'image/gif' && ONLINE) return (await api('POST', 'upload', file, 'image/gif')).url;
+        return imageValue(file, 1400);
+      }
+      if (!ONLINE) throw new Error('영상 파일 올리기는 블로그 서버에서 글 관리를 열었을 때만 돼요. 유튜브 주소로 넣어 주세요.');
+      if (file.size > VIDEO_MAX) throw new Error('영상은 95MB 이하만 올릴 수 있어요. 더 큰 영상은 유튜브에 올린 뒤 주소로 넣어 주세요.');
+      const type = file.type || (/\.mov$/i.test(file.name) ? 'video/quicktime' : 'video/mp4');
+      toast('영상을 올리는 중… 크기에 따라 시간이 걸려요');
+      return (await api('POST', 'upload', file, type)).url;
+    }
+    function uploadHook(kind) {
+      return (files, info, core, uploadHandler) => {
+        Promise.all([...files].map(async f => ({ url: await uploadMedia(f, kind), name: f.name, size: f.size })))
+          .then(result => { uploadHandler({ result }); toast(kind === 'image' ? '사진을 넣었어요' : '영상을 넣었어요'); })
+          .catch(err => uploadHandler(err.message || '올리지 못했어요'));
+        return undefined; // 업로드가 끝나면 uploadHandler로 넣는다
+      };
+    }
+    function initBodyEditor() {
+      destroyEditor();
+      // 예전 마크다운 글은 처음 열 때 에디터 형식(HTML)으로 바꾼다 (저장은 고칠 때)
+      if (draft.format !== 'html') {
+        draft.body = (draft.body || '').trim() ? markdownToHTML(draft) : '';
+        draft.format = 'html';
+        draft.images = {};
+      }
+      editor = SUNEDITOR.create('bodyEditor', {
+        lang: SUNEDITOR_LANG.ko,
+        width: '100%', height: 'auto', minHeight: '460px',
+        stickyToolbar: -1,
+        placeholder: '내용을 입력하세요. 사진은 끌어다 놓거나 붙여넣어도 돼요.',
+        defaultStyle: "font-family: 'Pretendard', sans-serif; font-size: 16px; line-height: 1.85; color: #262B3F;",
+        buttonList: [
+          ['undo', 'redo'],
+          ['formatBlock', 'fontSize'],
+          ['bold', 'underline', 'italic', 'strike'],
+          ['fontColor', 'hiliteColor', 'removeFormat'],
+          ['align', 'list', 'lineHeight'],
+          ['blockquote', 'horizontalRule', 'table', 'link'],
+          ['image', 'video'],
+          ['fullScreen', 'preview', 'codeView'],
+        ],
+        formats: ['p', 'h2', 'h3', 'blockquote'],
+        fontSize: [13, 14, 15, 16, 18, 20, 24, 28, 32],
+        fontSizeUnit: 'px',
+        colorList: [
+          ['#262B3F', '#4A5170', '#8B90A6', '#2F46D6', '#3FD6A5', '#D33A3A', '#E0A800', '#FFFFFF'],
+          ['#EDF1FF', '#DDF7EE', '#FFF3C4', '#FFE4E4', '#F6F7FC'],
+        ],
+        lineHeights: [{ text: '1.5', value: 1.5 }, { text: '1.85 (기본)', value: 1.85 }, { text: '2.2', value: 2.2 }],
+        imageWidth: '100%', imageFileInput: true, imageUrlInput: true, imageAccept: '.jpg,.jpeg,.png,.webp,.gif',
+        imageUploadSizeLimit: 20 * 1024 * 1024,
+        videoWidth: '100%', videoRatio: 0.5625, videoFileInput: true, videoUrlInput: true,
+        videoAccept: '.mp4,.webm,.mov', youtubeQuery: 'rel=0',
+        linkTargetNewWindow: true, linkProtocol: 'https://',
+        attributesWhitelist: { all: 'style|data-.+', iframe: 'allow|allowfullscreen|frameborder', video: 'controls|playsinline|preload' },
+      });
+      editor.setContents(draft.body || '');
+      editor.onImageUploadBefore = uploadHook('image');
+      editor.onVideoUploadBefore = uploadHook('video');
+      editor.onImageUploadError = editor.onVideoUploadError = msg => { alert(msg); return false; };
+      let last = editor.getContents(true);
+      editor.onChange = () => {
+        if (!editorReady || !draft) return;
+        const html = editor.getContents(true);
+        if (html === last) return;
+        last = html;
+        draft.body = isEmptyBody(html) ? '' : html;
+        touched();
+      };
+      setTimeout(() => { editorReady = true; }, 0);
+      // 본문 사진을 누르면 나오는 도구 막대에 '사진 편집' (자르기·대칭·회전·보정)
+      if (window.ThumbEditor) ThumbEditor.attachToEditor(editor, {
+        upload: async blob => {
+          if (!ONLINE) return new Promise(r => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(blob); });
+          toast('사진을 올리는 중…');
+          return (await api('POST', 'upload', blob, 'image/jpeg')).url;
+        },
+        onChange: () => { if (editor.onChange) editor.onChange(); },
+      });
+    }
+    function isEmptyBody(html) {
+      return !/<(img|video|iframe|hr|table)/i.test(html) && !html.replace(/<[^>]*>/g, '').replace(/&nbsp;|​/g, '').trim();
+    }
+    function updatePreviewLink() {
+      const a = $('previewBtn'); if (a) a.href = SITES[siteOf(draft)].base + 'post.html?preview=1&slug=' + encodeURIComponent(draft.slug || '');
+    }
+    function showState(text) {
+      const s = $('state'); if (!s) return;
+      const pub = draft.status === 'published';
+      s.textContent = text || (dirty ? (pub ? '저장 안 됨 · 발행 글은 저장을 눌러야 블로그에 반영돼요' : '입력 중…') : (pub ? '저장됨 · 블로그에 공개 중' : '자동 저장됨'));
+      s.classList.toggle('dirty', dirty);
+    }
+
+    /* 입력 → 표시 → (글감·초안이면) 자동 저장 */
+    let autoTimer = null;
+    function touched() {
+      dirty = true; editVer++;
+      showState();
+      clearTimeout(autoTimer);
+      if (draft.status !== 'published') autoTimer = setTimeout(() => save({ silent: true }), AUTOSAVE_MS);
+    }
+    function readField(el) {
+      const k = el.dataset.k;
+      if (k === 'featured') draft.featured = el.checked;
+      else if (k === 'tags') draft.tags = el.value.split(',').map(s => s.trim().replace(/^#/, '')).filter(Boolean);
+      else if (k === 'slug') { draft.slug = el.value; draft.slugAuto = !el.value.trim(); }
+      else draft[k] = el.value;
+    }
+
+    async function save(opts = {}) {
+      if (!draft) return false;
+      if (saving) { await saving; if (!dirty) return true; }
+      if (!draft.title.trim()) {
+        if (!opts.silent) alert('제목을 입력하세요.');
+        else showState('제목을 적으면 자동 저장돼요');
+        return false;
+      }
+      clearTimeout(autoTimer);
+      const ver = editVer;
+      const target = draft;
+      normalize(target);
+      showState('저장 중…');
+      saving = storePost(target);
+      const ok = await saving;
+      saving = null;
+      if (draft !== target) return ok;           // 저장 중에 다른 글로 바뀜
+      if (ok && ver === editVer) dirty = false;   // 저장하는 동안 더 입력했으면 계속 '입력 중'
+      const slugEl = document.querySelector('[data-k="slug"]');
+      if (slugEl && document.activeElement !== slugEl) slugEl.value = draft.slug;
+      updatePreviewLink();
+      showState(ok ? null : '저장하지 못했어요');
+      if (ok && !opts.silent) toast(draft.status === 'published' ? '저장했어요 · 블로그에 반영됐어요' : '저장했어요');
+      if (dirty && draft.status !== 'published') { clearTimeout(autoTimer); autoTimer = setTimeout(() => save({ silent: true }), AUTOSAVE_MS); }
+      return ok;
+    }
+
+    async function createAndOpen(fields) {
+      const p = newPost(fields);
+      if (p.title && !(await storePost(p))) return;
+      if (!p.title) { posts.push(p); unsavedIds.add(p.id); }  // 제목이 생기면 그때 저장된다
+      openPost(p.id);
+    }
+
+    /* ---------- 이벤트: 보드·목록 ---------- */
+    $('viewSeg').addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      view = b.dataset.view;
+      try { localStorage.setItem('selb_write_view', view); } catch (err) {}
+      renderMain();
+    });
+    $('catChips').addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      catFilter = b.dataset.cat; renderMain();
+    });
+    $('search').addEventListener('input', renderMain);
+    $('quickForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const v = $('quickInput').value.trim();
+      const category = $('quickCat').value;
+      if (!v) { createAndOpen({ status: 'idea', category }); return; }
+      const np = newPost({ title: v, status: 'idea', category });
+      normalize(np);
+      if (!(await storePost(np))) return;
+      $('quickInput').value = '';
+      toast('글감을 추가했어요');
+    });
+    $('main').addEventListener('click', e => {
+      const add = e.target.closest('[data-add]');
+      if (add) { createAndOpen({ status: add.dataset.add, category: catFilter === 'all' ? $('quickCat').value : catFilter }); return; }
+      const th = e.target.closest('th[data-sort]');
+      if (th) { const k = th.dataset.sort; sortDir = sortKey === k ? -sortDir : (['date', 'views', 'd7'].includes(k) ? -1 : 1); sortKey = k; renderMain(); return; }
+      if (e.target.closest('select')) return;
+      const item = e.target.closest('[data-id]');
+      if (item) openPost(item.dataset.id);
+    });
+    $('main').addEventListener('change', e => {
+      const sel = e.target.closest('[data-status-of]');
+      if (sel) changeStatus(sel.dataset.statusOf, sel.value);
+    });
+    // 끌어 놓기로 상태 바꾸기
+    $('main').addEventListener('dragstart', e => {
+      const c = e.target.closest('.kcard'); if (!c) return;
+      e.dataTransfer.setData('text/plain', c.dataset.id);
+      e.dataTransfer.effectAllowed = 'move';
+      c.classList.add('dragging');
+    });
+    $('main').addEventListener('dragend', e => {
+      const c = e.target.closest('.kcard'); if (c) c.classList.remove('dragging');
+      document.querySelectorAll('.col.over').forEach(x => x.classList.remove('over'));
+    });
+    $('main').addEventListener('dragover', e => {
+      const col = e.target.closest('.col'); if (!col) return;
+      e.preventDefault();
+      document.querySelectorAll('.col.over').forEach(x => x !== col && x.classList.remove('over'));
+      col.classList.add('over');
+    });
+    $('main').addEventListener('drop', e => {
+      const col = e.target.closest('.col'); if (!col) return;
+      e.preventDefault();
+      col.classList.remove('over');
+      const id = e.dataTransfer.getData('text/plain');
+      if (id) changeStatus(id, col.dataset.status);
+    });
+
+    /* ---------- 이벤트: 편집 창 ---------- */
+    $('backdrop').addEventListener('click', closeEditor);
+    $('drawer').addEventListener('input', e => {
+      const el = e.target;
+      if (!el.dataset.k || !draft) return;
+      readField(el);
+      if (el.dataset.k === 'site') {
+        // 서비스를 바꾸면 그 서비스의 카테고리로
+        draft.category = SITES[draft.site].categories[0].id;
+        document.querySelector('[data-k="category"]').innerHTML = SITES[draft.site].categories.map(c => `<option value="${c.id}">${c.label}</option>`).join('');
+        // 글 하단 버튼(CTA) 안내도 그 서비스 기본값으로
+        const S2 = SITES[draft.site];
+        document.querySelector('[data-k="ctaText"]').placeholder = S2.postCtaText;
+        document.querySelector('[data-k="ctaUrl"]').placeholder = S2.ctaUrl;
+        $('ctaSiteName').textContent = S2.brandName;
+        updatePreviewLink();
+      }
+      touched();
+      if (el.dataset.k === 'title' || el.dataset.k === 'category') $('thumbPrev').innerHTML = thumbHTML(draft, 'thumb-sm');
+    });
+    $('drawer').addEventListener('change', e => {
+      const el = e.target;
+      if (el.dataset.k && draft && el.type === 'checkbox') { readField(el); touched(); }
+    });
+    $('drawer').addEventListener('click', async e => {
+      if (e.target.id === 'previewBtn' && dirty) {
+        e.preventDefault();
+        if (await save()) window.open($('previewBtn').href, '_blank');
+        return;
+      }
+      const t = e.target.closest('button'); if (!t || !draft) return;
+      if (t.id === 'saveBtn') save();
+      else if (t.id === 'closeBtn') closeEditor();
+      else if (t.dataset.st) {
+        const st = t.dataset.st;
+        if (st === draft.status) return;
+        if (!draft.title.trim()) { alert('제목을 먼저 적어 주세요.'); return; }
+        if (st === 'published' && !confirm('이 글을 발행할까요?\n지금까지 쓴 내용이 블로그에 바로 공개돼요.')) return;
+        if (draft.status === 'published' && !confirm('발행을 취소할까요?\n블로그에서 이 글이 내려가요.')) return;
+        const prevStatus = draft.status;
+        draft.status = st;
+        if (st === 'published') draft.date = draft.date || todayStr();
+        dirty = true; editVer++;
+        if (await save({ silent: true })) { refreshStatusUI(); toast(`'${statusLabel(st)}'(으)로 바꿨어요`); }
+        else { draft.status = prevStatus; refreshStatusUI(); }
+      }
+      else if (t.id === 'deleteBtn') {
+        if (!confirm(`"${draft.title || '(제목 없음)'}" 글을 삭제할까요? 되돌릴 수 없습니다.`)) return;
+        const delId = draft.id;
+        clearTimeout(autoTimer);
+        if (saving) await saving;
+        if (!unsavedIds.has(delId) && ONLINE && !(await persistDelete(delId))) return;
+        posts = posts.filter(p => p.id !== delId);
+        unsavedIds.delete(delId);
+        if (!ONLINE) {
+          // 지운 글이 posts.js 합치기 안내에 다시 뜨지 않게
+          try { localStorage.setItem(SKIP_KEY, JSON.stringify([...skipIds(), delId])); } catch (err) {}
+          persistLocal();
+        }
+        dirty = false;
+        await closeEditor();
+        toast('삭제했어요');
+      }
+      else if (t.id === 'thumbUp') {
+        // 썸네일 편집 창: 지금 썸네일(없으면 새 사진)을 자르기·대칭·회전·보정
+        if (!window.ThumbEditor) { $('thumbFile').click(); return; }
+        try {
+          const blob = await ThumbEditor.open({ src: draft.thumbnail });
+          if (!blob || !draft) return;
+          if (ONLINE) { toast('사진을 올리는 중…'); draft.thumbnail = (await api('POST', 'upload', blob, 'image/jpeg')).url; }
+          else draft.thumbnail = await new Promise(r => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(blob); });
+          $('thumbBox').innerHTML = thumbBoxHTML(draft);
+          document.querySelector('details.card').open = true;
+          touched();
+        } catch (err) { alert('썸네일을 바꾸지 못했어요.\n' + err.message); }
+      }
+      else if (t.id === 'thumbDel') { draft.thumbnail = ''; touched(); $('thumbBox').innerHTML = thumbBoxHTML(draft); }
+    });
+
+    $('thumbFile').addEventListener('change', async e => {
+      const f = e.target.files[0]; e.target.value = '';
+      if (!f || !draft) return;
+      try { draft.thumbnail = await imageValue(f, 1200); }
+      catch (err) { alert('이미지를 올리지 못했습니다.\n' + err.message); return; }
+      $('thumbBox').innerHTML = thumbBoxHTML(draft);
+      touched();
+    });
+
+    document.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); save(); }
+      else if (e.key === 'Escape' && draft && $('login').hidden && !(e.target.closest && e.target.closest('.sun-editor, .se-dialog'))) closeEditor();
+    });
+    window.addEventListener('beforeunload', e => { if (dirty || saving) { e.preventDefault(); e.returnValue = ''; } });
+
+    /* ---------- 메뉴 / 내보내기 / 가져오기 ---------- */
+    $('menuBtn').addEventListener('click', e => { e.stopPropagation(); $('menu').classList.toggle('open'); });
+    document.addEventListener('click', () => $('menu').classList.remove('open'));
+
+    function download(name, text, type) {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([text], { type }));
+      a.download = name; a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }
+    function postsJsText() {
+      return '/* SelB 블로그 글 데이터 · 글 관리 페이지에서 내보냄 (' + new Date().toLocaleString('ko-KR') + ') */\n'
+        + 'window.BLOG_POSTS = ' + JSON.stringify(posts, null, 2) + ';\n';
+    }
+    if (!ONLINE) $('exportBtn').addEventListener('click', () => {
+      if (dirty && !confirm('저장하지 않은 변경 사항은 빠집니다. 계속할까요?')) return;
+      download('posts.js', postsJsText(), 'text/javascript');
+      toast('posts.js를 내려받았어요 · blog 폴더의 posts.js를 바꿔 넣으세요');
+    });
+    if (ONLINE) $('exportJsBtn').addEventListener('click', () => download('posts.js', postsJsText(), 'text/javascript'));
+    $('exportJsonBtn').addEventListener('click', () => {
+      download('selb-blog-backup-' + todayStr() + '.json', JSON.stringify(posts, null, 2), 'application/json');
+    });
+    $('importBtn').addEventListener('click', () => $('importFile').click());
+    $('importFile').addEventListener('change', e => {
+      const f = e.target.files[0]; e.target.value = '';
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = async () => {
+        try {
+          const txt = r.result.trim();
+          const i = txt.indexOf('['), j = txt.lastIndexOf(']');
+          const data = JSON.parse(txt.slice(i, j + 1));
+          if (!Array.isArray(data)) throw new Error();
+          if (!confirm(`글 ${data.length}개를 불러옵니다. 지금 목록을 모두 이 파일 내용으로 바꿀까요?`)) return;
+          const prevPosts = posts;
+          posts = migrate(data); posts.forEach(p => { if (!p.id) p.id = uid(); });
+          if (!(await persistAll())) { posts = prevPosts; return; }
+          dirty = false; if (draft) await closeEditor();
+          renderMain(); toast('불러왔어요');
+        } catch (err) { alert('파일을 읽지 못했습니다. posts.js 또는 JSON 백업 파일인지 확인하세요.'); }
+      };
+      r.readAsText(f);
+    });
+    if (!ONLINE) $('resetBtn').addEventListener('click', async () => {
+      if (!confirm('이 브라우저에 저장한 글을 모두 지우고 posts.js 내용으로 되돌릴까요?\n내보내지 않은 글은 사라집니다.')) return;
+      clearLocal();
+      dirty = false; if (draft) await closeEditor();
+      posts = loadAll();
+      renderMain(); renderMergeBar(); toast('posts.js 내용으로 되돌렸어요');
+    });
+
+    /* ---------- 로그인 (서버) ---------- */
+    if (ONLINE) {
+      $('loginForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        $('loginErr').textContent = '';
+        try { await api('POST', 'login', { password: $('loginPw').value }); location.reload(); }
+        catch (err) { $('loginErr').textContent = err.message; }
+      });
+      $('logoutBtn').addEventListener('click', async () => {
+        if (dirty && !confirm('저장하지 않은 변경 사항이 있습니다. 로그아웃할까요?')) return;
+        dirty = false;
+        await api('POST', 'logout').catch(() => {});
+        location.reload();
+      });
+      if (!window.BLOG_ADMIN) showLogin();
+    }
+
+    /* posts.js에 새로 생긴 글이 있으면 합치기 안내 (파일로 열고 브라우저에 저장된 글이 있을 때만) */
+    const SKIP_KEY = 'selb_blog_merge_skip';
+    function skipIds() { try { return JSON.parse(localStorage.getItem(SKIP_KEY) || '[]'); } catch (e) { return []; } }
+    function renderMergeBar() {
+      const bar = $('mergeBar');
+      if (!hasLocalPosts()) { bar.hidden = true; return; }
+      const have = new Set(posts.map(p => p.id));
+      const skip = new Set(skipIds());
+      const fresh = (window.BLOG_POSTS || []).filter(p => p.id && !have.has(p.id) && !skip.has(p.id));
+      if (!fresh.length) { bar.hidden = true; return; }
+      bar.hidden = false;
+      bar.innerHTML = `<span>posts.js에 새 글 ${fresh.length}개가 있어요</span>
+        <button class="btn btn-sm" id="mergeYes">목록에 합치기</button>
+        <button class="btn btn-sm" id="mergeNo">숨기기</button>`;
+      $('mergeYes').onclick = () => {
+        posts.push(...migrate(clone(fresh)));
+        persistLocal(); renderMergeBar(); renderMain(); toast(`새 글 ${fresh.length}개를 합쳤어요`);
+      };
+      $('mergeNo').onclick = () => {
+        try { localStorage.setItem(SKIP_KEY, JSON.stringify([...skip, ...fresh.map(p => p.id)])); } catch (e) {}
+        renderMergeBar();
+      };
+    }
+
+    applySiteUI();
+    renderMergeBar();
+    renderMain();
+    async function loadViews() {
+      if (!ONLINE || !window.BLOG_ADMIN) return;
+      try { VIEWS = await api('GET', 'views'); renderMain(); } catch (e) {}
+    }
+    loadViews();
+    setInterval(loadViews, 5 * 60 * 1000); // 5분마다 새로
+
+    // 블로그 화면에서 '관리자에서 열기'로 들어오면 그 글의 편집 창을 바로 연다 (/admin?edit=글ID)
+    (function () {
+      const editId = new URLSearchParams(location.search).get('edit');
+      if (!editId) return;
+      history.replaceState(null, '', location.pathname);
+      const p = posts.find(x => x.id === editId);
+      if (!p || (ONLINE && !window.BLOG_ADMIN)) return;
+      siteFilter = siteOf(p); catFilter = 'all';
+      try { localStorage.setItem('selb_admin_site', siteFilter); } catch (e) {}
+      applySiteUI(); renderMain(); openPost(editId);
+    })();
+  </script>
+</body>
+</html>
