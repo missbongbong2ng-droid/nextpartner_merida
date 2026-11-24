@@ -134,7 +134,29 @@ const STATUSES = [
   { id: 'idea', label: '글감' },
   { id: 'draft', label: '초안' },
   { id: 'published', label: '발행' },
+  { id: 'hold', label: '보류' },
+  { id: 'trash', label: '휴지통' },
 ];
+// 보드의 기본 세 칸 (보류·휴지통은 '보관함' 칸에서 따로 본다)
+const BOARD_STATUSES = STATUSES.slice(0, 3);
+/* 글의 기준 날짜: 발행 글은 발행일, 휴지통은 지운 날, 나머지(글감·초안·보류)는 작성일 */
+function postDay(p) {
+  if (p.status === 'published') return p.date || '';
+  if (p.status === 'trash' && p.trashedAt) return localDay(p.trashedAt);
+  return p.created || p.date || '';
+}
+function postDayLabel(p) {
+  return p.status === 'published' ? '발행' : p.status === 'trash' ? '삭제' : '작성';
+}
+/* 같은 날짜 안에서도 최근 것이 먼저 오도록 시각까지 붙인 정렬 값 */
+function postStamp(p) {
+  const t = p.status === 'published' ? p.publishedAt : p.status === 'trash' ? p.trashedAt : p.createdAt;
+  return postDay(p) + '|' + String(t || 0).padStart(15, '0');
+}
+function localDay(ms) {
+  const d = new Date(ms), z = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}`;
+}
 
 const STORE_KEY = 'selb_blog_posts_v1';
 

@@ -37,7 +37,22 @@
 
     /* 보드 */
     .main { flex: 1; min-height: 0; padding: 0 20px 20px; }
-    .board { height: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .board { height: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, .85fr); gap: 14px; }
+    .col-tools { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 12px 8px; }
+    .col-tools select, .col-tools input[type=date] { width: auto; flex: 1 1 0; min-width: 0; font-size: 12px; padding: 3px 6px; border-radius: 7px; height: 28px; }
+    .col-tools input[type=date] { flex-basis: 100%; }
+    .col.box { background: #F1F1F4; }
+    .box-seg { display: inline-flex; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 2px; }
+    .box-seg button { border: 0; background: none; font: inherit; font-size: 13px; padding: 0 10px; height: 26px; border-radius: 6px; color: var(--ink-2); cursor: pointer; white-space: nowrap; }
+    .box-seg button.on { background: var(--ink); color: #fff; font-weight: 700; }
+    .box-seg small { opacity: .75; margin-left: 2px; }
+    .col-head .empty-trash { margin-left: auto; border: 0; background: none; font: inherit; font-size: 12px; color: #C0392B; cursor: pointer; padding: 4px 6px; border-radius: 6px; white-space: nowrap; }
+    .col-head .empty-trash:hover { background: #fff; }
+    .kcard .k-acts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .kcard .k-acts span { font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 6px; background: var(--bg-2); border: 1px solid var(--line); color: var(--ink-2); }
+    .kcard .k-acts span:hover { border-color: var(--brand); color: var(--brand); }
+    .kcard .k-acts span.danger:hover { border-color: #C0392B; color: #C0392B; }
+    .kcard.in-trash .k-title { color: var(--muted); }
     .col { background: #EEF0F7; border-radius: 14px; display: flex; flex-direction: column; min-height: 0; min-width: 0; border: 2px solid transparent; }
     .col.over { border-color: var(--brand); background: var(--brand-soft); }
     .col-head { display: flex; align-items: center; gap: 8px; padding: 12px 14px 8px; }
@@ -215,6 +230,7 @@
     .status-seg button.on.idea { background: #FFF3C4; color: #8A6A00; }
     .status-seg button.on.draft { background: #E8ECF5; }
     .status-seg button.on.published { background: #DDF7EE; color: #0E8A60; }
+    .status-seg button.on.hold { background: #EFE7FB; color: #6B3FB8; }
     textarea.memo { min-height: 110px; resize: vertical; background: #FFFCEF; border-color: #F1E5B5; }
     .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
     .col-2 { grid-column: span 2; } .col-4 { grid-column: 1 / -1; }
@@ -486,7 +502,7 @@
     function newPost(fields) {
       return Object.assign({
         id: uid(), site: siteFilter, slug: '', slugAuto: true, title: '', category: curSite().categories[0].id, status: 'idea',
-        date: todayStr(), summary: '', tags: [], thumbnail: '', featured: false,
+        date: todayStr(), created: todayStr(), createdAt: Date.now(), summary: '', tags: [], thumbnail: '', featured: false,
         ctaText: '', ctaUrl: '', memo: '', body: '', images: {},
       }, fields || {});
     }
@@ -501,6 +517,7 @@
         while (posts.some(o => o.slug === p.slug && o.id !== p.id)) p.slug = base + '-' + n++;
       }
       if (p.status === 'published' && !p.date) p.date = todayStr();
+      if (!p.created) p.created = p.date || todayStr();   // 예전 글은 그때 날짜를 작성일로
       const used = {};
       Object.keys(p.images || {}).forEach(id => { if ((p.body || '').includes('img:' + id)) used[id] = p.images[id]; });
       p.images = used;
@@ -524,7 +541,7 @@
     /* ---------- 상단 필터 ---------- */
     function renderSiteTabs() {
       $('siteTabs').innerHTML = Object.values(SITES).map(s => {
-        const n = posts.filter(p => siteOf(p) === s.id).length;
+        const n = posts.filter(p => siteOf(p) === s.id && p.status !== 'trash').length;
         return `<button data-site="${s.id}" class="${s.id === siteFilter ? 'on' : ''}"><span class="dot" style="background:${s.color}"></span>${esc(s.brandName)} <small>${n}</small></button>`;
       }).join('');
     }
@@ -543,7 +560,7 @@
     function renderChips() {
       const chips = [{ id: 'all', label: '전체' }, ...curSite().categories];
       renderSiteTabs();
-      const mine = sitePostsAdmin();
+      const mine = sitePostsAdmin().filter(p => p.status !== 'trash');
       $('catChips').innerHTML = chips.map(c => {
         const n = c.id === 'all' ? mine.length : mine.filter(p => p.category === c.id).length;
         return `<button data-cat="${c.id}" class="${catFilter === c.id ? 'on' : ''}">${c.label} ${n}</button>`;
@@ -558,38 +575,77 @@
     }
 
     /* ---------- 보드 / 목록 ---------- */
-    const COL_HINT = { idea: '떠오른 주제를 쌓아 두는 곳', draft: '본문을 쓰는 중인 글', published: '블로그에 공개된 글' };
+    const COL_HINT = {
+      idea: '떠오른 주제를 쌓아 두는 곳 · 작성일 기준', draft: '본문을 쓰는 중인 글 · 작성일 기준', published: '블로그에 공개된 글 · 발행일 기준',
+      hold: '잠시 미뤄 둔 글 · 블로그에 공개되지 않아요', trash: '지운 글 · 복원하거나 영구 삭제할 수 있어요',
+    };
+    /* 칸별 정렬·기간 (이 브라우저에 기억) */
+    const DAY_FILTERS = [{ id: 'all', label: '전체 기간' }, { id: 'today', label: '오늘' }, { id: '7d', label: '최근 7일' }, { id: '30d', label: '최근 30일' }, { id: 'day', label: '날짜 지정' }];
+    let colPrefs = {};
+    try { colPrefs = JSON.parse(localStorage.getItem('selb_admin_colprefs') || '{}') || {}; } catch (e) {}
+    let boxTab = 'hold';
+    try { if (localStorage.getItem('selb_admin_box') === 'trash') boxTab = 'trash'; } catch (e) {}
+    const prefOf = id => Object.assign({ sort: 'new', range: 'all', day: todayStr() }, colPrefs[id] || {});
+    function savePrefs() { try { localStorage.setItem('selb_admin_colprefs', JSON.stringify(colPrefs)); localStorage.setItem('selb_admin_box', boxTab); } catch (e) {} }
+    function shiftDay(d, n) { const t = new Date(d + 'T12:00:00'); t.setDate(t.getDate() + n); return localDay(t.getTime()); }
+    function colItems(list, status) {
+      const pf = prefOf(status), today = todayStr();
+      const from = pf.range === 'today' ? today : pf.range === '7d' ? shiftDay(today, -6) : pf.range === '30d' ? shiftDay(today, -29) : '';
+      return list.filter(p => p.status === status)
+        .filter(p => { const d = postDay(p); return pf.range === 'all' ? true : pf.range === 'day' ? d === pf.day : (d >= from && d <= today); })
+        .sort((a, b) => postStamp(b).localeCompare(postStamp(a)) * (pf.sort === 'old' ? -1 : 1));
+    }
+    function colToolsHTML(status) {
+      const pf = prefOf(status);
+      return `<div class="col-tools" data-tools="${status}">
+        <select data-pref="sort" aria-label="정렬"><option value="new" ${pf.sort === 'new' ? 'selected' : ''}>최신순</option><option value="old" ${pf.sort === 'old' ? 'selected' : ''}>오래된순</option></select>
+        <select data-pref="range" aria-label="기간">${DAY_FILTERS.map(f => `<option value="${f.id}" ${pf.range === f.id ? 'selected' : ''}>${f.label}</option>`).join('')}</select>
+        ${pf.range === 'day' ? `<input type="date" data-pref="day" value="${esc(pf.day)}" aria-label="날짜">` : ''}
+      </div>`;
+    }
     function cardHTML(p) {
       const memo = (p.memo || '').split('\n').find(l => l.trim()) || '';
       const hasWarn = /⚠|\[ *\]/.test((p.memo || '') + (p.body || ''));
-      return `<button class="kcard ${draft && draft.id === p.id ? 'on' : ''}" draggable="true" data-id="${p.id}">
+      const acts = p.status === 'hold'
+        ? `<div class="k-acts"><span data-act="idea">글감으로</span><span data-act="draft">초안으로</span><span data-act="trash" class="danger">삭제</span></div>`
+        : p.status === 'trash'
+        ? `<div class="k-acts"><span data-act="restore">복원 (${esc(statusLabel(p.prevStatus || 'idea'))})</span><span data-act="purge" class="danger">영구 삭제</span></div>` : '';
+      return `<button class="kcard ${draft && draft.id === p.id ? 'on' : ''} ${p.status === 'trash' ? 'in-trash' : ''}" draggable="true" data-id="${p.id}">
         <div class="k-main">
-          <div class="k-meta"><span class="cat ${esc(p.category)}">${esc(catLabel(p.category))}</span>${p.featured ? '<span class="star" title="추천글">★</span>' : ''}${hasWarn ? '<span class="warn" title="확인할 곳이 있어요">⚠</span>' : ''}<span>${fmtDate(p.date)}</span>${p.status === 'published' ? `<span class="views" title="전체 조회 ${fmtN(vw(p.id).total)} · 최근 7일 ${fmtN(vw(p.id).d7)}">👁 ${fmtN(vw(p.id).total)}${vw(p.id).d7 ? ` <small>+${fmtN(vw(p.id).d7)}</small>` : ''}</span>` : ''}</div>
+          <div class="k-meta"><span class="cat ${esc(p.category)}">${esc(catLabel(p.category))}</span>${p.featured ? '<span class="star" title="추천글">★</span>' : ''}${hasWarn ? '<span class="warn" title="확인할 곳이 있어요">⚠</span>' : ''}<span title="${postDayLabel(p)}일">${postDayLabel(p)} ${fmtDate(postDay(p))}</span>${p.status === 'published' ? `<span class="views" title="전체 조회 ${fmtN(vw(p.id).total)} · 최근 7일 ${fmtN(vw(p.id).d7)}">👁 ${fmtN(vw(p.id).total)}${vw(p.id).d7 ? ` <small>+${fmtN(vw(p.id).d7)}</small>` : ''}</span>` : ''}</div>
           <div class="k-title">${esc(p.title || '(제목 없음)')}</div>
           ${memo ? `<div class="k-memo">${esc(memo)}</div>` : ''}
+          ${acts}
         </div>
         ${p.thumbnail ? `<img class="k-thumb" src="${esc(p.thumbnail)}" alt="" loading="lazy">` : ''}
       </button>`;
     }
     function renderBoard() {
       const list = filtered();
-      $('main').innerHTML = `<div class="board">${STATUSES.map(s => {
-        const items = list.filter(p => p.status === s.id)
-          .sort((a, b) => (b.featured - a.featured) || byDateDesc(a, b));
-        return `<section class="col" data-status="${s.id}">
-          <div class="col-head"><h2>${s.label}</h2><span class="n">${items.length}</span>
-            <button class="add" data-add="${s.id}" title="${s.label}에 새 글">+</button></div>
+      const empty = st => st === 'trash' ? '휴지통이 비어 있어요' : st === 'hold' ? '보류할 글을 여기로 끌어 놓으세요' : '카드를 여기로 끌어 놓을 수 있어요';
+      const col = (s, head) => {
+        const all = list.filter(p => p.status === s.id), items = colItems(list, s.id);
+        const n = items.length === all.length ? all.length : `${items.length} / ${all.length}`;
+        return `<section class="col ${s.id === 'hold' || s.id === 'trash' ? 'box' : ''}" data-status="${s.id}">
+          <div class="col-head">${head(n)}</div>
           <div class="col-hint">${COL_HINT[s.id]}</div>
-          <div class="col-body">${items.map(cardHTML).join('') || '<div class="col-empty">카드를 여기로 끌어 놓을 수 있어요</div>'}</div>
+          ${colToolsHTML(s.id)}
+          <div class="col-body">${items.map(cardHTML).join('') || `<div class="col-empty">${all.length ? '이 기간에 해당하는 글이 없어요' : empty(s.id)}</div>`}</div>
         </section>`;
-      }).join('')}</div>`;
+      };
+      const nOf = st => list.filter(p => p.status === st).length;
+      $('main').innerHTML = `<div class="board">${BOARD_STATUSES.map(s => col(s, n => `<h2>${s.label}</h2><span class="n">${n}</span>
+            <button class="add" data-add="${s.id}" title="${s.label}에 새 글">+</button>`)).join('')}${col(STATUSES.find(s => s.id === boxTab), () => `<div class="box-seg" role="tablist" aria-label="보관함">
+              <button type="button" data-box="hold" class="${boxTab === 'hold' ? 'on' : ''}">보류함<small>${nOf('hold')}</small></button>
+              <button type="button" data-box="trash" class="${boxTab === 'trash' ? 'on' : ''}">휴지통<small>${nOf('trash')}</small></button>
+            </div>${boxTab === 'trash' && nOf('trash') ? '<button type="button" class="empty-trash" data-empty-trash>비우기</button>' : ''}`)}</div>`;
     }
     function renderTable() {
-      const order = { idea: 0, draft: 1, published: 2 };
+      const order = { idea: 0, draft: 1, published: 2, hold: 3 };
       const val = {
-        title: p => p.title || '', status: p => order[p.status], category: p => p.category || '', date: p => p.date || '', views: p => vw(p.id).total, d7: p => vw(p.id).d7,
+        title: p => p.title || '', status: p => order[p.status], category: p => p.category || '', date: p => postStamp(p), views: p => vw(p.id).total, d7: p => vw(p.id).d7,
       };
-      const list = filtered().sort((a, b) => {
+      const list = filtered().filter(p => p.status !== 'trash').sort((a, b) => {
         const x = val[sortKey](a), y = val[sortKey](b);
         return (x < y ? -1 : x > y ? 1 : 0) * sortDir || byDateDesc(a, b);
       });
@@ -601,7 +657,7 @@
           <td><div class="t">${p.featured ? '<span class="star">★</span> ' : ''}${esc(p.title || '(제목 없음)')}</div>${p.memo ? `<div class="memo">${esc(p.memo.split('\n')[0])}</div>` : ''}</td>
           <td><select data-status-of="${p.id}" aria-label="상태">${STATUSES.map(s => `<option value="${s.id}" ${p.status === s.id ? 'selected' : ''}>${s.label}</option>`).join('')}</select></td>
           <td class="hide-m nowrap"><span class="cat ${esc(p.category)}">${esc(catLabel(p.category))}</span></td>
-          <td class="hide-m nowrap">${fmtDate(p.date)}</td>
+          <td class="hide-m nowrap"><small class="muted">${postDayLabel(p)}</small> ${fmtDate(postDay(p))}</td>
           <td class="num">${p.status === 'published' || vw(p.id).total ? fmtN(vw(p.id).total) : '-'}</td>
           <td class="num hide-m">${vw(p.id).d7 ? '+' + fmtN(vw(p.id).d7) : '-'}</td>
         </tr>`).join('') || '<tr><td colspan="7" class="col-empty">글이 없습니다</td></tr>'}</tbody>
@@ -990,19 +1046,54 @@
     }
 
     /* 상태 바꾸기 (끌어 놓기, 목록의 선택 상자) */
-    async function changeStatus(id, status) {
+    /* 상태가 바뀔 때 날짜 정리: 발행하는 순간이 발행일, 휴지통은 지운 시각과 이전 상태를 기억 */
+    const STATUS_KEYS = ['status', 'date', 'publishedAt', 'created', 'createdAt', 'prevStatus', 'trashedAt', 'heldAt'];
+    function applyStatus(p, status, opts = {}) {
+      const from = p.status;
+      if (!p.created) p.created = p.date || todayStr();
+      if (status === 'published' && from !== 'published' && !opts.restore) { p.date = todayStr(); p.publishedAt = Date.now(); }
+      if (status === 'trash') { p.prevStatus = from; p.trashedAt = Date.now(); }
+      else { delete p.trashedAt; delete p.prevStatus; }
+      if (status === 'hold') p.heldAt = Date.now(); else delete p.heldAt;
+      p.status = status;
+    }
+    /* 상태를 바꿔도 되는지 묻기 (발행·발행 취소·삭제) */
+    function confirmStatus(p, status, opts = {}) {
+      const t = `"${p.title || '(제목 없음)'}"`;
+      if (status === 'published' && !p.title.trim()) { alert('제목이 있어야 발행할 수 있어요.'); return false; }
+      if (status === 'published' && !opts.restore) return confirm(`${t} 글을 발행할까요?\n저장하면 블로그에 바로 공개되고, 오늘(${fmtDate(todayStr())})이 발행일이 돼요.`);
+      if (status === 'published' && opts.restore) return confirm(`${t} 글을 복원할까요?\n발행 글이라 블로그에 다시 공개돼요.`);
+      if (p.status === 'published' && status === 'trash') return confirm(`${t} 글을 휴지통으로 옮길까요?\n블로그에서 이 글이 내려가요.`);
+      if (p.status === 'published') return confirm(`${t} 글의 발행을 취소할까요?\n블로그에서 이 글이 내려가요.`);
+      return true;
+    }
+    async function changeStatus(id, status, opts = {}) {
       const p = draft && draft.id === id ? draft : posts.find(o => o.id === id);
       if (!p || p.status === status) return;
-      if (status === 'published' && !p.title.trim()) { alert('제목이 있어야 발행할 수 있어요.'); renderMain(); return; }
-      if (status === 'published' && !confirm(`"${p.title}" 글을 발행할까요?\n저장하면 블로그에 바로 공개돼요.`)) { renderMain(); return; }
+      if (!confirmStatus(p, status, opts)) { renderMain(); return; }
       const next = clone(p);
-      next.status = status;
-      if (status === 'published') next.date = next.date || todayStr();
+      applyStatus(next, status, opts);
       normalize(next);
       if (await storePost(next)) {
-        if (draft && draft.id === id) { Object.assign(draft, { status: next.status, slug: next.slug, date: next.date, slugAuto: next.slugAuto }); dirty = false; refreshStatusUI(); const se = document.querySelector('[data-k="slug"]'); if (se) se.value = draft.slug; }
-        toast(`'${statusLabel(status)}'(으)로 옮겼어요`);
+        if (draft && draft.id === id) {
+          STATUS_KEYS.forEach(k => { if (k in next) draft[k] = next[k]; else delete draft[k]; });
+          Object.assign(draft, { slug: next.slug, slugAuto: next.slugAuto }); dirty = false; refreshStatusUI();
+          const se = document.querySelector('[data-k="slug"]'); if (se) se.value = draft.slug;
+        }
+        toast(status === 'trash' ? '휴지통으로 옮겼어요' : opts.restore ? `'${statusLabel(status)}'(으)로 복원했어요` : `'${statusLabel(status)}'(으)로 옮겼어요`);
       } else renderMain();
+    }
+    /* 영구 삭제 (휴지통에서만) */
+    async function purgePosts(ids) {
+      for (const id of ids) {
+        if (!unsavedIds.has(id) && ONLINE && !(await persistDelete(id))) { renderMain(); return false; }
+        posts = posts.filter(p => p.id !== id);
+        unsavedIds.delete(id);
+        if (!ONLINE) { try { localStorage.setItem(SKIP_KEY, JSON.stringify([...skipIds(), id])); } catch (err) {} }
+      }
+      if (!ONLINE) persistLocal();
+      renderMain();
+      return true;
     }
 
     /* ---------- 편집 창 ---------- */
@@ -1049,17 +1140,17 @@
           <button class="btn btn-sm" id="closeBtn" type="button">← 닫기</button>
           <span class="state" id="state"></span>${d.status === 'published' ? `<span class="ed-views" title="오늘 ${fmtN(vw(d.id).today)}회">👁 조회 ${fmtN(vw(d.id).total)}회 · 최근 7일 ${fmtN(vw(d.id).d7)}회</span>` : ''}
           <a class="btn btn-sm" id="previewBtn" target="_blank">페이지로 미리보기</a>
-          <button class="btn btn-sm btn-danger" id="deleteBtn">삭제</button>
+          <button class="btn btn-sm btn-danger" id="deleteBtn">${d.status === 'trash' ? '영구 삭제' : '삭제'}</button>
           <button class="btn btn-sm btn-primary" id="saveBtn">저장</button>
         </div>
         <div class="ed-body">
           <div class="card">
             <input type="text" class="title-input" data-k="title" value="${esc(d.title)}" placeholder="제목 (독자가 클릭하고 싶어지는 한 줄)">
             <div class="meta-row">
-              <div class="seg status-seg" id="statusSeg">${STATUSES.map(s => `<button type="button" data-st="${s.id}" class="${s.id} ${d.status === s.id ? 'on' : ''}">${s.label}</button>`).join('')}</div>
+              <div class="seg status-seg" id="statusSeg">${STATUSES.filter(s => s.id !== 'trash').map(s => `<button type="button" data-st="${s.id}" class="${s.id} ${d.status === s.id ? 'on' : ''}">${s.label}</button>`).join('')}</div>
               <label>서비스 <select data-k="site">${Object.values(SITES).map(s => `<option value="${s.id}" ${siteOf(d) === s.id ? 'selected' : ''}>${esc(s.brandName)}</option>`).join('')}</select></label>
               <label>카테고리 <select data-k="category">${SITES[siteOf(d)].categories.map(c => `<option value="${c.id}" ${d.category === c.id ? 'selected' : ''}>${c.label}</option>`).join('')}</select></label>
-              <label>날짜 <input type="date" data-k="date" value="${esc(d.date)}"></label>
+              <span id="dateField">${dateFieldHTML(d)}</span>
               <label><input type="checkbox" data-k="featured" ${d.featured ? 'checked' : ''}> 추천글</label>
             </div>
           </div>
@@ -1105,8 +1196,16 @@
           <small>자르기(16:9) · 좌우·상하 대칭 · 회전 · 밝기 보정을 할 수 있어요.<br>없으면 카테고리 색 배경에 제목이 들어가요.</small>
         </div>`;
     }
+    /* 날짜 칸: 발행 글은 발행일, 그 밖에는 작성일 */
+    function dateFieldHTML(d) {
+      return d.status === 'published'
+        ? `<label title="발행한 날 (발행하는 순간 자동으로 정해져요)">발행일 <input type="date" data-k="date" value="${esc(d.date)}"></label>`
+        : `<label title="글을 처음 만든 날">작성일 <input type="date" data-k="created" value="${esc(d.created || d.date)}"></label>`;
+    }
     function refreshStatusUI() {
       document.querySelectorAll('#statusSeg button').forEach(b => b.classList.toggle('on', b.dataset.st === draft.status));
+      const df = $('dateField'); if (df) df.innerHTML = dateFieldHTML(draft);
+      const del = $('deleteBtn'); if (del) del.textContent = draft.status === 'trash' ? '영구 삭제' : '삭제';
       showState();
     }
 
@@ -1292,13 +1391,34 @@
       if (add) { createAndOpen({ status: add.dataset.add, category: catFilter === 'all' ? $('quickCat').value : catFilter }); return; }
       const th = e.target.closest('th[data-sort]');
       if (th) { const k = th.dataset.sort; sortDir = sortKey === k ? -sortDir : (['date', 'views', 'd7'].includes(k) ? -1 : 1); sortKey = k; renderMain(); return; }
-      if (e.target.closest('select')) return;
+      if (e.target.closest('select, input, .col-tools')) return;
+      const box = e.target.closest('[data-box]');
+      if (box) { boxTab = box.dataset.box; savePrefs(); renderMain(); return; }
+      if (e.target.closest('[data-empty-trash]')) {
+        const ids = filtered().filter(p => p.status === 'trash').map(p => p.id);
+        if (ids.length && confirm(`휴지통의 글 ${ids.length}개를 영구 삭제할까요?\n되돌릴 수 없습니다.`)) purgePosts(ids).then(ok => ok && toast('휴지통을 비웠어요'));
+        return;
+      }
+      const act = e.target.closest('[data-act]');
+      if (act) {
+        const id = act.closest('[data-id]').dataset.id, p = posts.find(o => o.id === id), a = act.dataset.act;
+        if (a === 'restore') changeStatus(id, p.prevStatus || 'idea', { restore: true });
+        else if (a === 'purge') { if (confirm(`"${p.title || '(제목 없음)'}" 글을 영구 삭제할까요?\n되돌릴 수 없습니다.`)) purgePosts([id]).then(ok => ok && toast('영구 삭제했어요')); }
+        else changeStatus(id, a);
+        return;
+      }
       const item = e.target.closest('[data-id]');
       if (item) openPost(item.dataset.id);
     });
     $('main').addEventListener('change', e => {
       const sel = e.target.closest('[data-status-of]');
-      if (sel) changeStatus(sel.dataset.statusOf, sel.value);
+      if (sel) { changeStatus(sel.dataset.statusOf, sel.value); return; }
+      const pref = e.target.closest('[data-pref]');
+      if (pref) {
+        const st = pref.closest('[data-tools]').dataset.tools;
+        colPrefs[st] = Object.assign(prefOf(st), { [pref.dataset.pref]: pref.value });
+        savePrefs(); renderMain();
+      }
     });
     // 끌어 놓기로 상태 바꾸기
     $('main').addEventListener('dragstart', e => {
@@ -1362,31 +1482,31 @@
         const st = t.dataset.st;
         if (st === draft.status) return;
         if (!draft.title.trim()) { alert('제목을 먼저 적어 주세요.'); return; }
-        if (st === 'published' && !confirm('이 글을 발행할까요?\n지금까지 쓴 내용이 블로그에 바로 공개돼요.')) return;
-        if (draft.status === 'published' && !confirm('발행을 취소할까요?\n블로그에서 이 글이 내려가요.')) return;
-        const prevStatus = draft.status;
-        draft.status = st;
-        if (st === 'published') draft.date = draft.date || todayStr();
+        if (!confirmStatus(draft, st)) return;
+        const before = {}; STATUS_KEYS.forEach(k => { if (k in draft) before[k] = draft[k]; });
+        applyStatus(draft, st);
         dirty = true; editVer++;
         if (await save({ silent: true })) { refreshStatusUI(); toast(`'${statusLabel(st)}'(으)로 바꿨어요`); }
-        else { draft.status = prevStatus; refreshStatusUI(); }
+        else { STATUS_KEYS.forEach(k => delete draft[k]); Object.assign(draft, before); refreshStatusUI(); }
       }
       else if (t.id === 'deleteBtn') {
-        if (!confirm(`"${draft.title || '(제목 없음)'}" 글을 삭제할까요? 되돌릴 수 없습니다.`)) return;
         const delId = draft.id;
         clearTimeout(autoTimer);
         if (saving) await saving;
-        if (!unsavedIds.has(delId) && ONLINE && !(await persistDelete(delId))) return;
-        posts = posts.filter(p => p.id !== delId);
-        unsavedIds.delete(delId);
-        if (!ONLINE) {
-          // 지운 글이 posts.js 합치기 안내에 다시 뜨지 않게
-          try { localStorage.setItem(SKIP_KEY, JSON.stringify([...skipIds(), delId])); } catch (err) {}
-          persistLocal();
+        // 아직 저장 안 된 빈 새 글은 그냥 버린다
+        if (unsavedIds.has(delId)) { posts = posts.filter(p => p.id !== delId); unsavedIds.delete(delId); dirty = false; await closeEditor(); return; }
+        if (draft.status === 'trash') {
+          if (!confirm(`"${draft.title || '(제목 없음)'}" 글을 영구 삭제할까요?\n되돌릴 수 없습니다.`)) return;
+          dirty = false;
+          if (!(await purgePosts([delId]))) return;
+          draft = null; $('drawer').hidden = true; $('backdrop').hidden = true; destroyEditor(); $('drawer').innerHTML = ''; renderMain();
+          toast('영구 삭제했어요');
+          return;
         }
+        if (dirty && draft.status !== 'published') await save({ silent: true });
         dirty = false;
-        await closeEditor();
-        toast('삭제했어요');
+        await changeStatus(delId, 'trash');
+        if (draft && draft.status === 'trash') await closeEditor();
       }
       else if (t.id === 'thumbUp') {
         // 썸네일 편집 창: 지금 썸네일(없으면 새 사진)을 자르기·대칭·회전·보정

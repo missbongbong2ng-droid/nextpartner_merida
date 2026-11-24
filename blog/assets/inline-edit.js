@@ -155,7 +155,7 @@
     const bar = document.createElement('div');
     bar.className = 'ie-bar';
     bar.innerHTML = `<div class="wrap"><span class="ie-state">수정 중 · 저장하면 바로 반영돼요</span>
-      <select id="ieStatus" aria-label="상태">${STATUSES.map(s => `<option value="${s.id}" ${post.status === s.id ? 'selected' : ''}>${s.label}</option>`).join('')}</select>
+      <select id="ieStatus" aria-label="상태">${STATUSES.filter(s => s.id !== 'trash' || post.status === 'trash').map(s => `<option value="${s.id}" ${post.status === s.id ? 'selected' : ''}>${s.label}</option>`).join('')}</select>
       <button id="ieAdmin" type="button"><span class="ie-long">관리자에서 자세히</span><span class="ie-short">관리자</span></button>
       <button id="ieCancel" type="button">취소</button>
       <button id="ieSave" class="ie-save" type="button">저장</button></div>`;
@@ -251,7 +251,9 @@
       let body = editor.getContents(true);
       if (!/<(img|video|iframe|hr|table)/i.test(body) && !body.replace(/<[^>]*>/g, '').replace(/&nbsp;|​/g, '').trim()) body = '';
       const next = Object.assign({}, post, { title, summary: sum.textContent.trim(), body, format: 'html', images: {}, status, thumbnail });
-      if (status === 'published' && !next.date) next.date = todayStr();
+      // 발행하는 순간이 발행일
+      if (status === 'published' && post.status !== 'published') { next.date = todayStr(); next.publishedAt = Date.now(); }
+      if (!next.created) next.created = post.created || post.date || todayStr();
       saving = true; $('#ieSave').textContent = '저장 중…';
       try {
         await api('PUT', 'posts/' + post.id, next);
