@@ -29,6 +29,7 @@
   <script src="assets/inline-edit.js" defer></script>
   <script>
     const PER_PAGE = 10;
+    const GRID_PER_PAGE = 12;
     const params = new URLSearchParams(location.search);
     const cat = params.get('cat');
     const page = Math.max(1, parseInt(params.get('page') || '1', 10));
@@ -40,6 +41,10 @@
     document.getElementById('notice').innerHTML = localNotice();
 
     const all = publishedPosts();
+    const feed = all.filter(inFeed);           // '전체 글'에 섞는 글
+    const catInfo = validCat ? catOf(validCat) : null;
+    const isGrid = !!(catInfo && catInfo.layout === 'grid');
+    const perPage = isGrid ? GRID_PER_PAGE : PER_PAGE;
     const main = document.getElementById('main');
 
     function listItem(p) {
@@ -55,7 +60,7 @@
     }
 
     function pagination(total) {
-      const pages = Math.ceil(total / PER_PAGE);
+      const pages = Math.ceil(total / perPage);
       if (pages <= 1) return '';
       const href = n => 'index.html?' + (validCat ? 'cat=' + validCat + '&' : '') + 'page=' + n;
       let h = '';
@@ -79,7 +84,18 @@
     }
 
     let html = '';
-    if (validCat) {
+    if (isGrid) {
+      // 사진 카드 격자 (현장 스케치)
+      const posts = all.filter(p => p.category === validCat);
+      document.title = catLabel(validCat) + ' - ' + SITE.name;
+      const pagePosts = posts.slice((page - 1) * perPage, page * perPage);
+      const photos = posts.reduce((n, p) => n + (p.photoCount || 0), 0);
+      html = `<div class="wrap">
+        <div class="cat-head"><h1>${esc(catLabel(validCat))}</h1><p>${esc(catInfo.desc)} · 현장 ${posts.length}곳${photos ? ' · 사진 ' + photos.toLocaleString('ko-KR') + '장' : ''}</p></div>
+        <div class="sk-grid">${pagePosts.map(sketchCard).join('') || '<div class="empty">아직 올라온 현장 사진이 없습니다.</div>'}</div>
+        ${pagination(posts.length)}
+      </div>`;
+    } else if (validCat) {
       const posts = all.filter(p => p.category === validCat);
       document.title = catLabel(validCat) + ' - ' + SITE.name;
       const pagePosts = posts.slice((page - 1) * PER_PAGE, page * PER_PAGE);
@@ -96,9 +112,12 @@
       </div>`;
     } else {
       // 추천글을 먼저, 5개가 안 되면 최신 글로 채움
-      const featured = [...all.filter(p => p.featured), ...all.filter(p => !p.featured)].slice(0, 5);
+      const featured = [...feed.filter(p => p.featured), ...feed.filter(p => !p.featured)].slice(0, 5);
       const [first, ...rest] = featured;
-      const pagePosts = all.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+      const pagePosts = feed.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+      // 홈 1쪽: 사진 격자 카테고리(현장 스케치) 최신 4곳 미리보기
+      const gridCat = CATEGORIES.find(c => c.layout === 'grid');
+      const sketches = gridCat && page === 1 ? all.filter(p => p.category === gridCat.id).slice(0, 4) : [];
       html = `<div class="wrap">
         <section class="intro">
           <h1>${SITE.introTitle}</h1>
@@ -121,11 +140,14 @@
             </a>`).join('')}
           </div>
         </section>` : ''}
+        ${sketches.length ? `
+        <div class="section-title sk-home-title"><span>${esc(gridCat.label)}</span><a href="index.html?cat=${gridCat.id}">전체 보기 →</a></div>
+        <div class="sk-grid sk-home">${sketches.map(sketchCard).join('')}</div>` : ''}
         <div class="section-title">최신 글</div>
         <div class="layout">
           <div>
             <div class="list">${pagePosts.map(listItem).join('') || '<div class="empty">아직 발행된 글이 없습니다.</div>'}</div>
-            ${pagination(all.length)}
+            ${pagination(feed.length)}
           </div>
           ${sidebar()}
         </div>

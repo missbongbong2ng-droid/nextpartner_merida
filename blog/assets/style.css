@@ -241,3 +241,57 @@ img { max-width: 100%; display: block; }
 /* 조회수: 눈 아이콘 + 숫자 */
 .meta .views { display: inline-flex; align-items: center; gap: 3px; vertical-align: -2px; }
 .meta .views .eye { opacity: .75; }
+
+/* 현장 스케치: 사진 카드 격자 */
+.sk-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px 22px; margin: 24px 0 8px; }
+.sk-grid.sk-home { grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 0; }
+.sk-card { display: block; color: inherit; text-decoration: none; }
+.sk-img { position: relative; aspect-ratio: 3 / 4; border-radius: var(--radius); overflow: hidden; background: var(--bg-2); }
+.sk-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .35s ease; }
+.sk-card:hover .sk-img img { transform: scale(1.04); }
+.sk-count { position: absolute; right: 10px; bottom: 10px; padding: 3px 9px; border-radius: 999px; background: rgba(15, 18, 28, .62); color: #fff; font-size: 12px; font-weight: 600; backdrop-filter: blur(4px); }
+.sk-body { padding: 12px 2px 0; }
+.sk-date { font-size: 13px; font-weight: 700; color: var(--brand); }
+.sk-card h3 { margin: 4px 0 8px; font-size: 17px; line-height: 1.4; letter-spacing: -.02em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.sk-card:hover h3 { color: var(--brand); }
+.sk-home .sk-card h3 { font-size: 15px; }
+.sk-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.sk-tags span { font-size: 12px; color: var(--ink-2); background: var(--bg-2); padding: 3px 8px; border-radius: 6px; }
+.sk-home-title { display: flex; justify-content: space-between; align-items: baseline; }
+.sk-home-title a { font-size: 13px; letter-spacing: 0; font-weight: 700; color: var(--brand); text-decoration: none; }
+
+/* 현장 스케치 글: 정보 + 사진 갤러리 */
+.prose .sketch-info { list-style: none; padding: 16px 20px; margin: 24px 0; background: var(--bg-2); border-radius: 12px; display: grid; gap: 6px; }
+.prose .sketch-info li { margin: 0; padding: 0; font-size: 15px; }
+.prose .sketch-info li::before { content: none; }
+.prose .sketch-info b { display: inline-block; min-width: 88px; color: var(--muted); font-weight: 600; }
+.prose .sketch-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 24px 0; }
+.prose .sketch-gallery a { display: block; aspect-ratio: 1; border-radius: 8px; overflow: hidden; background: var(--bg-2); cursor: zoom-in; }
+.prose .sketch-gallery img { width: 100%; height: 100%; object-fit: cover; margin: 0; border-radius: 0; transition: transform .3s ease; }
+.prose .sketch-gallery a:hover img { transform: scale(1.05); }
+.prose .sketch-gallery a:first-child { grid-column: span 2; grid-row: span 2; }
+
+.lightbox { position: fixed; inset: 0; z-index: 100000; background: rgba(8, 10, 16, .92); display: flex; align-items: center; justify-content: center; }
+.lightbox[hidden] { display: none; }
+.lightbox img { max-width: 92vw; max-height: 86vh; object-fit: contain; border-radius: 6px; }
+.lightbox button { position: absolute; background: rgba(255, 255, 255, .12); color: #fff; border: 0; width: 46px; height: 46px; border-radius: 50%; font-size: 28px; line-height: 1; cursor: pointer; }
+.lightbox button:hover { background: rgba(255, 255, 255, .24); }
+.lb-close { top: 16px; right: 16px; }
+.lb-prev { left: 16px; top: 50%; transform: translateY(-50%); }
+.lb-next { right: 16px; top: 50%; transform: translateY(-50%); }
+.lb-count { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); color: rgba(255, 255, 255, .8); font-size: 14px; }
+
+@media (max-width: 960px) {
+  .sk-grid { grid-template-columns: repeat(2, 1fr); }
+  .sk-grid.sk-home { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .sk-grid { gap: 20px 12px; }
+  .sk-card h3, .sk-home .sk-card h3 { font-size: 14px; }
+  .sk-tags span:nth-child(n+3) { display: none; }
+  .sk-img { border-radius: 10px; }
+  .prose .sketch-gallery { gap: 4px; }
+  .prose .sketch-gallery a { border-radius: 4px; }
+  .lb-prev, .lb-next { display: none; }
+}
+.prose .sketch-gallery a:first-child img { object-position: top; }

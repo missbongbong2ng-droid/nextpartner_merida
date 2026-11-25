@@ -44,10 +44,12 @@
       document.head.appendChild(meta);
 
       const pub = publishedPosts().filter(p => p.slug !== post.slug);
+      // 같은 카테고리 글 먼저, 모자라면 '전체 글'에 섞이는 글로 채운다 (현장 스케치는 현장 스케치끼리)
       const related = [
         ...pub.filter(p => p.category === post.category),
-        ...pub.filter(p => p.category !== post.category),
+        ...(inFeed(post) ? pub.filter(p => p.category !== post.category && inFeed(p)) : []),
       ].slice(0, 3);
+      const isGallery = /class="sketch-gallery"/.test(post.body || '');
 
       const ctaText = post.ctaText || SITE.postCtaText;
       const ctaUrl = post.ctaUrl || SITE.ctaUrl;
@@ -60,11 +62,11 @@
             <h1>${esc(post.title)}</h1>
             ${post.summary ? `<p class="article-summary">${esc(post.summary)}</p>` : ''}
             <div class="article-meta">
-              <span class="meta">${fmtDate(post.date)} · ${viewsHTML(post)}</span>
+              <span class="meta">${postDate(post)} · ${viewsHTML(post)}</span>
               <button class="btn btn-sm" id="copyBtn">링크 복사</button>
             </div>
           </header>
-          <div class="article-hero">${thumbHTML(post)}</div>
+          ${isGallery ? '' : `<div class="article-hero">${thumbHTML(post)}</div>`}
           <div class="prose">${renderBody(post)}</div>
 
           <div class="post-cta ${SITE.postCtaClass || ''}">
@@ -88,7 +90,7 @@
               ${thumbHTML(p, 'thumb-sm')}
               <h3>${esc(p.title)}</h3>
               <p>${esc(p.summary)}</p>
-              <span class="meta">${esc(catLabel(p.category))} · ${fmtDate(p.date)}</span>
+              <span class="meta">${esc(catLabel(p.category))} · ${postDate(p)}</span>
             </a>`).join('')}
           </div>
         </div></section>` : ''}
@@ -105,12 +107,38 @@
         }
       }
 
+      // 사진 갤러리: 누르면 크게 보기 (좌우 화살표·스와이프로 넘기기)
+      if (isGallery) setupLightbox(main.querySelectorAll('.sketch-gallery a'));
+
       document.getElementById('copyBtn').addEventListener('click', e => {
         const btn = e.currentTarget;
         const done = () => { btn.textContent = '복사됨'; setTimeout(() => btn.textContent = '링크 복사', 1500); };
         if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(done, done);
         else done();
       });
+    }
+
+    function setupLightbox(links) {
+      links = [...links];
+      if (!links.length) return;
+      const box = document.createElement('div');
+      box.className = 'lightbox'; box.hidden = true;
+      box.innerHTML = '<button class="lb-close" aria-label="닫기">×</button><button class="lb-prev" aria-label="이전 사진">‹</button><img alt=""><button class="lb-next" aria-label="다음 사진">›</button><span class="lb-count"></span>';
+      document.body.appendChild(box);
+      const img = box.querySelector('img'), count = box.querySelector('.lb-count');
+      let i = 0;
+      const show = n => { i = (n + links.length) % links.length; img.src = links[i].getAttribute('href'); img.alt = links[i].querySelector('img').alt; count.textContent = (i + 1) + ' / ' + links.length; };
+      const open = n => { show(n); box.hidden = false; document.body.style.overflow = 'hidden'; };
+      const close = () => { box.hidden = true; document.body.style.overflow = ''; img.removeAttribute('src'); };
+      links.forEach((a, n) => a.addEventListener('click', e => { e.preventDefault(); open(n); }));
+      box.querySelector('.lb-close').onclick = close;
+      box.querySelector('.lb-prev').onclick = e => { e.stopPropagation(); show(i - 1); };
+      box.querySelector('.lb-next').onclick = e => { e.stopPropagation(); show(i + 1); };
+      box.addEventListener('click', e => { if (e.target === box) close(); });
+      document.addEventListener('keydown', e => { if (box.hidden) return; if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') show(i - 1); if (e.key === 'ArrowRight') show(i + 1); });
+      let x0 = null;
+      box.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+      box.addEventListener('touchend', e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1)); x0 = null; });
     }
   </script>
 </body>

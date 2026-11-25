@@ -58,10 +58,13 @@ const SITES = {
       { id: 'news', label: '소식', desc: '모리아AI 서비스 소개, 기능 업데이트, 공지와 안내' },
       { id: 'brand', label: '브랜드', desc: '박람회·기관 현장 이야기와 채용·공공 현장의 AI 인사이트' },
       { id: 'event', label: '이벤트', desc: '진행 중인 이벤트와 혜택 소식' },
+      // 현장 스케치: 홈페이지 도입사례를 가져온 사진 글 (worker/tools/sync_sketch.cjs)
+      // grid: 목록을 사진 카드 격자로 / feed:false: '전체 글' 목록·추천글에는 섞지 않음
+      { id: 'sketch', label: '현장 스케치', desc: '모리아AI가 함께한 박람회·기관 행사 현장 사진', layout: 'grid', feed: false },
       { id: 'guide', label: '도입 가이드', desc: '도입 절차, 준비물, 운영 방식, 자주 묻는 질문' },
     ],
     // 카테고리가 아닌 바깥 링크 (after: 이 카테고리 바로 뒤에 표시)
-    navLinks: [{ after: 'event', label: '현장 스케치', href: 'https://moriahai.com/cases', external: true }],
+    navLinks: [],
   },
 };
 /* 독자 설문: 글 페이지에서 무작위로 한 문항 (assets/survey.js), 결과는 관리자 '설문' 탭
@@ -216,6 +219,24 @@ function statusLabel(id) {
 }
 function fmtDate(d) {
   return d ? d.replace(/-/g, '.') : '';
+}
+// 글에 보일 날짜 (현장 스케치처럼 달만 있는 글은 '2026.11')
+function postDate(p) { return p.period || fmtDate(p.date); }
+// '전체 글' 목록·추천글·함께 읽을 글에 넣을 글인가 (feed:false 카테고리는 빠짐)
+function inFeed(p) { const c = CATEGORIES.find(c => c.id === p.category); return !(c && c.feed === false); }
+function catOf(id) { return CATEGORIES.find(c => c.id === id) || null; }
+
+/* 현장 스케치 카드 (격자 목록·홈 미리보기 공용) */
+function sketchCard(p) {
+  return `<a class="sk-card" href="${postUrl(p)}">
+    <div class="sk-img">${p.thumbnail ? `<img src="${esc(p.thumbnail)}" alt="" loading="lazy">` : ''}
+      ${p.photoCount ? `<span class="sk-count">사진 ${p.photoCount}</span>` : ''}</div>
+    <div class="sk-body">
+      <span class="sk-date">${esc(postDate(p))}</span>
+      <h3>${esc(p.title)}</h3>
+      ${(p.tags || []).length ? `<div class="sk-tags">${p.tags.slice(0, 3).map(t => `<span>${esc(t)}</span>`).join('')}</div>` : ''}
+    </div>
+  </a>`;
 }
 function readMinutes(body) {
   const len = (body || '').replace(/<[^>]*>/g, '').replace(/&[a-z#0-9]+;/gi, ' ')
