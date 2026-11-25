@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>모리아AI 키네틱 시안3</title>
+<style>
+@font-face{font-family:P;src:url(assets/fonts/Pretendard-Black.woff2);font-weight:900}
+@font-face{font-family:P;src:url(assets/fonts/Pretendard-ExtraBold.woff2);font-weight:800}
+@font-face{font-family:P;src:url(assets/fonts/Pretendard-Bold.woff2);font-weight:700}
+@font-face{font-family:P;src:url(assets/fonts/Pretendard-Medium.woff2);font-weight:500}
+@font-face{font-family:M;src:url(assets/fonts/JetBrainsMono-500.woff2);font-weight:500}
+:root{--sky:#0EA5E9;--violet:#8B5CF6;--teal:#10B981;--pink:#EC4899;--ink:#050608;--paper:#f4f5f7}
+html,body{margin:0;background:#000;overflow:hidden}
+#stage{width:1920px;height:1080px;position:relative;overflow:hidden;background:var(--ink);font-family:P;color:#fff;transform-origin:0 0}
+.L{position:absolute;inset:0;visibility:hidden}
+.ctr{display:flex;align-items:center;justify-content:center;flex-direction:column}
+.w{display:inline-block;overflow:hidden;line-height:1.12;padding:.06em .04em .05em;vertical-align:bottom;white-space:nowrap}
+.c{display:inline-block;will-change:transform;transform-origin:50% 80%}
+.sp{width:.26em}
+.mono{font-family:M;font-weight:500;letter-spacing:.28em;text-transform:uppercase}
+.tag{position:absolute;left:120px;top:96px;font-size:26px;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:16px;z-index:20}
+.tag i{width:12px;height:12px;border-radius:50%;background:var(--sky);display:inline-block}
+.grad{background-image:linear-gradient(90deg,#0EA5E9 0%,#8B5CF6 30%,#0EA5E9 60%,#10B981 80%,#0EA5E9 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gradMark{background-image:linear-gradient(90deg,#F72372 0%,#FD970A 17%,#FEE150 33%,#B7D163 50%,#46BEE9 67%,#787FB6 83%,#F72372 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fill{position:absolute;inset:0}
+
+.s1{font-size:250px;font-weight:900;letter-spacing:-.04em}
+/* S2 모이기 */
+.pill{position:absolute;left:50%;top:50%;padding:28px 64px 32px;border-radius:999px;font-size:100px;font-weight:800;letter-spacing:-.03em;white-space:nowrap;line-height:1}
+#dot{position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:#fff}
+.s3{font-size:420px;font-weight:900;letter-spacing:-.05em}
+.uline{height:22px;width:1180px;margin-top:10px;border-radius:11px;background:linear-gradient(90deg,#0EA5E9,#8B5CF6,#10B981);transform-origin:0 50%}
+.row4{display:flex;align-items:flex-start;font-size:240px;font-weight:900;letter-spacing:-.04em}
+.row4 .w{height:1.16em}
+.verbs{position:relative;display:inline-block;overflow:hidden;width:1080px;height:1.16em;margin-left:.22em;line-height:1.12}
+.verbs .v{position:absolute;left:0;top:0;white-space:nowrap;padding:.06em .02em .04em;z-index:2}
+.verbs .mk{position:absolute;left:0;bottom:.14em;height:.3em;border-radius:.06em;transform-origin:0 50%;z-index:1}
+.cap4{position:absolute;left:0;right:0;top:760px;text-align:center;font-size:30px;color:#cbd5e1;height:48px;overflow:hidden}
+.cap4 div{position:absolute;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:18px}
+.cap4 b{width:14px;height:14px;border-radius:50%;display:inline-block}
+.pair .small{font-size:110px;font-weight:700;color:rgba(255,255,255,.78);letter-spacing:-.03em}
+.pair .big{font-size:330px;font-weight:900;letter-spacing:-.05em;margin-top:-20px}
+.s6{font-size:210px;font-weight:900;letter-spacing:-.045em}
+.glow{position:absolute;width:1100px;height:1100px;border-radius:50%;filter:blur(40px)}
+.logo{display:flex;align-items:center;gap:56px}
+.mark{width:200px;height:200px;overflow:hidden;position:relative}
+.mark img{height:200px;position:absolute;left:0;top:0}
+.word{font-size:250px;font-weight:800;letter-spacing:-.035em;line-height:1}
+.sub{font-size:52px;font-weight:500;color:#e2e8f0;margin-top:70px;letter-spacing:-.01em;overflow:hidden}
+.url{font-size:28px;color:#94a3b8;margin-top:36px;text-transform:none;letter-spacing:.12em}
+
+#ctl{position:fixed;left:0;right:0;bottom:0;display:flex;gap:12px;align-items:center;padding:10px 16px;background:#111;color:#ccc;font:14px system-ui}
+#ctl input{flex:1}
+body.render #ctl{display:none}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="L ctr" id="s1"><div class="fill" id="s1base"></div><div class="fill" id="s1top"></div><div class="w s1" id="s1w" style="position:relative"></div></div>
+  <div class="L" id="s2" style="background:var(--ink)"><div id="pills"></div><div id="dot"></div></div>
+  <div class="L ctr" id="s3" style="background:var(--paper)"><div class="w s3" id="s3w"></div><div class="uline" id="uline"></div></div>
+  <div class="L ctr" id="s4" style="background:var(--ink)">
+    <div class="row4" id="row4"><div class="w" id="ai"></div><div class="verbs" id="verbs"></div></div>
+    <div class="cap4 mono" id="cap4"></div>
+  </div>
+  <div id="pairs"></div>
+  <div class="L ctr" id="s6" style="background:var(--ink)"><div class="w s6" id="s6w"></div></div>
+  <div class="L ctr" id="s7">
+    <div class="glow" id="g1" style="background:radial-gradient(circle,rgba(14,165,233,.55),transparent 65%)"></div>
+    <div class="glow" id="g2" style="background:radial-gradient(circle,rgba(139,92,246,.5),transparent 65%)"></div>
+    <div class="glow" id="g3" style="background:radial-gradient(circle,rgba(247,35,114,.3),transparent 65%)"></div>
+    <div class="logo" style="position:relative"><div class="mark" id="mark"><img src="assets/moriahai-logo.png" alt=""></div><div class="w word" id="word"></div></div>
+    <div class="sub" id="sub" style="position:relative"></div>
+    <div class="url mono" id="url" style="position:relative">moriahai.com</div>
+  </div>
+  <div class="tag mono" id="tag"><i id="tagdot"></i><span id="tagt"></span></div>
+</div>
+<div id="ctl"><button id="play">재생</button><input type="range" id="seek" min="0" max="21" step="0.01" value="0"><span id="tc">0.00</span></div>
+
+<script>
+// ════════ 문구 (여기만 고치면 됨) ════════
+const TXT = {
+  s1: ['이력서.', '증명사진.', '모의면접.', '직무탐색.', '채용대행.'],     // 0~5초, 1초마다 한 단어 → 색 알약으로 모였다가 한 점으로
+  s3: '하나로.',
+  s4ai: 'AI가',
+  s4verbs: [['찾는다.', '맞춤 직무 탐색'], ['찍는다.', 'AI 증명사진'], ['고친다.', '이력서 생성'], ['묻는다.', '모의면접'], ['완성한다.', '박람회 채용 & 행사']],
+  pairs: [['구직자에겐', '준비를.', 'FOR JOB SEEKERS'], ['기업에겐', '시간을.', 'FOR COMPANIES'], ['현장에겐', '여유를.', 'FOR EVENT OPS']],
+  s6: '취업의 모든 순간.', s6gradFrom: 4,
+  sub: 'AI 취업지원 · 행사 운영 솔루션',
+};
+// ═══════════════════════════════════════
+
+const C = { sky: '#0EA5E9', violet: '#8B5CF6', teal: '#10B981', pink: '#EC4899', ink: '#050608', orange: '#F97316' };
+// ── 타임라인 ──
+const S1T = TXT.s1.map((_, i) => i * 1.0);            // 단어 교체 시각
+const T2 = 5.0, T3 = 6.35, T4 = 7.6;                   // 모이기, 하나로, AI가
+const VT = [7.75, 8.45, 9.15, 9.85, 10.55];            // 동사 교체 시각
+const T4END = 11.45;
+const PT = [11.45, 12.85, 14.25];                      // 대비 장면 셋
+const T6 = 15.65, T7 = 17.45, DURATION = 21;
+
+const $ = id => document.getElementById(id);
+const clamp = v => Math.max(0, Math.min(1, v));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const outExpo = p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p);
+const outCubic = p => 1 - Math.pow(1 - p, 3);
+const inCubic = p => p * p * p;
+const inOutCubic = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const outBack = (p, s = 1.9) => { if (p <= 0) return 0; if (p >= 1) return 1; const q = p - 1; return q * q * ((s + 1) * q + s) + 1; };
+
+function chars(el, text) {
+  el.innerHTML = [...text].map(ch => ch === ' ' ? '<span class="c sp"> </span>' : `<span class="c">${ch}</span>`).join('');
+  return [...el.querySelectorAll('.c')];
+}
+function pop(cs, t, t0, { dur = .42, stag = .035, y = 115, rot = 0, sc = 1, x = 0 } = {}) {
+  cs.forEach((c, i) => {
+    const p = seg(t, t0 + i * stag, t0 + i * stag + dur), e = outExpo(p), b = outBack(p);
+    c.style.transform = `translate(${(1 - e) * x}%, ${(1 - e) * y}%) rotate(${(1 - b) * rot}deg) scale(${sc + (1 - sc) * b})`;
+  });
+}
+function sink(cs, t, t0, dur = .2, stag = .015) {
+  cs.forEach((c, i) => { const p = inCubic(seg(t, t0 + i * stag, t0 + i * stag + dur)); if (p > 0) c.style.transform = `translateY(${-p * 115}%)`; });
+}
+function gradFlow(cs, W, shift) { cs.forEach(c => { c.style.backgroundSize = `${W * 2}px 100%`; c.style.backgroundPosition = `${-c.offsetLeft - shift}px 0`; }); }
+function wipe(el, t, t0, dir, dur = .28) {
+  const p = outExpo(seg(t, t0, t0 + dur)), r = (1 - p) * 100;
+  el.style.clipPath = p >= 1 ? 'none' : { up: `inset(${r}% 0 0 0)`, down: `inset(0 0 ${r}% 0)`, left: `inset(0 0 0 ${r}%)`, right: `inset(0 ${r}% 0 0)` }[dir];
+}
+const show = (id, on) => { $(id).style.visibility = on ? 'visible' : 'hidden'; };
+
+// ── 요소 만들기 ──
+const S1BG = [C.ink, C.sky, C.violet, C.teal, C.pink];
+const S1DIR = ['up', 'left', 'down', 'right', 'up'];
+const S1FX = [{ rot: 0, sc: 1 }, { rot: -14, sc: .6, y: 0, x: -60 }, { rot: 10, sc: 1.4, y: -115 }, { rot: 0, sc: .2, y: 0 }, { rot: -10, sc: .5 }];
+const s1w = $('s1w');
+
+// 모이기: 다섯 단어가 색 알약으로 흩어져 나왔다가 가운데로
+const PILLPOS = [[-560, -250], [470, -290], [-620, 190], [560, 210], [0, 10]];
+const PILLROT = [-6, 5, 4, -5, 0];
+$('pills').innerHTML = TXT.s1.map((w, i) => `<div class="pill" style="background:${S1BG[i] === C.ink ? '#fff' : S1BG[i]};color:${S1BG[i] === C.ink ? C.ink : '#fff'}">${w.replace(/\.$/, '')}</div>`).join('');
+const pills = [...$('pills').children];
+
+const s3c = chars($('s3w'), TXT.s3); s3c.forEach(c => c.classList.add('grad'));
+const aiC = chars($('ai'), TXT.s4ai);
+const VCOL = [C.sky, C.violet, C.teal, C.pink, C.orange];
+$('verbs').innerHTML = TXT.s4verbs.map((v, i) => `<div class="mk" style="background:${VCOL[i]}"></div><div class="v">${v[0]}</div>`).join('');
+const verbEls = [...$('verbs').querySelectorAll('.v')], mkEls = [...$('verbs').querySelectorAll('.mk')];
+$('cap4').innerHTML = TXT.s4verbs.map((v, i) => `<div><b style="background:${VCOL[i]}"></b>${String(i + 1).padStart(2, '0')}&nbsp;&nbsp;&nbsp;${v[1]}</div>`).join('');
+const capEls = [...$('cap4').querySelectorAll('div')];
+
+const PBG = [C.sky, C.violet, C.teal], PDIR = ['up', 'left', 'right'], PROT = [-8, 8, -8];
+$('pairs').innerHTML = TXT.pairs.map((p, i) => `<div class="L ctr pair" id="p${i}" style="background:${PBG[i]}"><div class="w small"></div><div class="w big"></div></div>`).join('');
+const pairEls = TXT.pairs.map((p, i) => { const el = $('p' + i); return { el, small: chars(el.children[0], p[0]), big: chars(el.children[1], p[1]), bigWrap: el.children[1] }; });
+
+const s6c = chars($('s6w'), TXT.s6); const s6g = s6c.slice(TXT.s6gradFrom); s6g.forEach(c => c.classList.add('grad'));
+const wordC = chars($('word'), 'MoriahAI');
+const aiLogo = wordC.slice(6); aiLogo.forEach(c => c.classList.add('gradMark'));
+const subC = chars($('sub'), TXT.sub);
+
+function renderAt(t) {
+  // 구석 라벨
+  let tag = '', dot = '#fff';
+  const vk = Math.max(0, VT.filter(v => t >= v).length - 1);
+  if (t < T2) { const k = Math.min(4, Math.floor(t)); tag = `0${k + 1} — 05`; dot = k === 0 ? C.sky : '#fff'; }
+  else if (t >= T4 && t < T4END) { tag = 'JOB SUPPORT'; dot = VCOL[vk]; }
+  else if (t >= PT[0] && t < T6) { const k = PT.filter(v => t >= v).length - 1; tag = TXT.pairs[k][2]; }
+  $('tagt').textContent = tag; $('tagdot').style.background = dot;
+  show('tag', !!tag);
+
+  // S1: 1초마다 색 판 + 단어
+  const on1 = t < T2 + .3;
+  show('s1', on1);
+  if (on1) {
+    const k = Math.min(4, Math.floor(t));
+    $('s1base').style.background = k ? S1BG[k - 1] : C.ink;
+    $('s1top').style.background = S1BG[k];
+    if (k) wipe($('s1top'), t, S1T[k], S1DIR[k], .22); else $('s1top').style.clipPath = 'none';
+    if (s1w.dataset.k != k) { s1w.dataset.k = k; s1w._c = chars(s1w, TXT.s1[k]); }
+    pop(s1w._c, t, S1T[k] + (k ? .06 : 0), { dur: .4, stag: .035, ...S1FX[k] });
+    // 한 단어가 1초 머무는 동안 천천히 다가옴
+    const p = outExpo(seg(t, S1T[k], S1T[k] + .45)), drift = seg(t, S1T[k], S1T[k] + 1);
+    s1w.style.transform = `scale(${1.08 - .08 * p + .05 * drift})`;
+  }
+
+  // S2: 다섯 알약이 흩어져 튀어나오고 → 가운데 한 점으로 모임 → 점이 흰 화면으로 퍼짐
+  const on2 = t >= T2 && t < T3 + .5;
+  show('s2', on2);
+  if (on2) {
+    wipe($('s2'), t, T2, 'up', .25);
+    const g = inOutCubic(seg(t, T2 + .75, T2 + 1.15));
+    pills.forEach((el, i) => {
+      const a = seg(t, T2 + .08 + i * .08, T2 + .5 + i * .08), b = outBack(a, 2.2);
+      const [x, y] = PILLPOS[i], fx = Math.sin((t - T2) * 2 + i) * 8;
+      el.style.transform = `translate(-50%,-50%) translate(${x * (1 - g) + fx * (1 - g)}px, ${y * (1 - g)}px) rotate(${PILLROT[i] * (1 - g) + (1 - b) * 20}deg) scale(${b * (1 - .85 * g)})`;
+      el.style.opacity = a > 0 ? 1 - seg(t, T2 + 1.05, T2 + 1.2) : 0;
+    });
+    const d = seg(t, T2 + 1.05, T2 + 1.2), e = inCubic(seg(t, T2 + 1.2, T3 + .2));
+    $('dot').style.opacity = d;
+    $('dot').style.transform = `scale(${(.3 + .7 * outBack(d)) * (1 + e * 80)})`;
+    $('dot').style.background = e > .02 ? 'var(--paper)' : '#fff';
+  }
+
+  // S3: 하나로.
+  const on3 = t >= T3 && t < T4 + .3;
+  show('s3', on3);
+  if (on3) {
+    pop(s3c, t, T3 + .05, { dur: .5, stag: .06, y: -115, rot: 12, sc: 1.3 });
+    const W = $('s3w').offsetWidth; gradFlow(s3c, W, (t - T3) * W * .5);
+    const p = outExpo(seg(t, T3 + .05, T3 + .55));
+    $('s3w').style.transform = `scale(${1.18 - .18 * p})`;
+    $('uline').style.transform = `scaleX(${outExpo(seg(t, T3 + .45, T3 + .85))})`;
+  }
+
+  // S4: AI가 + 동사 다섯
+  const on4 = t >= T4 && t < T4END + .3;
+  show('s4', on4);
+  if (on4) {
+    wipe($('s4'), t, T4, 'up', .25);
+    pop(aiC, t, T4 + .08, { dur: .4, stag: .05, rot: -10, sc: .5 });
+    sink(aiC, t, T4END - .2);
+    // 동사 길이에 맞춰 줄 전체를 가운데로 옮김
+    const vw = verbEls.map(el => el.offsetWidth), box = $('verbs').offsetWidth;
+    let off = (box - vw[0]) / 2;
+    for (let i = 1; i < VT.length; i++) off += ((box - vw[i]) / 2 - (box - vw[i - 1]) / 2) * inOutCubic(seg(t, VT[i], VT[i] + .4));
+    $('row4').style.transform = `translateX(${off}px)`;
+    verbEls.forEach((el, i) => {
+      const t0 = VT[i], t1 = i < VT.length - 1 ? VT[i + 1] : T4END - .2;
+      const pi = i === 0 ? seg(t, t0, t0 + .32) : seg(t, t0 + .1, t0 + .42);
+      const pout = inCubic(seg(t, t1, t1 + .12));
+      el.style.transform = `translateY(${(1 - outExpo(pi)) * 115 - pout * 115}%) skewY(${(1 - outBack(pi)) * 8}deg)`;
+      const m = outExpo(seg(t, t0 + .22, t0 + .5)), mo = inCubic(seg(t, t1 - .05, t1 + .08));
+      mkEls[i].style.width = el.offsetWidth + 'px';
+      mkEls[i].style.transform = `scaleX(${m * (1 - mo)})`;
+      const cin = i === 0 ? outExpo(seg(t, t0 + .05, t0 + .3)) : outExpo(seg(t, t0 + .14, t0 + .4)), cout = inCubic(seg(t, t1, t1 + .12));
+      capEls[i].style.transform = `translateY(${(1 - cin) * 100 - cout * 100}%)`;
+    });
+  }
+
+  // 대비 장면 셋: 구직자 / 기업 / 현장
+  pairEls.forEach((p, i) => {
+    const t0 = PT[i], t1 = i < 2 ? PT[i + 1] : T6;
+    const on = t >= t0 && t < t1 + .3;
+    p.el.style.visibility = on ? 'visible' : 'hidden';
+    if (!on) return;
+    wipe(p.el, t, t0, PDIR[i], .28);
+    pop(p.small, t, t0 + .07, { dur: .32, stag: .03 });
+    pop(p.big, t, t0 + .3, { dur: .45, stag: .05, sc: .4, rot: PROT[i] });
+    p.bigWrap.style.letterSpacing = `${.14 - .19 * outExpo(seg(t, t0 + .3, t0 + .8))}em`;
+  });
+
+  // S6: 취업의 모든 순간.
+  const on6 = t >= T6 && t < T7 + .15;
+  show('s6', on6);
+  if (on6) {
+    wipe($('s6'), t, T6, 'down', .28);
+    pop(s6c, t, T6 + .1, { dur: .45, stag: .045, rot: 10, sc: .6 });
+    const W = s6g.reduce((a, c) => a + c.offsetWidth, 0); gradFlow(s6g, W, (t - T6) * W * .5);
+    const q = outCubic(seg(t, T7 - .35, T7 + .1));
+    $('s6w').style.transform = `scale(${1 - .12 * q})`;
+    $('s6w').style.opacity = 1 - q;
+  }
+
+  // S7: 빛무리 + 로고 (Moriah 흰색, AI는 로고 마크 색)
+  const on7 = t >= T7 - .05;
+  show('s7', on7);
+  if (on7) {
+    const d = Math.max(0, t - T7), g = outCubic(seg(t, T7, T7 + 1));
+    $('g1').style.transform = `translate(${-420 + d * 40}px, ${-120 - d * 12}px) scale(${.6 + .4 * g})`;
+    $('g2').style.transform = `translate(${380 - d * 35}px, ${80 + d * 10}px) scale(${.6 + .4 * g})`;
+    $('g3').style.transform = `translate(${40 + d * 15}px, ${330 - d * 20}px) scale(${.5 + .4 * g})`;
+    ['g1', 'g2', 'g3'].forEach(id => $(id).style.opacity = g);
+    const m = outBack(seg(t, T7, T7 + .65), 1.4);
+    $('mark').style.transform = `scale(${.3 + .7 * m}) rotate(${-120 * (1 - outExpo(seg(t, T7, T7 + .6)))}deg)`;
+    $('mark').style.opacity = clamp(d / .15);
+    pop(wordC, t, T7 + .15, { dur: .5, stag: .045, rot: -12, sc: .5 });
+    const W = aiLogo.reduce((a, c) => a + c.offsetWidth, 0); gradFlow(aiLogo, W * 1.6, (d * W * .5) % (W * 3.2));
+    pop(subC, t, T7 + 1.0, { dur: .4, stag: .018 });
+    const u = outCubic(seg(t, T7 + 1.6, T7 + 2.1));
+    $('url').style.opacity = u; $('url').style.letterSpacing = `${.4 - .28 * u}em`;
+  }
+}
+window.renderAt = renderAt;
+
+const params = new URLSearchParams(location.search);
+const stage = $('stage');
+if (params.has('render')) document.body.classList.add('render');
+else { const fit = () => { const s = Math.min(innerWidth / 1920, (innerHeight - 44) / 1080); stage.style.transform = `scale(${s})`; }; addEventListener('resize', fit); fit(); }
+let T = 0, playing = false, t0w = 0, tStart = 0;
+const seek = $('seek'), tc = $('tc'), playBtn = $('play');
+function draw() { renderAt(T); seek.value = T; tc.textContent = T.toFixed(2); }
+function loop() { if (!playing) return; T = tStart + (performance.now() - t0w) / 1000; if (T >= DURATION) { T = DURATION; playing = false; playBtn.textContent = '재생'; } draw(); if (playing) requestAnimationFrame(loop); }
+playBtn.onclick = () => { playing = !playing; playBtn.textContent = playing ? '멈춤' : '재생'; if (playing) { if (T >= DURATION) T = 0; tStart = T; t0w = performance.now(); requestAnimationFrame(loop); } };
+seek.oninput = () => { T = +seek.value; if (playing) { tStart = T; t0w = performance.now(); } draw(); };
+addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); playBtn.onclick(); } });
+window.FILM_READY = Promise.all([document.fonts.ready, ...[...document.images].map(i => i.complete ? 0 : new Promise(r => i.onload = i.onerror = r))])
+  .then(() => Promise.all(['900 100px P', '800 100px P', '700 100px P', '500 100px P', '500 20px M'].map(f => document.fonts.load(f, '가A'))))
+  .then(() => { draw(); return true; });
+</script>
+</body>
+</html>

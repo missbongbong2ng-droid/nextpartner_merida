@@ -1,7 +1,7 @@
 // PBaaS 블로그 · Cloudflare Workers 설정 (운영 계정에 배포)
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "pbaas-blog",
+  "name": "blog",
   // 운영 계정(rnd1.moriah) 고정: 다른 계정으로 로그인되어 있으면 배포가 실패한다
   "account_id": "b9c4e41a2d307fc68657a8639f9e3ba8",
   "main": "worker/index.js",
@@ -12,7 +12,9 @@
     "binding": "ASSETS",
     "not_found_handling": "404-page",
     // posts.js는 로컬 파일 대신 DB 내용으로 내려준다
-    "run_worker_first": ["/posts.js", "/api/*", "/img/*", "/write", "/write.html", "/moriahai", "/moriahai/*", "/sites/*"]
+    "run_worker_first": ["/posts.js", "/api/*", "/img/*", "/write", "/write.html", "/selb", "/selb/*", "/moriahai", "/moriahai/*", "/sites/*",
+      // 예전 SelB 주소 → /selb/… 로 보낸다
+      "/", "/index", "/index.html", "/post", "/post.html", "/service", "/service.html"]
   },
   "d1_databases": [
     {

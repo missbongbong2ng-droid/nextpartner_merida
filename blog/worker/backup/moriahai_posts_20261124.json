@@ -1,0 +1,274 @@
+[
+  {
+    "results": [
+      {
+        "id": "ma00",
+        "slug": "서비스-소개-모리아ai-한눈에-보기-개발자-없이-현장에-맞춰-만드는-ai-솔루션",
+        "status": "draft",
+        "category": "news",
+        "date": "2026-11-23",
+        "featured": 1,
+        "data": "{\"id\":\"ma00\",\"site\":\"moriahai\",\"slug\":\"서비스-소개-모리아ai-한눈에-보기-개발자-없이-현장에-맞춰-만드는-ai-솔루션\",\"slugAuto\":true,\"title\":\"[서비스 소개] 모리아AI 한눈에 보기: 개발자 없이 현장에 맞춰 만드는 AI 솔루션\",\"category\":\"news\",\"status\":\"draft\",\"date\":\"2026-11-23\",\"summary\":\"모리아AI는 개발 인력이 부족한 기업·공공기관과 채용·행사 현장을 위해 필요한 AI 기능만 골라 맞춤 제작하고 운영까지 함께하는 현장 운영형 AI 솔루션입니다. 7개 분야 25종 서비스와 28곳의 도입 현장을 한 번에 정리했습니다.\",\"tags\":[\"모리아AI\",\"서비스소개\",\"현장운영형AI\",\"공공AI\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-gyeonggi-5070-job-fair-suwon-0.jpg\",\"featured\":true,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"대표 글감 (추천글 체크) - 발행하면 모리아AI 블로그 메인 큰 자리\\n목표: 처음 온 기관·기업 담당자가 \\\"무엇을, 어떻게, 어디에\\\" 를 한 번에 이해하고 도입 문의까지\\n근거: moriahai.com 홈(정의·HOW WE WORK·WHO WE PARTNER WITH), 서비스 소개(7개 분야 25종), 도입사례(28건·언론 2건), FAQ\\n⚠ 홈에는 \\\"8개 분야 25종\\\", 서비스 페이지에는 \\\"7개 분야 25종\\\"으로 적혀 있음 → 어느 쪽이 맞는지 확인 후 통일\",\"body\":\"<p><strong>모리아AI(MoriahAI)</strong>는 개발 인력이 부족한 기업·공공기관과 채용·행사 운영 현장을 위해 AI 증명사진, 문서 자동화, 취업 지원, 기업 브리핑, 운영 콘텐츠, 전략 분석을 맞춤 제작하는 <strong>현장 운영형 AI 솔루션</strong>입니다.</p><p><br></p><div class=\\\"se-component se-image-container __se__float-center\\\" style=\\\"width: 100%; min-width: 100%;\\\"><figure style=\\\"margin: 0px auto; width: 100%;\\\"><img src=\\\"assets/img/moriahai/stories/2026-gyeonggi-5070-job-fair-suwon-0.jpg\\\" alt=\\\"경기도 5070 일자리박람회 수원메쎄 현장\\\" data-align=\\\"center\\\" data-file-name=\\\"2026-gyeonggi-5070-job-fair-suwon-0.jpg\\\" data-file-size=\\\"0\\\" origin-size=\\\"1200,676\\\" data-origin=\\\",\\\" data-size=\\\"100%,auto\\\" data-percentage=\\\"100%,auto\\\" width=\\\"100%\\\" height=\\\"auto\\\" style=\\\"width: 100%; height: auto;\\\" data-index=\\\"1\\\"><figcaption style=\\\"margin-top: 0px;\\\">경기도 5070 일자리박람회 수원메쎄 현장</figcaption></figure></div><p>​<br></p><h2>일반 AI 도구와 무엇이 다른가요</h2><p>정해진 기능으로만 제한하는 것이 아닌, <strong>운영 목적과 현장 조건을 먼저 정리</strong>한 뒤 필요한 기능만 골라 맞춤 제작합니다. </p><p>도입 뒤의 운영 관리까지 같은 구조 안에서 이어집니다.</p><p><br></p><h2>도입은 이렇게 진행돼요</h2><table><thead><tr><th><div>단계</div></th><th><div>내용</div></th></tr></thead><tbody><tr><td><div>01 먼저 생각합니다</div></td><td><div>어떤 문제를 왜 해결해야 하는지, 현장에 필요한 흐름부터 정리</div></td></tr><tr><td><div>02 구조를 설계합니다</div></td><td><div>사용자 화면 · 운영 방식 · 기능을 하나의 서비스 구조로</div></td></tr><tr><td><div>03 끝까지 실행합니다</div></td><td><div>제작 → 적용 → 점검 → 운영 정리까지</div></td></tr></tbody></table><p>​<br></p><h2>7개 분야 25종 서비스</h2><table><thead><tr><th><div>분야</div></th><th><div>대표 서비스</div></th></tr></thead><tbody><tr><td><div>사진</div></td><td><div>AI 증명사진, AI 프로필 사진, 체험형 Fun Photo</div></td></tr><tr><td><div>서류</div></td><td><div>채팅형 이력서, OCR 문서 작성, 커리어 포트폴리오, 이력서+증명사진, OCR+증명사진, 박람회 정형 이력서</div></td></tr><tr><td><div>취업 준비</div></td><td><div>나의 직무 찾기, 실전 일자리 매칭, 음성 · 영상 모의면접</div></td></tr><tr><td><div>기업 정보</div></td><td><div>기업 브리핑, 참여기업 안내, 기업 브리핑+대기화면 광고</div></td></tr><tr><td><div>대화형 AI</div></td><td><div>Gemini 챗 어시스턴트</div></td></tr><tr><td><div>운영 콘텐츠</div></td><td><div>교육 커리큘럼, 강사 프로필, 전단, 상세페이지, 전자계약, Veo 영상</div></td></tr><tr><td><div>기업 분석</div></td><td><div>경쟁사 벤치마킹, 비즈니스모델 캔버스</div></td></tr></tbody></table><p>​<br></p><h2>이런 곳에 필요해요</h2><ul><li>내부 개발자가 없거나 부족한 조직</li><li>공공기관 · 지자체 프로젝트</li><li>도입 이후 운영까지 필요한 곳</li></ul><p>​</p><h2>현장에서 검증한 기록</h2><p>최신 현장 소식을 모두 모아 확인할 수 있어요!</p><blockquote><p>👉🏻&nbsp;<a target=\\\"_blank\\\" href=\\\"https://moriahai.com/cases\\\">모리아AI 도입사례 바로가기</a></p></blockquote><p>​<br></p><h2>도입 상담</h2><p>대표번호 070-8655-2031 · cs@moriahtown.com · 평일 10:00~18:00 (점심 12:00~13:00)</p>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795403050616
+      },
+      {
+        "id": "ma01",
+        "slug": "",
+        "status": "idea",
+        "category": "brand",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma01\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"2026 하반기 일자리 박람회 결산: 28개 현장에서 모리아AI가 운영한 것들\",\"category\":\"brand\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"6월 평택부터 11월 안산까지, 청년·중장년·5070 박람회 28곳에서 AI 증명사진과 이력서 변환, 모의면접을 운영했습니다. 지역·대상·기능별로 한 시즌을 돌아봅니다.\",\"tags\":[\"현장스케치\",\"일자리박람회\",\"결산\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-anyang-youth-job-fair-0.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"목표: 시즌 결산형 대표 현장 글 / 지자체 담당자에게 \\\"이미 많은 곳이 쓰고 있다\\\" 신뢰\\n근거: 도입사례 페이지(28건, AI 증명사진 23건, 언론 2건), 현장 소식 24편 날짜·장소\\n⚠ 총 방문자 수·인쇄 장수 등 숫자는 내부 자료로 확인 후 추가\",\"body\":\"<p>도입: 2026년 하반기 박람회 시즌을 숫자와 지도로 돌아보기</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-anyang-youth-job-fair-0.jpg\\\" alt=\\\"안양아트센터 «AI ZONE»\\\" data-align=\\\"center\\\"><figcaption>안양아트센터 «AI ZONE»</figcaption></figure></div><h2>시즌 한눈에</h2><ul><li>도입사례 28건 · 그중 AI 증명사진 23건</li><li>대상: 청년(안양 · 성남), 중장년(고양 · 서울고용노동청), 5070(양주 · 시흥 · 안산 · 하남), 어르신(은평)</li><li>지역: 경기 남·북부, 서울, 처음으로 충청권(청주 오스코 · 충주 · 충북보건과학대)</li></ul><h2>기능별로 본 시즌</h2><table><thead><tr><th>기능</th><th>운영한 현장(예)</th></tr></thead><tbody><tr><td>AI 증명사진</td><td>고양 · 양주 · 시흥 · 안양 · 성남 · 하남 등</td></tr><tr><td>손글씨 이력서 → 문서(OCR)</td><td>은평 · 충주 · 의왕 · 이천 · 용인</td></tr><tr><td>모의면접</td><td>동작(AI 영상면접) · 수원(참여기업 기준) · 고양 · 수원 행복캠퍼스(아바타)</td></tr><tr><td>직무 탐색</td><td>광명(AI직업적성검사) · 파주(QR 직무탐색) · 충북보건과학대</td></tr></tbody></table><h2>현장이 가르쳐 준 것</h2><ul><li>대기 줄 관리(안산 대기 번호판)</li><li>장소별 세팅(체육관 · 야외 공원 · 고용센터 로비)</li><li>사진과 이력서를 부스 두 칸으로 나누기(이천 · 청주)</li></ul><h2>다음 시즌 예고</h2>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma02",
+        "slug": "손으로-쓴-이력서가-깔끔한-문서가-되기까지",
+        "status": "draft",
+        "category": "brand",
+        "date": "2026-11-24",
+        "featured": 0,
+        "data": "{\"id\":\"ma02\",\"site\":\"moriahai\",\"slug\":\"손으로-쓴-이력서가-깔끔한-문서가-되기까지\",\"slugAuto\":true,\"title\":\"손으로 쓴 이력서가 깔끔한 문서가 되기까지\",\"category\":\"brand\",\"status\":\"draft\",\"date\":\"2026-11-24\",\"summary\":\"종이에 꾹꾹 눌러 쓴 이력서를 찍으면 AI가 글자를 읽어 문서로 바꾸고, 그 자리에서 함께 고쳐 출력합니다. 은평·충주·이천·용인 박람회에서 운영한 이력서 변환 부스 이야기입니다.\",\"tags\":[\"현장스케치\",\"OCR\",\"AI이력서\",\"5070\"],\"thumbnail\":\"assets/img/moriahai/stories/8iAC3mbMxUCz7EDpd528-0.jpg\",\"featured\":false,\"ctaText\":\"도입 문의하기\",\"ctaUrl\":\"https://moriahai.com/contact\",\"memo\":\"근거: 현장 소식 - 은평(11/9 은평구청 은평홀), 충주(11/5 유네스코 국제무예센터), 이천(7/15 서희청소년센터), 용인(10/14 QR로 미리 올리기)\\n타깃: 고령층 대상 행사를 준비하는 지자체 · 새일센터 담당자\",\"body\":\"<p>어르신 일자리 박람회에 가 보면 종이 한 장씩 손에 들고 오시는 분들이 많습니다. 집에서 미리 써 온 이력서입니다. 볼펜으로 또박또박, 틀린 곳에는 줄을 긋고 그 옆에 다시 써서요.</p><p>그런데 요즘 기업은 대부분 파일로 된 이력서를 원합니다. 컴퓨터로 다시 치면 되지 않느냐고 할 수도 있지만, 그게 가장 어렵다는 분들이 적지 않습니다. 이 틈을 메우려고 만든 것이 AI 이력서 변환 부스입니다.</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/8iAC3mbMxUCz7EDpd528-1.jpg\\\" alt=\\\"2026 은평구 어르신 일자리 박람회 «AI 이력서 작성» 부스\\\" data-align=\\\"center\\\"><figcaption>2026 은평구 어르신 일자리 박람회 «AI 이력서 작성» 부스</figcaption></figure></div><p><br></p><h2>부스에서 일어나는 일</h2><blockquote><p><strong>①</strong> 써 오신 이력서를 휴대폰으로 찍습니다<br><strong>②</strong> AI가 글자를 읽어 이력서 초안을 만듭니다<br><strong>③</strong> 운영 인력이 옆에 앉아 함께 확인하고 고칩니다<br><strong>④</strong> 그 자리에서 출력해 드립니다</p></blockquote><p>가장 중요한 건 ③입니다. AI가 아무리 잘 읽어도 손글씨는 손글씨라서, 날짜 하나 회사 이름 하나가 어긋날 수 있습니다. 그래서 이 단계는 사람이 맡습니다. 마주 앉아 한 줄씩 함께 읽어 내려가는 시간이야말로 이 부스의 핵심이에요.</p><p>사진이 없으시면 옆 증명사진 부스에서 찍은 사진을 이력서에 바로 붙여 드리기도 합니다.</p><p><br></p><h2>현장마다 조금씩 달랐던 모습</h2><p><strong>은평</strong> · 11월 9일 은평구청 은평홀에서 열린 은평구 어르신 일자리 박람회에서는 증명사진 부스와 이력서 부스를 나란히 열었습니다. 행사가 끝나기 몇 분 전까지도 이력서 부스에는 손님이 계셨습니다.</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/UkmGAVnr6t183SRUjj48-1.jpg\\\" alt=\\\"2026 충주시 일자리 박람회 이력서 변환 부스\\\" data-align=\\\"center\\\"><figcaption>2026 충주시 일자리 박람회 이력서 변환 부스</figcaption></figure></div><p><strong>충주</strong> · 11월 5일 유네스코 국제무예센터에서 열린 충주시 일자리 박람회에서는 이력서 변환과 함께 자기소개서 첨삭도 열었습니다. 다 고친 이력서는 그 자리에서 바로 인쇄해 드렸어요.</p><p><strong>이천</strong> · 이천과는 올해 두 번 함께했습니다. 7월 서희청소년센터에서 열린 경기도 5070 일자리박람회, 그리고 9월 눈높이배드민턴체육관에서 열린 이천 모두의 일자리 박람회입니다.</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-icheon-job-fair-for-all-1.jpg\\\" alt=\\\"이천 모두의 일자리 박람회 «손글씨 이력서 문서 변환» 부스\\\" data-align=\\\"center\\\"><figcaption>이천 모두의 일자리 박람회 «손글씨 이력서 문서 변환» 부스</figcaption></figure></div><p><strong>용인</strong> · 10월 14일 용인미르스타디움에서 열린 용인시 일자리박람회에서는 기다리는 시간을 줄여 보려고 부스 앞에 QR을 세웠습니다. 줄에 서 있는 동안 휴대폰으로 이력서 사진을 미리 올려 두면, 차례가 왔을 때 곧바로 확인부터 시작할 수 있어요.</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-yongin-job-fair-autumn-2.jpg\\\" alt=\\\"용인시 일자리박람회. 부스 앞에 세운 QR 안내판\\\" data-align=\\\"center\\\"><figcaption>용인시 일자리박람회. 부스 앞에 세운 QR 안내판</figcaption></figure></div><p><br></p><h2>주최 측에서 미리 챙겨 주시면 좋은 것</h2><ul><li>사전 안내문에 \\\"써 두신 이력서를 가져오세요\\\" 한 줄</li><li>출력할 프린터 자리와 전원</li><li>운영 인력과 구직자가 마주 앉을 수 있는 좌석</li></ul><p>손글씨 이력서를 들고 오시는 분들은 대부분 그 한 장을 직접 공들여 준비해 오신 분들입니다. 그 정성이 문서 한 장에 고스란히 담기도록 돕는 것, 이 부스가 하는 일은 그게 전부입니다.</p>\",\"format\":\"html\",\"images\":{},\"created\":\"2026-11-24\"}",
+        "updated_at": 1795497796172
+      },
+      {
+        "id": "ma03",
+        "slug": "줄-대신-번호를-세웠더니-안산-5070-일자리박람회에서-배운-것",
+        "status": "draft",
+        "category": "brand",
+        "date": "2026-11-24",
+        "featured": 0,
+        "data": "{\"id\":\"ma03\",\"site\":\"moriahai\",\"slug\":\"줄-대신-번호를-세웠더니-안산-5070-일자리박람회에서-배운-것\",\"slugAuto\":true,\"title\":\"줄 대신 번호를 세웠더니: 안산 5070 일자리박람회에서 배운 것\",\"category\":\"brand\",\"status\":\"draft\",\"date\":\"2026-11-24\",\"summary\":\"인기 부스의 긴 줄은 구직자의 다른 기회를 빼앗습니다. 안산 5070 일자리박람회에서 줄 대신 번호표와 호출 화면으로 대기를 운영해 본 이야기입니다.\",\"tags\":[\"현장스케치\",\"대기접수\",\"부스운영\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-ansan-5070-job-fair-0.jpg\",\"featured\":false,\"ctaText\":\"도입 문의하기\",\"ctaUrl\":\"https://moriahai.com/contact\",\"memo\":\"근거: 현장 소식 - 안산시 스마트허브 2040 · 경기도 5070 일자리박람회(9/10 안산올림픽기념관, C01, 16:30 호출 89번)\\n관련 서비스: 이력서 자유 양식 V2 · 대기 접수(도입사례 태그)\\n⚠ 대기 접수 기능 이름·화면 캡처 확인\",\"body\":\"<p>박람회에서 줄이 긴 부스는 반갑기도 하지만 마음이 무겁기도 합니다. 줄에 서 있는 동안 구직자는 다른 기업 부스를 둘러볼 수도, 현장 면접에 들어갈 수도 없으니까요. 증명사진 한 장 때문에 면접 기회를 놓친다면 앞뒤가 바뀐 셈입니다.</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-ansan-5070-job-fair-1.jpg\\\" alt=\\\"경기도 5070 일자리박람회(안산) «AI 이력서 사진 촬영» 부스 앞\\\" data-align=\\\"center\\\"><figcaption>경기도 5070 일자리박람회(안산) «AI 이력서 사진 촬영» 부스 앞</figcaption></figure></div><p><br></p><h2>9월 10일, 안산올림픽기념관</h2><p>경기도 5070 일자리박람회 안산 현장은 체육관을 가득 채운 큰 행사였습니다. 저희 부스(C01)는 AI 이력서 사진 촬영. 예상대로 문을 열자마자 사람이 몰렸습니다.</p><p>그래서 이번에는 줄을 세우는 대신 번호를 나눠 드렸습니다.</p><p><br></p><h2>이렇게 바꿨습니다</h2><blockquote><p><strong>①</strong> 부스에 오시면 먼저 접수하고 번호를 받습니다<br><strong>②</strong> 부스 옆 화면에 지금 부르는 번호와 예상 대기 시간이 뜹니다<br><strong>③</strong> 기다리는 동안 다른 기업 부스를 둘러보다가, 차례가 가까워지면 돌아오시면 됩니다</p></blockquote><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-ansan-5070-job-fair-2.jpg\\\" alt=\\\"부스 옆 호출 화면. 지금 부르는 번호가 크게 표시됩니다\\\" data-align=\\\"center\\\"><figcaption>부스 옆 호출 화면. 지금 부르는 번호가 크게 표시됩니다</figcaption></figure></div><p>행사 종료 30분 전인 오후 4시 30분, 화면에 떠 있던 호출 번호는 <strong>89번</strong>이었습니다. 그 많은 분이 모두 한 줄로 서 계셨다면 어땠을까, 지금 생각해도 아찔합니다.</p><p><br></p><h2>다른 현장에도 가져간 것</h2><p>그 뒤로 저희는 사람이 몰릴 만한 현장이면 대기 접수를 기본으로 준비합니다. 여러 박람회를 다니며 확인한 사실이 하나 있는데, 어느 현장이든 <strong>문을 연 직후 첫 한 시간</strong>이 가장 붐빈다는 점입니다. 이 시간을 어떻게 넘기느냐가 그날 부스 운영의 절반입니다.</p><p>용인에서는 한 걸음 더 나가, 줄에 서 있는 동안 QR로 이력서 사진을 미리 올려 두게 했습니다. 기다리는 시간을 준비하는 시간으로 바꾼 셈이죠. 이 이야기는 <a href=\\\"post.html?slug=%EC%86%90%EC%9C%BC%EB%A1%9C-%EC%93%B4-%EC%9D%B4%EB%A0%A5%EC%84%9C%EA%B0%80-%EA%B9%94%EB%81%94%ED%95%9C-%EB%AC%B8%EC%84%9C%EA%B0%80-%EB%90%98%EA%B8%B0%EA%B9%8C%EC%A7%80\\\">손글씨 이력서 부스 글</a>에 함께 적어 두었습니다.</p><p><br></p><h2>주최 측과 미리 맞춰 두면 좋은 것</h2><ul><li>호출 화면을 둘 자리 (모니터나 TV 한 대면 충분해요)</li><li>번호를 안내할 운영 인력 한 명</li><li>행사장 안내도에 '번호표 받는 곳' 표시</li></ul><p>줄이 짧아지면 부스 앞이 한결 차분해지고, 구직자는 그 시간을 자기 면접에 씁니다. 저희가 바라는 박람회 풍경은 그쪽입니다.</p>\",\"format\":\"html\",\"images\":{},\"created\":\"2026-11-24\"}",
+        "updated_at": 1795497800287
+      },
+      {
+        "id": "ma04",
+        "slug": "",
+        "status": "idea",
+        "category": "brand",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma04\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"체육관, 야외 공원, 고용센터 로비: 장소마다 달라지는 AI 부스 세팅\",\"category\":\"brand\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"같은 AI 증명사진 부스라도 체육관·야외 공원·벽 없는 로비에서는 준비가 달라집니다. 시흥·서울·안양·청주 현장을 장소별로 비교했습니다.\",\"tags\":[\"현장스케치\",\"부스세팅\",\"행사운영\"],\"thumbnail\":\"assets/img/moriahai/stories/hJt8yLpLiBawJ61LB6QU-0.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: 시흥(10/28 정왕동 중앙공원 야외), 서울고용노동청(9/29 1층 다목적홀, 부스 벽 없음), 안양(10/22 안양아트센터 AI ZONE), 청주 오스코(10/16 제3전시장)\\n⚠ 전원 · 조명 · 네트워크 등 실제 준비 사항은 운영팀 확인 후 구체화\",\"body\":\"<div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/hJt8yLpLiBawJ61LB6QU-0.jpg\\\" alt=\\\"시흥시 정왕동 중앙공원 야외 부스\\\" data-align=\\\"center\\\"><figcaption>시흥시 정왕동 중앙공원 야외 부스</figcaption></figure></div><h2>장소별 비교</h2><table><thead><tr><th>장소 유형</th><th>현장</th><th>신경 쓴 점(운영팀 확인)</th></tr></thead><tbody><tr><td>실내 체육관</td><td>의왕 · 하남 · 성남</td><td></td></tr><tr><td>야외 공원</td><td>시흥 중앙공원</td><td></td></tr><tr><td>벽 없는 로비</td><td>서울고용노동청</td><td></td></tr><tr><td>공연장 · 전시장</td><td>안양아트센터 · 청주 오스코</td><td></td></tr></tbody></table><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-seoul-middle-aged-job-fair-0.jpg\\\" alt=\\\"서울고용노동청 1층 다목적홀\\\" data-align=\\\"center\\\"><figcaption>서울고용노동청 1층 다목적홀</figcaption></figure></div><h2>공통 체크리스트(초안)</h2><ul><li>촬영 배경과 조명</li><li>인쇄 장비 위치</li><li>대기 동선</li><li>네트워크</li></ul>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma05",
+        "slug": "자소서-첨삭-모의면접-그리고-ai-관상-수원시-하반기-박람회-ai-취업지원-및-체험존",
+        "status": "draft",
+        "category": "brand",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma05\",\"site\":\"moriahai\",\"slug\":\"자소서-첨삭-모의면접-그리고-ai-관상-수원시-하반기-박람회-ai-취업지원-및-체험존\",\"slugAuto\":true,\"title\":\"자소서 첨삭, 모의면접, 그리고 AI 관상: 수원시 하반기 박람회 «AI 취업지원 및 체험존»\",\"category\":\"brand\",\"status\":\"draft\",\"date\":\"2026-11-20\",\"summary\":\"공고에 맞춘 자기소개서 첨삭과 참여기업 기준 모의면접을 중심에 두고, 직업계고 학생에게는 AI 직무분석을, 참관객에게는 재미로 AI 관상을 열었습니다.\",\"tags\":[\"현장스케치\",\"모의면접\",\"자소서\",\"체험존\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-suwon-job-fair-autumn-0.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: 현장 소식 - 2026 수원시 하반기 일자리박람회(10/20 수원컨벤션센터 전시홀3, C05-06)\\n포인트: \\\"취업 지원 + 체험\\\" 조합으로 체류 시간을 늘린 구성\",\"body\":\"<div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-suwon-job-fair-autumn-0.jpg\\\" alt=\\\"수원컨벤션센터 «AI 취업지원 및 체험존»\\\" data-align=\\\"center\\\"><figcaption>수원컨벤션센터 «AI 취업지원 및 체험존»</figcaption></figure></div><h2>체험존 구성</h2><table><thead><tr><th>대상</th><th>프로그램</th></tr></thead><tbody><tr><td>구직자</td><td>공고 기준 자기소개서 분석 · 첨삭, 참여기업 기준 모의면접</td></tr><tr><td>직업계고 학생(오전 사전행사)</td><td>AI 직무분석</td></tr><tr><td>참관객</td><td>AI 관상(재미 요소)</td></tr></tbody></table><h2>왜 재미 요소를 넣었나</h2><h2>주최 측이 얻는 것</h2>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795401783111
+      },
+      {
+        "id": "ma06",
+        "slug": "",
+        "status": "idea",
+        "category": "brand",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma06\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"QR 한 번으로 휴대폰에서 직무탐색: 파주시 취업박람회 현장\",\"category\":\"brand\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"행사장 안내도 옆에 QR을 세워, 구직자가 자기 휴대폰으로 직무탐색을 시작하게 했습니다. 35개사 현장면접 전에 사진·이력서·지원할 기업 찾기를 한 번에.\",\"tags\":[\"현장스케치\",\"직무탐색\",\"QR\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-paju-job-fair-0.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: 현장 소식 - 2026 파주시 취업박람회(10/22 금촌다목적실내체육관, B-04, 구인업체 35개사)\\n포인트: 부스 좌석 없이도 동시에 여러 명이 쓰는 방식\",\"body\":\"<div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-paju-job-fair-0.jpg\\\" alt=\\\"금촌다목적실내체육관\\\" data-align=\\\"center\\\"><figcaption>금촌다목적실내체육관</figcaption></figure></div><h2>세 가지 부스</h2><ul><li>AI 증명사진 촬영</li><li>AI 이력서 변환(B-04)</li><li>안내도 옆 QR → 휴대폰 직무탐색</li></ul><h2>QR 방식의 장점</h2><ul><li>좌석 · 단말 수에 묶이지 않음</li><li>기다리는 동안 내 휴대폰으로</li><li>결과를 들고 면접 부스로</li></ul>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma07",
+        "slug": "사진에서-면접까지-한-방향으로-동작구-취업박람회-부스-배치-이야기",
+        "status": "published",
+        "category": "brand",
+        "date": "2026-11-24",
+        "featured": 0,
+        "data": "{\"id\":\"ma07\",\"site\":\"moriahai\",\"slug\":\"사진에서-면접까지-한-방향으로-동작구-취업박람회-부스-배치-이야기\",\"slugAuto\":true,\"title\":\"사진에서 면접까지 한 방향으로: 동작구 취업박람회 부스 배치 이야기\",\"category\":\"brand\",\"status\":\"published\",\"date\":\"2026-11-24\",\"summary\":\"증명사진, 이력서, 영상 모의면접. 세 부스를 구직자가 준비하는 순서대로 나란히 세웠습니다. 동작구청 대강당 취업지원관에서 동선을 고민한 이야기입니다.\",\"tags\":[\"현장스케치\",\"AI영상면접\",\"동선설계\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-dongjak-job-fair-0.jpg\",\"featured\":false,\"ctaText\":\"도입 문의하기\",\"ctaUrl\":\"https://moriahai.com/contact\",\"memo\":\"근거: 현장 소식 - 2026 동작구 취업박람회(10/16 동작구청 4층 대강당, C07 · C06 · C05)\",\"body\":\"<p>박람회 부스는 보통 주최 측이 정해 준 자리에 놓입니다. 그런데 운영하는 기능이 여러 개라면 순서를 한 번쯤 고민해 볼 만합니다. 구직자가 어느 부스부터 들러야 할지 헤매지 않도록요.</p><p>10월 16일 동작구청 4층 대강당에서 열린 2026 동작구 취업박람회. 저희는 취업지원관 안의 AI 체험 부스를 맡아, 세 가지 기능을 한 줄로 세워 보았습니다.</p><p><br></p><h2>세 부스, 한 방향</h2><table><thead><tr><th>순서</th><th>부스</th><th>하는 일</th></tr></thead><tbody><tr><td>1</td><td>AI 증명사진 (C07)</td><td>평상복 차림으로 와도 정장 증명사진으로</td></tr><tr><td>2</td><td>AI 이력서 (C06)</td><td>사진을 붙여 이력서 정리</td></tr><tr><td>3</td><td>AI 영상면접 (C05)</td><td>헤드셋을 쓰고 면접 연습</td></tr></tbody></table><p>사진이 있어야 이력서에 붙일 수 있고, 이력서가 있어야 면접 연습도 구체적이 됩니다. 구직자가 실제로 준비하는 순서를 그대로 부스 번호에 옮긴 것이죠.</p><p><br></p><h2>그날 본 것들</h2><p>문을 연 오후 1시부터 2시 무렵까지가 가장 붐볐습니다. 가장 많이 찾은 곳은 역시 증명사진 부스여서, 증명사진은 두 칸으로 늘려 운영했습니다.</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-dongjak-job-fair-1.jpg\\\" alt=\\\"증명사진 부스 앞에서 차례를 기다리는 구직자들\\\" data-align=\\\"center\\\"><figcaption>증명사진 부스 앞에서 차례를 기다리는 구직자들</figcaption></figure></div><p>사진을 찍은 뒤 이력서나 면접 부스로 이어 가는 분들도 계셨습니다. 모든 분이 세 부스를 다 거치지는 않았지만, 다음에 어디로 가면 되는지는 부스 순서가 알려 주었습니다.</p><p>그날의 마지막 손님은 영상면접 부스에 계셨습니다. 행사가 끝나기 몇 분 전까지 헤드셋을 쓰고 연습을 이어 가셨어요.</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-dongjak-job-fair-2.jpg\\\" alt=\\\"취업지원관 맨 끝의 «AI 영상면접» 부스\\\" data-align=\\\"center\\\"><figcaption>취업지원관 맨 끝의 «AI 영상면접» 부스</figcaption></figure></div><p><br></p><h2>공간이 다르면 방법도 달라집니다</h2><p>한 줄 동선은 부스를 나란히 붙일 수 있을 때 가장 잘 통합니다. 부스가 흩어져 있는 체육관이나 벽이 없는 로비라면, 바닥 화살표나 '다음은 여기' 안내판만으로도 비슷한 효과를 낼 수 있습니다.</p><p>부스 몇 칸의 순서를 정하는 일이지만, 구직자에게는 헤매는 시간이 줄어드는 일입니다. 박람회를 준비하고 계시다면 배치 단계부터 함께 고민해 드릴게요.</p>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795491939849
+      },
+      {
+        "id": "ma10",
+        "slug": "박람회-ai-증명사진-찍고-고르고-그-자리에서-인쇄까지",
+        "status": "published",
+        "category": "news",
+        "date": "2026-11-24",
+        "featured": 0,
+        "data": "{\"id\":\"ma10\",\"site\":\"moriahai\",\"slug\":\"박람회-ai-증명사진-찍고-고르고-그-자리에서-인쇄까지\",\"slugAuto\":true,\"title\":\"박람회 AI 증명사진, 찍고 고르고 그 자리에서 인쇄까지\",\"category\":\"news\",\"status\":\"published\",\"date\":\"2026-11-24\",\"summary\":\"사진관에 들를 틈 없이 박람회장에서 바로 받아 가는 증명사진. 부스에서 어떤 순서로 진행되는지, 올해 대부분의 현장이 왜 이 부스부터 열었는지 정리했습니다.\",\"tags\":[\"서비스소개\",\"AI증명사진\",\"박람회\"],\"thumbnail\":\"assets/img/moriahai/stories/sMAei5sPNdbZCRoEJzGw-2.jpg\",\"featured\":false,\"ctaText\":\"도입 문의하기\",\"ctaUrl\":\"https://moriahai.com/contact\",\"memo\":\"근거: services/id-photo, 도입사례(AI 증명사진 23건), 고양 · 양주 · 하남 · 성남 현장\\n타깃: 박람회 주최 측, 고용센터\",\"body\":\"<p>박람회장에서 가장 먼저 줄이 생기는 곳이 어디냐고 물으면, 저희는 망설이지 않고 증명사진 부스라고 답합니다.</p><p>이력서에는 사진이 들어가야 하는데, 박람회 당일 아침에 사진관부터 들렀다 오기란 쉽지 않습니다. 가진 사진이라고는 몇 년 전에 찍은 것이거나 휴대폰 속 셀카가 전부인 경우도 많고요. 그래서 올해 모리아AI가 함께한 박람회 28곳 가운데 23곳에서 AI 증명사진 부스를 열었습니다.</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/sMAei5sPNdbZCRoEJzGw-1.jpg\\\" alt=\\\"2026 고양시 중장년 일자리박람회 AI 증명사진 부스\\\" data-align=\\\"center\\\"><figcaption>2026 고양시 중장년 일자리박람회 AI 증명사진 부스</figcaption></figure></div><p><br></p><h2>부스에서는 이렇게 진행돼요</h2><p>과정은 생각보다 단순합니다.</p><blockquote><p><strong>① 촬영</strong> - 부스 카메라로 찍거나, QR을 찍어 휴대폰 속 사진을 올립니다<br><strong>② 배경색 고르기</strong> - 제출할 곳에 맞는 색을 고릅니다<br><strong>③ 한 장 고르기</strong> - AI가 만든 세 장 가운데 마음에 드는 사진을 고릅니다<br><strong>④ 인쇄</strong> - 그 자리에서 바로 뽑아 갑니다</p></blockquote><p>편집 프로그램을 다룰 줄 몰라도 괜찮습니다. 구직자에게는 <strong>고르는 일만</strong> 남겨 두었거든요. 평상복 차림으로 오셔도 정장 차림 증명사진으로 받아 가실 수 있고, 얼굴은 본인 모습 그대로 두고 배경과 옷만 규격에 맞게 다듬습니다.</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/8iAC3mbMxUCz7EDpd528-2.jpg\\\" alt=\\\"은평구 어르신 일자리 박람회. 부스 뒤로 '변경 전 · 변경 후' 안내판이 보입니다\\\" data-align=\\\"center\\\"><figcaption>은평구 어르신 일자리 박람회. 부스 뒤로 '변경 전 · 변경 후' 안내판이 보입니다</figcaption></figure></div><p><br></p><h2>여러 현장을 다니며 본 것들</h2><p>현장은 매번 달랐지만, 증명사진 부스 앞에서는 비슷한 장면이 반복됐습니다.</p><p>먼저, <strong>문을 열기 전부터 찾아오는 분들</strong>이 매번 계셨습니다. 아직 장비를 켜고 인쇄기를 점검하는 중인데도 사진부터 찍고 하루를 시작하려는 분들이었죠.</p><p>다음은 <strong>중장년 구직자</strong>입니다. 청년 박람회가 아니라면 증명사진 부스를 채운 분들은 대부분 중장년 구직자였습니다. 그래서 중장년 대상 행사에서는 주름과 잡티까지 자연스럽게 손보는 방식으로 운영했습니다.</p><p>마지막으로, 사진은 <strong>끝이 아니라 출발점</strong>이었습니다. 사진을 받아 든 분들은 그 길로 이력서를 쓰러 가거나 현장 면접 줄에 섰습니다. 작은 사진 한 장이 그날 일정의 첫 단추가 되는 셈입니다.</p><p><br></p><h2>주최 측에서 자주 물어보시는 것</h2><table><thead><tr><th>질문</th><th>답변</th></tr></thead><tbody><tr><td>공간은 얼마나 필요한가요?</td><td>책상 하나와 인쇄기를 놓을 자리면 시작할 수 있어요. 사람이 많이 올 행사라면 기다리는 의자를 함께 두는 게 좋아요.</td></tr><tr><td>사람이 몰리면 어떻게 하나요?</td><td>번호표를 나눠 드리고 차례가 되면 부르는 방식으로 운영할 수 있어요. <a href=\\\"post.html?slug=%EC%A4%84-%EB%8C%80%EC%8B%A0-%EB%B2%88%ED%98%B8%EB%A5%BC-%EC%84%B8%EC%9B%A0%EB%8D%94%EB%8B%88-%EC%95%88%EC%82%B0-5070-%EC%9D%BC%EC%9E%90%EB%A6%AC%EB%B0%95%EB%9E%8C%ED%9A%8C%EC%97%90%EC%84%9C-%EB%B0%B0%EC%9A%B4-%EA%B2%83\\\">안산 현장 이야기</a>에 자세히 적어 두었어요.</td></tr><tr><td>이력서 부스와 함께 열 수 있나요?</td><td>네. 이력서를 쓰면서 증명사진까지 한 번에 붙이는 방식도 있어요.</td></tr></tbody></table><p><br></p><p>박람회를 준비 중이시라면, 아래 버튼으로 편하게 문의해 주세요. 행사 규모와 공간에 맞춰 부스 구성을 함께 잡아 드립니다.</p>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795491939849
+      },
+      {
+        "id": "ma11",
+        "slug": "",
+        "status": "idea",
+        "category": "news",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma11\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"채팅형 이력서 vs OCR 이력서: 우리 행사에는 어떤 이력서 서비스가 맞을까\",\"category\":\"news\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"처음부터 대화로 쓰는 채팅형 이력서, 써 온 종이를 찍어 문서로 바꾸는 OCR, 정해진 A4 양식을 채우는 박람회 정형 이력서. 대상과 현장에 맞는 선택 기준을 정리했습니다.\",\"tags\":[\"서비스소개\",\"AI이력서\",\"OCR\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-icheon-job-fair-for-all-0.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: services/resume, ocr, ocr-photo, resume-photo, ocr-expo-form\\n구성: 비교표 + 대상별 추천 + 조합 예시\",\"body\":\"<div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-icheon-job-fair-for-all-0.jpg\\\" alt=\\\"이천 모두의 일자리박람회 AI 이력서 부스\\\" data-align=\\\"center\\\"><figcaption>이천 모두의 일자리박람회 AI 이력서 부스</figcaption></figure></div><h2>세 가지 방식 비교</h2><table><thead><tr><th>서비스</th><th>어떻게</th><th>잘 맞는 현장</th></tr></thead><tbody><tr><td>채팅형 이력서 작성</td><td>항목별 가이드 · 입력 힌트로 사진 연결 · 주소 검색 · 경력 정리까지 순서대로</td><td>이력서가 없는 청년 · 노트북 좌석이 있는 체험관</td></tr><tr><td>OCR 문서 작성</td><td>종이 이력서를 찍으면 AI가 읽어 초안 → 현장 검수</td><td>손글씨 이력서를 들고 오는 중장년 · 어르신</td></tr><tr><td>박람회 정형 이력서</td><td>지원기업 · 지원분야 · 업무 강점 · 입사 후 포부 등 양식 항목을 인식해 정해진 행 수로 A4 출력</td><td>주최 측 지정 양식이 있는 박람회</td></tr></tbody></table><h2>사진까지 한 번에</h2><p>이력서+증명사진, OCR+증명사진 조합</p><h2>선택 가이드</h2>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma12",
+        "slug": "무슨-일을-해야-할지-모르겠어요라는-분들을-위한-두-가지-ai",
+        "status": "published",
+        "category": "news",
+        "date": "2026-11-24",
+        "featured": 0,
+        "data": "{\"id\":\"ma12\",\"site\":\"moriahai\",\"slug\":\"무슨-일을-해야-할지-모르겠어요라는-분들을-위한-두-가지-ai\",\"slugAuto\":true,\"title\":\"\\\"무슨 일을 해야 할지 모르겠어요\\\"라는 분들을 위한 두 가지 AI\",\"category\":\"news\",\"status\":\"published\",\"date\":\"2026-11-24\",\"summary\":\"몇 가지만 고르면 맞는 직무를 추천하는 '나의 직무 찾기', 해 온 일을 바탕으로 갈 수 있는 새 자리를 찾는 '경력 재구성'. 광명·수원·파주·광주 현장 이야기와 함께 소개합니다.\",\"tags\":[\"서비스소개\",\"직무탐색\",\"경력재구성\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-gwangmyeong-job-fair-1.jpg\",\"featured\":false,\"ctaText\":\"도입 문의하기\",\"ctaUrl\":\"https://moriahai.com/contact\",\"memo\":\"근거: services/job-finder, 광명(10/20 AI직업적성검사), 광주(10/23 «경력 재구성» 첫 도입), 충북보건과학대 EXPO\\n⚠ 경력 재구성은 서비스 목록 25종에 별도 페이지가 없음(도입사례 태그로만) → 이름 · 설명 확인\",\"body\":\"<p>박람회장 입구에서 배치도를 한참 들여다보는 분들이 있습니다. 기업은 수십 곳인데 어디부터 가야 할지 모르는 거죠. 어쩌면 이력서나 사진보다 먼저 필요한 건 '나는 어떤 일을 찾고 있는가'라는 질문에 대한 답일지도 모릅니다.</p><p>모리아AI에는 이 질문을 함께 풀어 보는 기능이 두 가지 있습니다.</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-gwangmyeong-job-fair-0.jpg\\\" alt=\\\"2026 광명시 일자리박람회 «AI직업적성검사» 부스\\\" data-align=\\\"center\\\"><figcaption>2026 광명시 일자리박람회 «AI직업적성검사» 부스</figcaption></figure></div><p><br></p><h2>나의 직무 찾기: 몇 가지만 골라 보세요</h2><p>거창한 검사를 하는 건 아닙니다. 간단한 항목 몇 가지를 고르면 AI가 잘 맞을 만한 직무 세 가지를 추려 줍니다. 청년에게는 표준 직무를, 시니어에게는 실제 일자리를 추천하도록 대상에 맞춰 나눠 두었어요.</p><p>10월 20일 광명시민체육관에서 열린 광명시 일자리박람회에서는 이 기능 하나로 '직업적성검사' 부스를 열었습니다. 같은 날 오전, 수원시 하반기 일자리박람회에서는 본행사에 앞서 직업계고 학생들을 만났는데요. 학교 일정에 맞춰 움직이는 학생들이라 부스에 오래 머물 수가 없었습니다. 짧은 시간 안에 결과까지 받아 볼 수 있다는 점이 이런 자리에서 특히 쓸모가 있었습니다.</p><p><br></p><h2>경력 재구성: 해 온 일은 그대로, 갈 곳은 새로</h2><p>중장년 구직자의 고민은 조금 다릅니다. 해 온 일은 분명한데, 같은 일을 다시 구하기는 어려운 경우가 많죠. 경력 재구성은 지금까지의 경력을 할 줄 아는 능력 단위로 나눠 보고, 그 능력으로 갈 수 있는 새 일자리를 찾아 줍니다.</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-gwangju-job-fair-1.jpg\\\" alt=\\\"2026 광주시 채용박람회 «AI관» 경력 재구성 부스\\\" data-align=\\\"center\\\"><figcaption>2026 광주시 채용박람회 «AI관» 경력 재구성 부스</figcaption></figure></div><p>10월 22일 파주시 취업박람회에서는 행사장 안내도 옆에 QR을 세워 두었습니다. 줄을 서지 않고도 각자 휴대폰으로 바로 시작할 수 있게요. 다음 날 광주시 시민체육관에서 열린 광주시 채용박람회 «AI관»에서는 경력 재구성 부스에 운영 인력이 함께 앉아, 상담하듯 하나씩 짚어 가며 진행했습니다.</p><p><br></p><h2>찾은 다음이 더 중요합니다</h2><p>직무를 찾았다면 이제 그 직무로 이력서를 쓰고, 그 자리를 뽑는 기업을 만나야 합니다. 그래서 두 기능 모두 결과 화면에서 끝나지 않고 이력서 작성이나 현장 일자리 매칭으로 이어지도록 구성해 두었어요.</p><p>막막함을 덜어 주는 건 결국 '다음에 무엇을 하면 되는지'를 알려 주는 일이라고 생각합니다. 두 기능이 하려는 일도 그 한 걸음입니다.</p>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795491939849
+      },
+      {
+        "id": "ma13",
+        "slug": "ai-모의면접-음성영상아바타-중-우리-현장엔-무엇이-맞을까",
+        "status": "published",
+        "category": "news",
+        "date": "2026-11-24",
+        "featured": 0,
+        "data": "{\"id\":\"ma13\",\"site\":\"moriahai\",\"slug\":\"ai-모의면접-음성영상아바타-중-우리-현장엔-무엇이-맞을까\",\"slugAuto\":true,\"title\":\"AI 모의면접, 음성·영상·아바타 중 우리 현장엔 무엇이 맞을까\",\"category\":\"news\",\"status\":\"published\",\"date\":\"2026-11-24\",\"summary\":\"같은 모의면접이라도 현장 분위기에 따라 맞는 방식이 다릅니다. 목소리로만 주고받는 음성 면접, 시선·자세·표정까지 살피는 영상 면접, 아바타 면접관과 마주 앉는 방식까지. 고르는 기준을 정리했습니다.\",\"tags\":[\"서비스소개\",\"모의면접\",\"AI면접\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-suwon-job-fair-autumn-2.jpg\",\"featured\":false,\"ctaText\":\"도입 문의하기\",\"ctaUrl\":\"https://moriahai.com/contact\",\"memo\":\"근거: services/mock-interview-voice, mock-interview-video, 도입사례(AI 아바타 모의면접 - 경기 남부·북부 중장년 행복캠퍼스), 동작(AI 영상면접), 수원(참여기업 기준 모의면접)\",\"body\":\"<p>면접은 연습할수록 나아진다는 걸 모두 압니다. 문제는 연습할 상대가 없다는 거죠. 가족 앞에서 하자니 쑥스럽고, 혼자 거울 앞에서 하자니 어디가 부족한지 알 길이 없습니다.</p><p>박람회에 AI 모의면접 부스를 여는 이유가 여기에 있습니다. 면접관 역할은 AI가 맡고, 구직자는 질문에 답하기만 하면 됩니다. 다만 현장마다 공간도, 시간도, 찾아오는 분들도 달라서 저희는 방식을 세 가지로 나눠 두었습니다.</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-dongjak-job-fair-2.jpg\\\" alt=\\\"2026 동작구 취업박람회 «AI 영상면접» 부스\\\" data-align=\\\"center\\\"><figcaption>2026 동작구 취업박람회 «AI 영상면접» 부스</figcaption></figure></div><p><br></p><h2>세 가지 방식, 한눈에</h2><table><thead><tr><th>방식</th><th>어떻게 진행되나요</th><th>이런 현장에 맞아요</th></tr></thead><tbody><tr><td><strong>음성 모의면접</strong></td><td>AI 면접관과 목소리로만 질문과 답을 주고받아요</td><td>사람이 몰려 한 사람에게 쓸 시간이 짧은 현장, 카메라가 부담스러운 분</td></tr><tr><td><strong>영상 모의면접</strong></td><td>답하는 모습을 촬영하며 시선·자세·표정까지 함께 살펴요</td><td>조용한 자리를 마련할 수 있는 현장, 실전처럼 연습하고 싶은 분</td></tr><tr><td><strong>AI 아바타 모의면접</strong></td><td>화면 속 아바타 면접관과 대화하듯 직무별 면접을 봐요</td><td>시간을 넉넉히 쓰는 상담·교육 프로그램</td></tr></tbody></table><p><br></p><h2>동작구에서는 헤드셋을 준비했습니다</h2><p>10월 16일 동작구청 대강당에서 열린 동작구 취업박람회에서는 영상 모의면접 부스를 운영했습니다. 강당은 생각보다 소리가 많이 울립니다. 옆 부스의 안내 소리 속에서도 질문을 또렷하게 듣고 답할 수 있도록 헤드셋을 챙겨 갔어요.</p><p>그날 행사 종료 몇 분 전까지 연습이 이어진 곳도 영상면접 부스였습니다. 실전 면접을 앞둔 분들에게 한 번 더 해 볼 수 있는 자리가 있다는 건 생각보다 큰 위안이 되는 것 같습니다.</p><p><br></p><h2>수원에서는 '그 기업 기준'으로 연습했습니다</h2><p>10월 20일 수원컨벤션센터에서 열린 수원시 하반기 일자리박람회에서는 조금 다르게 접근했습니다. 그날 박람회에 참여한 기업을 먼저 고르고, 그 기업의 정보를 바탕으로 모의면접을 보는 방식이었어요. 공고에 맞춰 자기소개서를 살펴보는 부스도 바로 옆에 열었습니다.</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-suwon-job-fair-autumn-0.jpg\\\" alt=\\\"수원시 하반기 일자리박람회 «AI 취업지원 및 체험존»\\\" data-align=\\\"center\\\"><figcaption>수원시 하반기 일자리박람회 «AI 취업지원 및 체험존»</figcaption></figure></div><p>막연한 면접 연습보다 '오늘 오후에 만날 바로 그 회사'를 상대로 한 연습이 훨씬 구체적입니다. 현장 면접이 함께 열리는 박람회라면 특히 잘 어울리는 조합이에요.</p><p><br></p><h2>고르기 전에 생각해 볼 세 가지</h2><blockquote><p><strong>①</strong> 한 사람이 부스에 머물 수 있는 시간은 어느 정도인가요?<br><strong>②</strong> 주변 소음은 어떤가요? 카메라를 둘 조용한 자리가 있나요?<br><strong>③</strong> 그날 구직자가 만날 기업이 정해져 있나요?</p></blockquote><p>이 세 가지에 답해 보면 대부분 방식이 정해집니다. 그래도 애매하다면 도입 상담 때 행사장 도면을 함께 보며 정해도 늦지 않습니다.</p>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795491939849
+      },
+      {
+        "id": "ma14",
+        "slug": "",
+        "status": "idea",
+        "category": "news",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma14\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"면접 전 1분 브리핑: 기업 브리핑과 참여기업 안내\",\"category\":\"news\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"관심 기업을 고르면 핵심 정보와 1분 브리핑, 면접 준비 포인트를 한 번에. 박람회 참여기업 목록에서 직무까지 걸러 보는 참여기업 안내와, 대기화면 광고를 더한 운영형까지.\",\"tags\":[\"서비스소개\",\"기업브리핑\",\"참여기업안내\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-gyeonggi-5070-job-fair-suwon-1.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: services/company-briefing, expo-company-briefing, company-briefing-ad, 수원메쎄(7/8 참여기업 검색 좌석, 100개사), 평택(6/19 AI 체험관)\",\"body\":\"<h2>기업 브리핑</h2><ul><li>관심 기업 입력 또는 등록 기업 선택</li><li>핵심 정보 + 1분 브리핑 + 면접 준비 포인트</li></ul><h2>참여기업 안내</h2><p>현장 · 온라인 참여 기업, 협력사 목록 → 직무 필터 → 기업 브리핑과 면접 준비 세트</p><h2>기업 브리핑 + 대기화면 광고</h2><p>생성 대기 시간에 재생할 영상을 박람회 · 부스 · 단말 단위로 지정하고 노출 성과 집계 → 후원사 · 참여기업 홍보 수단</p><div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-gyeonggi-5070-job-fair-suwon-1.jpg\\\" alt=\\\"수원메쎄 참여기업 검색 좌석\\\" data-align=\\\"center\\\"><figcaption>수원메쎄 참여기업 검색 좌석</figcaption></figure></div>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma15",
+        "slug": "",
+        "status": "idea",
+        "category": "news",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma15\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"행사 운영팀을 위한 AI: 커리큘럼부터 전단, 전자계약, 영상까지 운영 콘텐츠 6종\",\"category\":\"news\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"교육 커리큘럼 설계, 강사 프로필, 판플렛·홍보 전단, 상품 상세페이지, 전자계약 문서, Veo 영상 제작. 행사와 교육을 준비하는 운영팀의 반복 업무를 줄이는 기능을 모았습니다.\",\"tags\":[\"서비스소개\",\"운영콘텐츠\",\"업무자동화\"],\"thumbnail\":\"\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: services/curriculum-designer, instructor-profile, pamphlet-designer, product-detail-designer, e-contract, veo-video\\n⚠ 결과물 예시 이미지 필요(서비스 화면 캡처)\",\"body\":\"<table><thead><tr><th>서비스</th><th>하는 일</th></tr></thead><tbody><tr><td>교육 커리큘럼 설계</td><td>교육 목적에 맞춰 차시별 목표 · 실습 구성 → 결과 문서</td></tr><tr><td>강사 프로필 제작</td><td>포스터 · 제안서 · 웹 · 브로슈어용 강사 소개문과 핵심 경력</td></tr><tr><td>판플렛 · 홍보 전단</td><td>모집 안내 · 오픈 홍보 · 행사 전단의 핵심 메시지와 섹션 구조</td></tr><tr><td>상품 상세페이지 설계</td><td>기능 · 사용 장면 · 후기 · 증빙 · FAQ 구조</td></tr><tr><td>전자계약 문서 작성</td><td>당사자 · 범위 · 금액 · 일정 · 특약 → 초안, 공유 링크와 서명 흐름</td></tr><tr><td>Veo 영상 제작</td><td>대상 · 행동 · 배경 · 스타일 · 카메라 · 조명 · 사운드 · 디테일 8개 항목에 답하면 영상</td></tr></tbody></table><h2>운영 시나리오: 교육 행사 하나를 준비할 때</h2>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma16",
+        "slug": "",
+        "status": "idea",
+        "category": "news",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma16\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"아이디어 단계의 전략 정리: 경쟁사 벤치마킹과 비즈니스모델 캔버스\",\"category\":\"news\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"서비스나 아이템을 기준으로 국내외 유사 기업을 비교해 3C·SWOT·포지셔닝 맵까지, 회사나 아이디어를 기준으로 경쟁 구도와 비즈니스모델 캔버스까지 한 번에 정리합니다.\",\"tags\":[\"서비스소개\",\"기업분석\",\"창업지원\"],\"thumbnail\":\"\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: services/competitor-benchmark, business-model-canvas\\n타깃: 창업 지원 기관 · 교육 프로그램 운영자\",\"body\":\"<h2>경쟁사 벤치마킹</h2><ul><li>국내외 유사 기업 비교</li><li>3C · SWOT</li><li>포지셔닝 맵</li><li>벤치마킹 포인트</li></ul><h2>비즈니스모델 캔버스</h2><p>경쟁 구도 + 캔버스 9칸 → 전략 정리와 커뮤니케이션</p><h2>이런 프로그램에</h2><p>창업 교육, 사업계획서 워크숍, 기관 컨설팅</p>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma17",
+        "slug": "",
+        "status": "idea",
+        "category": "news",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma17\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"축구선수, 뉴스 앵커, 파일럿이 되어 보는 체험형 Fun Photo\",\"category\":\"news\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"다양한 콘셉트를 골라 현장 체험과 공유용 이미지를 함께 만드는 이벤트형 사진 서비스. 박람회와 축제에 머무르는 시간을 늘리는 재미 요소로 쓰입니다.\",\"tags\":[\"서비스소개\",\"FunPhoto\",\"체험부스\"],\"thumbnail\":\"\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: services/fun-photo (축구선수 · 뉴스 앵커 · 파일럿 · 한복 혼례 등)\\n⚠ 실제 결과 이미지 예시 필요\",\"body\":\"<h2>어떤 콘셉트가 있나요</h2><ul><li>축구선수</li><li>뉴스 앵커</li><li>파일럿</li><li>한복 혼례</li><li>…</li></ul><h2>어디에 쓰나요</h2><p>진로 체험 행사, 지역 축제, 기업 홍보 부스</p>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma20",
+        "slug": "",
+        "status": "idea",
+        "category": "guide",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma20\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"개발자 없이 AI 서비스를 도입하는 4단계\",\"category\":\"guide\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"내부 개발 인력이 없어도 됩니다. 운영 흐름 정리 → 필요 기능 선별 → 관리까지 연결 → 단계적 확장. 모리아AI가 기관과 함께 일하는 방식을 단계별로 설명합니다.\",\"tags\":[\"도입가이드\",\"개발자없이\",\"맞춤제작\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-cheonhajeil-job-fair-0.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: 홈 HOW WE WORK(운영 흐름 정리 · 필요 기능 선별 · 관리까지 연결 · 단계적 확장), FAQ \\\"개발자가 없어도…\\\", \\\"도입은 어떤 순서로…\\\"\\n⚠ FAQ 답변 본문은 펼쳐서 다시 확인\",\"body\":\"<table><thead><tr><th>단계</th><th>이름</th><th>내용</th></tr></thead><tbody><tr><td>01</td><td>운영 흐름 정리 · 현장 분석</td><td>운영 목적, 사용자 흐름, 현장 조건</td></tr><tr><td>02</td><td>필요 기능 선별 · 맞춤 설계</td><td>필요한 기능만 골라 사용자 화면과 운영 구조 설계</td></tr><tr><td>03</td><td>관리까지 연결 · 운영 연결</td><td>사용자 경험과 관리자 흐름을 하나로</td></tr><tr><td>04</td><td>단계적 확장 · 확장 계획</td><td>도입 이후 확장 단계까지</td></tr></tbody></table><h2>기관이 준비할 것</h2><ul><li>운영 환경</li><li>일정</li><li>필요한 기능</li></ul><h2>자주 묻는 질문</h2>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma21",
+        "slug": "",
+        "status": "idea",
+        "category": "guide",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma21\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"박람회에 AI 부스를 열기 전 주최 측 체크리스트\",\"category\":\"guide\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"규모와 대상, 공간, 전원·네트워크·인쇄, 운영 인력, 대기 동선까지. 28개 현장을 운영하며 주최 측과 가장 많이 맞춰 본 항목을 체크리스트로 정리했습니다.\",\"tags\":[\"도입가이드\",\"체크리스트\",\"박람회준비\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-chungbuk-naeil-ieum-job-fair-0.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: 현장 소식 24편(부스 번호 · 장소 · 대기 운영), FAQ 운영 항목\\n⚠ 장비 · 전원 · 네트워크 등 실제 요구 사항은 운영팀에 확인해 채우기 (지어내지 말 것)\",\"body\":\"<div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-chungbuk-naeil-ieum-job-fair-0.jpg\\\" alt=\\\"청주 오스코 제3전시장\\\" data-align=\\\"center\\\"><figcaption>청주 오스코 제3전시장</figcaption></figure></div><h2>행사 2~3주 전</h2><ul><li>대상(청년 · 중장년 · 5070 · 어르신)과 예상 인원</li><li>필요한 기능 고르기</li><li>부스 위치와 크기</li></ul><h2>행사 1주 전</h2><ul><li>전원 · 네트워크 [ ]</li><li>인쇄 장비 [ ]</li><li>안내 문구 · QR 배치</li></ul><h2>당일</h2><ul><li>대기 번호 운영</li><li>운영 인력 배치</li><li>개인정보 안내</li></ul>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma22",
+        "slug": "",
+        "status": "idea",
+        "category": "guide",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma22\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"공공기관·지자체 도입 FAQ: 개인정보, 비용, 기간, 운영 주체\",\"category\":\"guide\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"공공기관도 도입할 수 있는지, 수집한 개인정보는 어떻게 관리되는지, 비용과 기간은 어떻게 정해지는지, 도입 후 운영은 누가 하는지. 상담 첫 자리에서 나오는 질문에 답합니다.\",\"tags\":[\"도입가이드\",\"공공기관\",\"FAQ\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-seoul-middle-aged-job-fair-0.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: FAQ 17개 질문 목록(도입 · 서비스 · 운영 · 비용 · 기타)\\n원칙: 금액 · 일정처럼 사안마다 다른 값은 지어내지 않고 \\\"상담에서 확인\\\" (FAQ 페이지 방침과 동일)\\n⚠ 각 답변은 FAQ 원문 펼쳐서 확인\",\"body\":\"<h2>도입</h2><ul><li>공공기관이나 지자체도 도입할 수 있나요?</li><li>개발자가 없어도 되나요?</li></ul><h2>운영</h2><ul><li>도입한 뒤 운영은 누가 하나요?</li><li>수집한 개인정보는 어떻게 관리되나요?</li></ul><h2>비용 · 기간</h2><p>사안마다 달라지는 값은 상담에서 확인</p>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma23",
+        "slug": "",
+        "status": "idea",
+        "category": "guide",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma23\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"우리 서비스에 붙이기: 증명사진·자동 양식 인식 파트너 API 안내\",\"category\":\"guide\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"이미 운영 중인 플랫폼에 AI 증명사진과 자동 양식 인식을 붙이고 싶다면 파트너 API로 부를 수 있습니다. 인증, 엔드포인트, 오류 코드, 사용 횟수, 개발 인력이 없을 때의 대안까지.\",\"tags\":[\"도입가이드\",\"API\",\"연동\"],\"thumbnail\":\"\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: moriahai.com/api-guide (증명사진 생성 · 자동 양식 인식, 인증 · 엔드포인트 · 오류 코드 · 사용 횟수, 개발 인력 없는 경우의 대안)\\n타깃: 채용 플랫폼 · 교육기관 개발 담당자\",\"body\":\"<h2>제공하는 API</h2><ul><li>증명사진 생성</li><li>자동 양식 인식</li></ul><h2>연동 흐름</h2><ul><li>인증</li><li>엔드포인트 호출</li><li>오류 코드</li><li>사용 횟수</li></ul><h2>개발 인력이 없다면</h2><p>맞춤 제작 · 운영 대행으로</p>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma24",
+        "slug": "",
+        "status": "idea",
+        "category": "guide",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma24\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"필요한 기능만 골라 시작하기: 행사 규모별 추천 조합\",\"category\":\"guide\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"25종을 한 번에 도입할 필요는 없습니다. 소규모 박람회는 증명사진부터, 중장년 박람회는 OCR 이력서와 함께, 대형 박람회는 참여기업 안내와 모의면접까지. 규모별 조합 예시입니다.\",\"tags\":[\"도입가이드\",\"서비스조합\",\"단계적확장\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-pyeongtaek-job-fair-0.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: 서비스 소개 \\\"전체를 한 번에 도입할 필요 없음 · 단계적 확장\\\", 도입사례 현장별 기능 조합\\n⚠ 조합은 실제 사례 기반 예시로만 (가격 언급 금지)\",\"body\":\"<div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-pyeongtaek-job-fair-0.jpg\\\" alt=\\\"평택시 일자리 박람회 AI 체험관\\\" data-align=\\\"center\\\"><figcaption>평택시 일자리 박람회 AI 체험관</figcaption></figure></div><table><thead><tr><th>행사</th><th>추천 조합</th><th>실제 사례</th></tr></thead><tbody><tr><td>소규모 · 청년</td><td>AI 증명사진</td><td>성남 · 안양</td></tr><tr><td>중장년 · 5070</td><td>AI 증명사진 + OCR 이력서</td><td>은평 · 충주 · 이천</td></tr><tr><td>대형 박람회</td><td>+ 참여기업 안내 + 모의면접</td><td>수원메쎄 · 의왕 · 수원</td></tr><tr><td>교육 프로그램</td><td>증명사진 + AI 아바타 모의면접</td><td>중장년 행복캠퍼스</td></tr></tbody></table>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma30",
+        "slug": "",
+        "status": "idea",
+        "category": "brand",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma30\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"5070 구직자에게 이력서는 왜 어려울까: 현장에서 본 디지털 격차와 해법\",\"category\":\"brand\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"손으로 쓴 이력서, 사진관에서 찍지 못한 증명사진, 낯선 온라인 지원. 중장년·어르신 박람회 현장에서 본 어려움과 AI가 덜어 줄 수 있는 부분을 정리했습니다.\",\"tags\":[\"인사이트\",\"5070\",\"디지털격차\"],\"thumbnail\":\"assets/img/moriahai/stories/MHTfg7Zk1bKSuIZqnJW1-0.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: 5070 · 어르신 박람회 현장(양주 · 시흥 · 하남 · 안산 · 은평 · 이천), OCR 이력서 · AI 증명사진\\n⚠ 통계 인용 시 출처 필수\",\"body\":\"<div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/MHTfg7Zk1bKSuIZqnJW1-0.jpg\\\" alt=\\\"양주시 5070 일자리 박람회\\\" data-align=\\\"center\\\"><figcaption>양주시 5070 일자리 박람회</figcaption></figure></div><h2>현장에서 본 세 가지 장벽</h2><ul><li>이력서 작성(손글씨 → 디지털)</li><li>증명사진(비용 · 시간)</li><li>기업 정보 탐색</li></ul><h2>AI가 덜어 준 것</h2><h2>그래도 사람이 필요한 부분</h2><p>검수 · 상담은 운영 인력이 마주 앉아 함께</p>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma31",
+        "slug": "",
+        "status": "idea",
+        "category": "brand",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma31\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"일자리 박람회에 «AI관»이 생기고 있다: 2026 경기도 박람회의 변화\",\"category\":\"brand\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"광주시 «AI관», 안양 «AI ZONE», 수원 «AI 취업지원 및 체험존», 평택 «AI 체험관». 올해 박람회 안내도에 AI 구역이 따로 생기기 시작했습니다. 무엇이 달라졌는지 짚어 봅니다.\",\"tags\":[\"인사이트\",\"일자리박람회\",\"AI트렌드\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-gwangju-job-fair-0.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: 광주(10/23 «AI관»), 안양(10/22 «AI ZONE»), 수원(10/20 «AI 취업지원 및 체험존»), 평택(6/19 «AI 체험관»), 경기도 5070 박람회 시리즈\",\"body\":\"<div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-gwangju-job-fair-0.jpg\\\" alt=\\\"2026 광주시 채용 박람회 «AI관»\\\" data-align=\\\"center\\\"><figcaption>2026 광주시 채용 박람회 «AI관»</figcaption></figure></div><h2>안내도에 생긴 AI 구역</h2><table><thead><tr><th>박람회</th><th>이름</th></tr></thead><tbody><tr><td>광주시 채용 박람회</td><td>«AI관»</td></tr><tr><td>안양시 청년안정 일자리박람회</td><td>«AI ZONE»</td></tr><tr><td>수원시 하반기 일자리박람회</td><td>«AI 취업지원 및 체험존»</td></tr><tr><td>평택시 일자리 박람회</td><td>«AI 체험관»</td></tr></tbody></table><h2>체험에서 실무로</h2><h2>주최 측이 고민할 것</h2>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma32",
+        "slug": "",
+        "status": "idea",
+        "category": "brand",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma32\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"증명사진 한 장이 구직자의 하루를 바꾸는 이유\",\"category\":\"brand\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"면접 전날 사진관을 찾지 못해 이력서를 내지 못하는 일. 박람회 현장에서 정장 차림 증명사진을 바로 받아 간 구직자들을 보며, 작은 준비물이 만드는 차이를 생각해 봅니다.\",\"tags\":[\"인사이트\",\"AI증명사진\",\"구직자\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-seongnam-youth-job-fair-0.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: 성남(9/17 청년, 30개 기업 1:1 현장면접), 안양(교복 입은 직업계고 학생부터 중장년까지), 고양 · 양주 · 시흥\\n톤: 에세이형, 현장 운영 인력 인터뷰 넣으면 좋음 [ ]\",\"body\":\"<div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-seongnam-youth-job-fair-0.jpg\\\" alt=\\\"2026 성남시 청년 채용박람회\\\" data-align=\\\"center\\\"><figcaption>2026 성남시 청년 채용박람회</figcaption></figure></div><h2>교복부터 정장까지</h2><p>안양 «AI ZONE» - 교복 입은 직업계고 학생부터 중장년 구직자까지</p><h2>사진이 준비되면 생기는 일</h2><ul><li>그 자리에서 이력서 완성</li><li>현장면접 바로 참여</li></ul><h2>운영 인력이 본 장면 [인터뷰]</h2>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      },
+      {
+        "id": "ma33",
+        "slug": "",
+        "status": "idea",
+        "category": "brand",
+        "date": "2026-11-20",
+        "featured": 0,
+        "data": "{\"id\":\"ma33\",\"site\":\"moriahai\",\"slug\":\"\",\"slugAuto\":true,\"title\":\"스스로 우수하다고 말하는 대신, 현장을 기록합니다\",\"category\":\"brand\",\"status\":\"idea\",\"date\":\"2026-11-20\",\"summary\":\"모리아AI는 도입사례에 현장사진과 기사를, 현장 소식에 운영한 날의 이야기를 남깁니다. 공공 사업에서 신뢰를 쌓는 방법으로서의 기록에 대해.\",\"tags\":[\"인사이트\",\"브랜드스토리\",\"공공사업\"],\"thumbnail\":\"assets/img/moriahai/stories/2026-gyeonggi-5070-job-fair-icheon-0.jpg\",\"featured\":false,\"ctaText\":\"\",\"ctaUrl\":\"\",\"memo\":\"근거: 도입사례 페이지 문구(\\\"회사가 스스로 우수하다고 말하는 대신, 어떤 현장에서 어떤 기능을 어떻게 운영했는지를 사진과 기사로 남겨 둡니다\\\"), 현장 소식 소개 문구\\n목적: 모리아AI 블로그를 여는 브랜드 에세이 (블로그 오픈 공지와 함께)\",\"body\":\"<div class=\\\"se-component se-image-container __se__float-none\\\"><figure style=\\\"margin: 0px auto;\\\"><img src=\\\"assets/img/moriahai/stories/2026-gyeonggi-5070-job-fair-icheon-0.jpg\\\" alt=\\\"경기도 5070 일자리박람회 이천 현장\\\" data-align=\\\"center\\\"><figcaption>경기도 5070 일자리박람회 이천 현장</figcaption></figure></div><blockquote><p>회사가 스스로 우수하다고 말하는 대신, 어떤 현장에서 어떤 기능을 어떻게 운영했는지를 사진과 기사로 남겨 둡니다.</p></blockquote><h2>세 가지 기록</h2><table><thead><tr><th>어디에</th><th>무엇을</th></tr></thead><tbody><tr><td>서비스 소개</td><td>기능의 정의</td></tr><tr><td>도입사례</td><td>현장사진 모음 · 언론 보도</td></tr><tr><td>현장 소식 · 이 블로그</td><td>왜 만들었고, 현장에서 어떻게 돌았고, 도입하려면 무엇이 필요한지</td></tr></tbody></table><h2>이 블로그에서 쓸 이야기</h2>\",\"format\":\"html\",\"images\":{}}",
+        "updated_at": 1795158026076
+      }
+    ],
+    "success": true,
+    "meta": {
+      "served_by": "v3-prod",
+      "served_by_region": "APAC",
+      "served_by_colo": "ICN",
+      "served_by_primary": true,
+      "timings": {
+        "sql_duration_ms": 1.6346
+      },
+      "duration": 1.6346,
+      "changes": 0,
+      "last_row_id": 0,
+      "changed_db": false,
+      "size_after": 606208,
+      "rows_read": 78,
+      "rows_written": 0,
+      "total_attempts": 1
+    }
+  }
+]

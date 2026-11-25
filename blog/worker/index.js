@@ -1,6 +1,7 @@
 // 블로그 Worker (SelB · 모리아AI)
 // - 정적 파일(html, assets)은 ASSETS 바인딩이 서비스
-// - /moriahai/* : 같은 화면 파일을 모리아AI 블로그로 내려줌 (글은 site='moriahai'만)
+// - /selb/*, /moriahai/* : 같은 화면 파일을 서비스별 블로그로 내려줌 (글은 그 site만). 관리자는 /admin
+// - 예전 SelB 주소(/, /post.html, /service.html …) → /selb/… 로 302
 // - /posts.js  : DB의 글을 posts.js 형식으로 내려줌 (방문자는 그 블로그의 발행 글만, 관리자는 그 블로그 전체,
 //                관리자 페이지는 ?all=1 로 모든 서비스의 글)
 // - /api/*     : 로그인, 글 저장·삭제, 이미지 업로드
@@ -24,6 +25,9 @@ export default {
       if (p === '/posts.js') return await postsJs(req, env, 'selb', url);
       const sm = p.match(SITE_PATH);
       if (sm) return await siteRoute(req, env, url, sm[1], sm[2] || '');
+      // 예전 SelB 주소(맨 앞 /, /post.html …)는 /selb/ 아래 같은 화면으로 보낸다.
+      // 공유된 링크가 많아 302(임시)로: 301은 브라우저가 오래 기억해서 나중에 되돌리기 어렵다
+      if (LEGACY_SELB.test(p)) return new Response(null, { status: 302, headers: { location: url.origin + '/selb' + (p === '/' ? '/' : p) + url.search, 'cache-control': 'no-store' } });
       // 예전 글 관리 주소 → 새 주소
       if (p === '/write' || p === '/write.html') return Response.redirect(url.origin + '/admin', 301);
       // 서비스별 페이지 원본은 그 블로그 주소로만 연다 (예: /sites/moriahai-service → /moriahai/service)
@@ -102,10 +106,12 @@ function cleanPost(p) {
 const SITE_META = {
   moriahai: { title: '모리아AI 블로그 - 채용·행사 현장을 AI로 운영하는 이야기', desc: '모리아AI 현장 스케치, 서비스 소개, 도입 가이드, 채용·공공 현장의 AI 활용 인사이트' },
 };
-const SITE_PATH = /^\/(moriahai)(\/.*)?$/;
+// 블로그는 서비스별로 나란히: /selb/…, /moriahai/… (관리자는 /admin 하나)
+const SITE_PATH = /^\/(selb|moriahai)(\/.*)?$/;
+const LEGACY_SELB = /^\/(index(\.html)?|post(\.html)?|service(\.html)?)?$/;
 const siteOf = p => p.site || 'selb';
 async function siteRoute(req, env, url, site, rest) {
-  if (!rest) return Response.redirect(url.origin + '/' + site + '/' + url.search, 301);
+  if (!rest) return Response.redirect(url.origin + '/' + site + '/' + url.search, 302);
   if (rest === '/posts.js') return postsJs(req, env, site, url);
   if (rest.startsWith('/img/')) return getImage(rest.slice(5), env, req);
   let path = rest.replace(/\.html$/, '');

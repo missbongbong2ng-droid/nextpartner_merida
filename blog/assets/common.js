@@ -1,7 +1,8 @@
 /* 블로그 공통 스크립트 (SelB · 모리아AI)
    서비스별 설정은 SITES에 있고, 지금 보고 있는 블로그는 주소로 정해진다.
+   - /selb/…      → SelB 블로그
    - /moriahai/…  → 모리아AI 블로그
-   - 그 밖        → SelB 블로그 */
+   - 그 밖(/admin) → 관리자. 기본 서비스는 SelB */
 
 const SITES = {
   selb: {
@@ -13,7 +14,7 @@ const SITES = {
     logoMarkImg: '/assets/img/selb/logo-mark.png',  // 로고 마크 이미지 (없으면 logoMark 글자)
     favicon: '/assets/img/selb/favicon-32.png',      // 브라우저 탭 아이콘
     touchIcon: '/assets/img/selb/favicon-180.png',  // 휴대폰 홈 화면 아이콘
-    base: '/',
+    base: '/selb/',
     color: '#2F46D6', colorDark: '#2338C4', colorSoft: '#EDF1FF',
     tagline: 'AI로 나를 발견하고, 나만의 브랜드를 만드는 이야기',
     introTitle: '나를 발견하고,<br>나만의 브랜드를 만드는 이야기',

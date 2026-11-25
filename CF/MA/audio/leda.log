@@ -1,0 +1,38 @@
+n01 0.61초 이력서,
+n02 0.86초 증명사진,
+n03 0.68초 모의면접,
+n04 0.70초 직무탐색,
+n05 1.10초 채용대행까지!
+n06 재시도 429 요청이 너무 잦습니다. 잠시 후 다시 시도해 주세요.
+n06 재시도 429 요청이 너무 잦습니다. 잠시 후 다시 시도해 주세요.
+n06 재시도 429 요청이 너무 잦습니다. 잠시 후 다시 시도해 주세요.
+n06 재시도 429 요청이 너무 잦습니다. 잠시 후 다시 시도해 주세요.
+n06 실패
+n07 0.72초 하나로!
+n08 0.99초 AI가 찾고,
+n09 재시도 429 요청이 너무 잦습니다. 잠시 후 다시 시도해 주세요.
+n09 재시도 429 요청이 너무 잦습니다. 잠시 후 다시 시도해 주세요.
+n09 재시도 429 요청이 너무 잦습니다. 잠시 후 다시 시도해 주세요.
+n09 재시도 429 요청이 너무 잦습니다. 잠시 후 다시 시도해 주세요.
+n09 실패
+n10 0.63초 고치고,
+node:internal/errors:985
+  const err = new Error(message);
+              ^
+
+Error: Command failed: C:/Users/missb/AppData/Local/Temp/claude/56ee5e0c35754088/308ffb76-0545-4298-8def-b7e318829d3d/scratchpad/render/node_modules/ffmpeg-static/ffmpeg.exe -y -loglevel error -f s16le -ar 24000 -ac 1 -i D:\AI\task\CF\MA\audio/leda/n11.pcm -af silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse D:\AI\task\CF\MA\audio/leda/n11.wav
+    at genericNodeError (node:internal/errors:985:15)
+    at wrappedFn (node:internal/errors:539:14)
+    at checkExecSyncError (node:child_process:925:11)
+    at execFileSync (node:child_process:961:15)
+    at D:\AI\task\CF\MA\audio\gen_voice.cjs:28:5
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5) {
+  status: 3221225794,
+  signal: null,
+  output: [ null, Buffer(0) [Uint8Array] [], Buffer(0) [Uint8Array] [] ],
+  pid: 36512,
+  stdout: Buffer(0) [Uint8Array] [],
+  stderr: Buffer(0) [Uint8Array] []
+}
+
+Node.js v24.15.0

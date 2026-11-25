@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>모리아AI 키네틱 시안6</title>
+<style>
+@font-face{font-family:P;src:url(assets/fonts/Pretendard-Black.woff2);font-weight:900}
+@font-face{font-family:P;src:url(assets/fonts/Pretendard-ExtraBold.woff2);font-weight:800}
+@font-face{font-family:P;src:url(assets/fonts/Pretendard-Bold.woff2);font-weight:700}
+@font-face{font-family:P;src:url(assets/fonts/Pretendard-Medium.woff2);font-weight:500}
+@font-face{font-family:M;src:url(assets/fonts/JetBrainsMono-500.woff2);font-weight:500}
+:root{--sky:#0EA5E9;--violet:#8B5CF6;--teal:#10B981;--pink:#EC4899;--ink:#050608;--paper:#f4f5f7}
+html,body{margin:0;background:#000;overflow:hidden}
+#stage{width:1920px;height:1080px;position:relative;overflow:hidden;background:var(--ink);font-family:P;color:#fff;transform-origin:0 0}
+.L{position:absolute;inset:0;visibility:hidden;overflow:hidden}
+.ctr{display:flex;align-items:center;justify-content:center;flex-direction:column}
+.w{display:inline-block;overflow:hidden;line-height:1.12;padding:.06em .04em .05em;vertical-align:bottom;white-space:nowrap}
+.c{display:inline-block;will-change:transform;transform-origin:50% 80%}
+.sp{width:.26em}
+.mono{font-family:M;font-weight:500;letter-spacing:.28em;text-transform:uppercase}
+.tag{position:absolute;left:120px;top:96px;font-size:26px;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:16px;z-index:20;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+.tag i{width:12px;height:12px;border-radius:50%;background:var(--sky);display:inline-block}
+.grad{background-image:linear-gradient(90deg,#0EA5E9 0%,#8B5CF6 30%,#0EA5E9 60%,#10B981 80%,#0EA5E9 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gradMark{background-image:linear-gradient(90deg,#F72372 0%,#FD970A 17%,#FEE150 33%,#B7D163 50%,#46BEE9 67%,#787FB6 83%,#F72372 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fill{position:absolute;inset:0;overflow:hidden}
+/* 사진 배경 + 색 덧입힘 */
+.bg .ph{position:absolute;inset:-2%;background-size:cover;background-position:center;will-change:transform}
+.bg .tint{position:absolute;inset:0}
+.bg .shade{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,.28),rgba(0,0,0,0) 70%)}
+.txt{position:relative;text-shadow:0 6px 40px rgba(0,0,0,.25)}
+
+.s1{font-size:250px;font-weight:900;letter-spacing:-.04em}
+/* S2 사진 카드 */
+.card{position:absolute;left:50%;top:50%;width:400px;height:290px;margin:-145px 0 0 -200px;border:10px solid #fff;border-radius:14px;background-size:cover;background-position:center;box-shadow:0 24px 60px rgba(0,0,0,.55)}
+#dot{position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;background:#fff}
+.s3{font-size:420px;font-weight:900;letter-spacing:-.05em}
+.uline{height:22px;width:1180px;margin-top:10px;border-radius:11px;background:linear-gradient(90deg,#0EA5E9,#8B5CF6,#10B981);transform-origin:0 50%}
+.row4{display:flex;align-items:flex-start;font-size:240px;font-weight:900;letter-spacing:-.04em;position:relative}
+.row4 .w{height:1.16em}
+.verbs{position:relative;display:inline-block;overflow:hidden;width:1080px;height:1.16em;margin-left:.22em;line-height:1.12}
+.verbs .v{position:absolute;left:0;top:0;white-space:nowrap;padding:.06em .02em .04em;z-index:2}
+.verbs .mk{position:absolute;left:0;bottom:.14em;height:.3em;border-radius:.06em;transform-origin:0 50%;z-index:1}
+.cap4{position:absolute;left:0;right:0;top:770px;text-align:center;font-size:30px;color:#e2e8f0;height:48px;overflow:hidden}
+.cap4 div{position:absolute;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:18px}
+.cap4 b{width:14px;height:14px;border-radius:50%;display:inline-block}
+.pair .small{font-size:110px;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:-.03em}
+.pair .big{font-size:330px;font-weight:900;letter-spacing:-.05em;margin-top:-20px}
+/* S5 똑똑한 AI 솔루션: 서비스 다섯이 가운데로 연결 */
+#s5glow{position:absolute;left:50%;top:50%;width:1300px;height:1300px;margin:-650px 0 0 -650px;border-radius:50%;background:radial-gradient(circle,rgba(139,92,246,.42),rgba(14,165,233,.18) 40%,transparent 68%)}
+#s5lines{position:absolute;inset:0}
+#s5lines line{stroke-width:4;stroke-linecap:round}
+.chip{position:absolute;left:0;top:0;display:flex;align-items:center;padding:24px 48px;border-radius:999px;font-size:42px;font-weight:700;white-space:nowrap;color:#fff;background:#0d0f15;border:3px solid;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+#tag{display:none}  /* 시안6: 좌측 상단 소제목 전부 삭제 */
+.s5txt{position:relative;display:flex;flex-direction:column;align-items:center}
+.s5small{font-size:100px;font-weight:700;color:rgba(255,255,255,.88);letter-spacing:-.03em}
+.s5big{font-size:240px;font-weight:900;letter-spacing:-.045em;margin-top:-18px}
+/* S6 모자이크 격자 */
+#grid{position:absolute;inset:-30px;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:8px}
+#grid div{background-size:cover;background-position:center;border-radius:6px}
+.s6{font-size:210px;font-weight:900;letter-spacing:-.045em}
+.glow{position:absolute;width:1100px;height:1100px;border-radius:50%;filter:blur(40px)}
+.logo{display:flex;align-items:center;gap:56px}
+.mark{width:200px;height:200px;overflow:hidden;position:relative}
+.mark img{height:200px;position:absolute;left:0;top:0}
+.word{font-size:250px;font-weight:800;letter-spacing:-.035em;line-height:1}
+.sub{font-size:52px;font-weight:500;color:#e2e8f0;margin-top:70px;letter-spacing:-.01em;overflow:hidden}
+.url{font-size:28px;color:#94a3b8;margin-top:36px;text-transform:none;letter-spacing:.12em}
+
+#ctl{position:fixed;left:0;right:0;bottom:0;display:flex;gap:12px;align-items:center;padding:10px 16px;background:#111;color:#ccc;font:14px system-ui}
+#ctl input{flex:1}
+body.render #ctl{display:none}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="L ctr" id="s1"><div class="fill bg" id="s1base"><div class="ph"></div><div class="tint"></div><div class="shade"></div></div><div class="fill bg" id="s1top"><div class="ph"></div><div class="tint"></div><div class="shade"></div></div><div class="w s1 txt" id="s1w"></div></div>
+  <div class="L" id="s2" style="background:var(--ink)"><div id="cards"></div><div id="dot"></div></div>
+  <div class="L ctr" id="s3" style="background:var(--paper)"><div class="w s3" id="s3w"></div><div class="uline" id="uline"></div></div>
+  <div class="L ctr" id="s4" style="background:var(--ink)">
+    <div class="fill" id="s4bgs"></div>
+    <div class="fill" style="background:linear-gradient(180deg,rgba(5,6,8,.55),rgba(5,6,8,.72) 50%,rgba(5,6,8,.85))"></div>
+    <div class="row4" id="row4"><div class="w" id="ai"></div><div class="verbs" id="verbs"></div></div>
+    <div class="cap4 mono" id="cap4"></div>
+  </div>
+  <div class="L ctr" id="s5" style="background:var(--ink)">
+    <div id="s5glow"></div>
+    <svg id="s5lines" viewBox="0 0 1920 1080"></svg>
+    <div id="chips"></div>
+    <div class="s5txt" id="s5txt"><div class="w s5small txt" id="s5s"></div><div class="w s5big txt" id="s5b"></div></div>
+  </div>
+  <div id="pairs"></div>
+  <div class="L ctr" id="s6" style="background:var(--ink)">
+    <div id="grid"></div>
+    <div class="fill" id="s6scrim" style="background:radial-gradient(ellipse at center,rgba(5,6,8,.82),rgba(5,6,8,.45) 75%)"></div>
+    <div class="w s6 txt" id="s6w"></div>
+  </div>
+  <div class="L ctr" id="s7">
+    <div class="glow" id="g1" style="background:radial-gradient(circle,rgba(14,165,233,.55),transparent 65%)"></div>
+    <div class="glow" id="g2" style="background:radial-gradient(circle,rgba(139,92,246,.5),transparent 65%)"></div>
+    <div class="glow" id="g3" style="background:radial-gradient(circle,rgba(247,35,114,.3),transparent 65%)"></div>
+    <div class="logo" style="position:relative"><div class="mark" id="mark"><img src="assets/moriahai-logo.png" alt=""></div><div class="w word" id="word"></div></div>
+    <div class="sub" id="sub" style="position:relative"></div>
+    <div class="url mono" id="url" style="position:relative">moriahai.com</div>
+  </div>
+  <div class="tag mono" id="tag"><i id="tagdot"></i><span id="tagt"></span></div>
+</div>
+<div id="ctl"><button id="play">재생</button><input type="range" id="seek" min="0" max="35.35" step="0.01" value="0"><span id="tc">0.00</span></div>
+
+<script>
+// ════════ 문구 ════════
+const TXT = {
+  // 시안6: 모든 키워드 끝 마침표 삭제
+  s1: ['이력서', '증명사진', '모의면접', '직무탐색', '채용대행'],
+  s3: '하나로',
+  s4ai: 'AI가',
+  s4verbs: [['찾는다', '맞춤 직무 탐색'], ['찍는다', 'AI 증명사진'], ['고친다', '이력서 생성'], ['묻는다', '모의면접'], ['완성한다', '박람회 채용 & 행사']],
+  s5: ['똑똑한', 'AI 솔루션'], s5gradFrom: 0,
+  pairs: [['구직자에겐', '준비를', 'FOR JOB SEEKERS'], ['기업에겐', '시간을', 'FOR COMPANIES'], ['현장에겐', '여유를', 'FOR EVENT OPS']],
+  s6: '취업의 모든 순간', s6gradFrom: 4,
+  sub: 'AI 취업지원 · 행사 운영 솔루션',
+};
+// ════════ 현장 사진 (얼굴 모자이크본) ════════
+const PH = n => `assets/photos_soft/${n}.jpg`;  // 부드러운 흐림본 (2026-11-23)
+const PHOTO = {
+  s1: ['w1_이력서', 'w2_증명사진', 'w3_모의면접', 'w4_직무탐색', 'w5_채용대행'],
+  cards: ['c01', 'c02', 'c03', 'c04', 'c05', 'c06', 'c07', 'c08', 'c09', 'c10'],
+  verbs: ['v1_찾는다', 'v2_찍는다', 'v3_고친다', 'v4_묻는다', 'v5_완성한다'],
+  pairs: ['p1_구직자', 'p2_기업', 'p3_현장'],
+  grid: ['m01', 'm02', 'm03', 'm04', 'm05', 'm06', 'm07', 'm08', 'm09', 'm10', 'm11', 'm12'],
+};
+
+const C = { sky: '#0EA5E9', violet: '#8B5CF6', teal: '#10B981', pink: '#EC4899', ink: '#050608', orange: '#F97316' };
+// ── 타임라인 (약 30초) ──
+const S1D = 1.2, S1T = TXT.s1.map((_, i) => i * S1D);
+// 리듬 맞춤(시안6): 시각은 나레이션(leda_v4)에서 실제 말소리를 측정한 값
+const T2 = 6.2, T3 = 8.35, T4 = 9.7;          // T2: "따로따로"(6.3초)와 함께 카드 등장
+const T3HIT = 9.17;                            // "끝낸다!" 시작
+const VT = [9.85, 11.7, 14.1, 15.3, 16.7];   // 나레이션 구절 시작에 맞춤
+const VKW = [10.62, 13.12, 14.15, 15.4, 18.72]; // 구절 안 핵심어(찾기·찍고·만들고·실전·완성할) → 형광 밑줄
+const T5BIG = 20.78;                          // "AI 솔루션" 시작
+const PBIG = [22.92, 24.6, 26.58];            // "준비를 / 시간을 / 여유를" 시작
+const T6B = 28.74;                            // "모든 순간" 시작
+const T7AI = 31.32;                           // 로고의 "AI" 시작
+const T4END = 19.75;   // 시안6: "똑똑한 AI 솔루션!"(19.9초)부터는 새 장면 S5
+const T5 = 19.75;
+const PT = [21.95, 23.75, 25.55];
+const T6 = 27.35, T7 = 30.45, DURATION = 35.35;
+
+const $ = id => document.getElementById(id);
+const clamp = v => Math.max(0, Math.min(1, v));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const outExpo = p => p >= 1 ? 1 : 1 - Math.pow(2, -10 * p);
+const outCubic = p => 1 - Math.pow(1 - p, 3);
+const inCubic = p => p * p * p;
+const inOutCubic = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const outBack = (p, s = 1.9) => { if (p <= 0) return 0; if (p >= 1) return 1; const q = p - 1; return q * q * ((s + 1) * q + s) + 1; };
+
+function chars(el, text) {
+  el.innerHTML = [...text].map(ch => ch === ' ' ? '<span class="c sp"> </span>' : `<span class="c">${ch}</span>`).join('');
+  return [...el.querySelectorAll('.c')];
+}
+function pop(cs, t, t0, { dur = .42, stag = .035, y = 115, rot = 0, sc = 1, x = 0 } = {}) {
+  cs.forEach((c, i) => {
+    const p = seg(t, t0 + i * stag, t0 + i * stag + dur), e = outExpo(p), b = outBack(p);
+    c.style.transform = `translate(${(1 - e) * x}%, ${(1 - e) * y}%) rotate(${(1 - b) * rot}deg) scale(${sc + (1 - sc) * b})`;
+  });
+}
+function sink(cs, t, t0, dur = .2, stag = .015) {
+  cs.forEach((c, i) => { const p = inCubic(seg(t, t0 + i * stag, t0 + i * stag + dur)); if (p > 0) c.style.transform = `translateY(${-p * 115}%)`; });
+}
+function gradFlow(cs, W, shift) { cs.forEach(c => { c.style.backgroundSize = `${W * 2}px 100%`; c.style.backgroundPosition = `${-c.offsetLeft - shift}px 0`; }); }
+function wipe(el, t, t0, dir, dur = .28) {
+  const p = outExpo(seg(t, t0, t0 + dur)), r = (1 - p) * 100;
+  el.style.clipPath = p >= 1 ? 'none' : { up: `inset(${r}% 0 0 0)`, down: `inset(0 0 ${r}% 0)`, left: `inset(0 0 0 ${r}%)`, right: `inset(0 ${r}% 0 0)` }[dir];
+}
+// 사진 천천히 다가오기(켄 번즈)
+const kb = (el, t, t0, dur, dir = 1) => { const p = seg(t, t0, t0 + dur); el.style.transform = `scale(${1.12 - .08 * p}) translate(${dir * (1 - p) * 1.2}%, 0)`; };
+const setBg = (bg, photo, color, op) => { bg.querySelector('.ph').style.backgroundImage = `url("${PH(photo)}")`; const tn = bg.querySelector('.tint'); tn.style.background = color; tn.style.opacity = op; };
+const show = (id, on) => { $(id).style.visibility = on ? 'visible' : 'hidden'; };
+
+// ── 요소 만들기 ──
+const S1BG = [C.ink, C.sky, C.violet, C.teal, C.pink], S1OP = [.62, .72, .72, .72, .72];
+const S1DIR = ['up', 'left', 'down', 'right', 'up'];
+const S1FX = [{ rot: 0, sc: 1 }, { rot: -14, sc: .6, y: 0, x: -60 }, { rot: 10, sc: 1.4, y: -115 }, { rot: 0, sc: .2, y: 0 }, { rot: -10, sc: .5 }];
+const s1w = $('s1w');
+
+const CPOS = [[-650, -285, -7], [-200, -330, 4], [270, -300, -3], [690, -250, 6], [-720, 40, 5], [710, 60, -5], [-520, 300, -4], [-60, 320, 3], [430, 300, -6], [0, -20, 0]];
+$('cards').innerHTML = PHOTO.cards.map(n => `<div class="card" style="background-image:url('${PH(n)}')"></div>`).join('');
+const cards = [...$('cards').children];
+
+const s3c = chars($('s3w'), TXT.s3); s3c.forEach(c => c.classList.add('grad'));
+const aiC = chars($('ai'), TXT.s4ai);
+const VCOL = [C.sky, C.violet, C.teal, C.pink, C.orange];
+$('s4bgs').innerHTML = PHOTO.verbs.map(n => `<div class="fill bg"><div class="ph" style="background-image:url('${PH(n)}')"></div></div>`).join('');
+const vbgs = [...$('s4bgs').children];
+$('verbs').innerHTML = TXT.s4verbs.map((v, i) => `<div class="mk" style="background:${VCOL[i]}"></div><div class="v">${v[0]}</div>`).join('');
+const verbEls = [...$('verbs').querySelectorAll('.v')], mkEls = [...$('verbs').querySelectorAll('.mk')];
+$('cap4').innerHTML = TXT.s4verbs.map((v, i) => `<div><b style="background:${VCOL[i]}"></b>${String(i + 1).padStart(2, '0')}&nbsp;&nbsp;&nbsp;${v[1]}</div>`).join('');
+const capEls = [...$('cap4').querySelectorAll('div')];
+
+// S5: 서비스 칩 다섯(위 3, 아래 2) — 가운데 기준 좌표
+const CHPOS = [[-600, -350], [0, -385], [600, -350], [-420, 360], [420, 360]];
+$('chips').innerHTML = TXT.s4verbs.map((v, i) => `<div class="chip" style="border-color:${VCOL[i]}">${v[1]}</div>`).join('');
+const chipEls = [...$('chips').children];
+$('s5lines').innerHTML = CHPOS.map((_, i) => `<line x1="960" y1="540" x2="960" y2="540" stroke="${VCOL[i]}"/>`).join('');
+const lineEls = [...$('s5lines').children];
+const s5s = chars($('s5s'), TXT.s5[0]), s5b = chars($('s5b'), TXT.s5[1]);
+s5b.forEach(c => c.classList.add('grad'));
+
+const PBG = [C.sky, C.violet, C.teal], PDIR = ['up', 'left', 'right'], PROT = [-8, 8, -8];
+$('pairs').innerHTML = TXT.pairs.map((p, i) => `<div class="L ctr pair" id="p${i}"><div class="fill bg"><div class="ph" style="background-image:url('${PH(PHOTO.pairs[i])}')"></div><div class="tint" style="background:${PBG[i]};opacity:.7"></div><div class="shade"></div></div><div class="w small txt"></div><div class="w big txt"></div></div>`).join('');
+const pairEls = TXT.pairs.map((p, i) => { const el = $('p' + i); return { el, ph: el.querySelector('.ph'), small: chars(el.children[1], p[0]), big: chars(el.children[2], p[1]), bigWrap: el.children[2] }; });
+
+// 격자: 나타나는 순서를 섞어서
+const GORD = [5, 0, 10, 3, 8, 1, 11, 6, 2, 9, 4, 7];
+$('grid').innerHTML = PHOTO.grid.map(n => `<div style="background-image:url('${PH(n)}')"></div>`).join('');
+const tiles = [...$('grid').children];
+const s6c = chars($('s6w'), TXT.s6); const s6g = s6c.slice(TXT.s6gradFrom); s6g.forEach(c => c.classList.add('grad'));
+const wordC = chars($('word'), 'MoriahAI');
+const aiLogo = wordC.slice(6); aiLogo.forEach(c => c.classList.add('gradMark'));
+const subC = chars($('sub'), TXT.sub);
+
+function renderAt(t) {
+  // 구석 라벨
+  let tag = '', dot = '#fff';
+  const vk = Math.max(0, VT.filter(v => t >= v).length - 1);
+  if (t < T2) { const k = Math.min(4, Math.floor(t / S1D)); tag = `0${k + 1} — 05`; dot = k === 0 ? C.sky : '#fff'; }
+  else if (t >= T4 && t < T4END) { tag = 'JOB SUPPORT'; dot = VCOL[vk]; }
+  else if (t >= T5 && t < PT[0]) { tag = 'SMART AI SOLUTION'; dot = C.violet; }
+  else if (t >= PT[0] && t < T6) { const k = PT.filter(v => t >= v).length - 1; tag = TXT.pairs[k][2]; }
+  $('tagt').textContent = tag; $('tagdot').style.background = dot;
+  show('tag', !!tag);
+
+  // S1: 단어마다 현장 사진 + 색 판
+  const on1 = t < T2 + .3;
+  show('s1', on1);
+  if (on1) {
+    const k = Math.min(4, Math.floor(t / S1D));
+    if (s1w.dataset.k != k) {
+      s1w.dataset.k = k; s1w._c = chars(s1w, TXT.s1[k]);
+      setBg($('s1top'), PHOTO.s1[k], S1BG[k], S1OP[k]);
+      if (k) setBg($('s1base'), PHOTO.s1[k - 1], S1BG[k - 1], S1OP[k - 1]);
+    }
+    $('s1base').style.display = k ? 'block' : 'none';
+    if (k) wipe($('s1top'), t, S1T[k], S1DIR[k], .24); else $('s1top').style.clipPath = 'none';
+    kb($('s1top').querySelector('.ph'), t, S1T[k], S1D + .3, k % 2 ? 1 : -1);
+    pop(s1w._c, t, S1T[k] + (k ? .06 : 0), { dur: .42, stag: .035, ...S1FX[k] });
+    const p = outExpo(seg(t, S1T[k], S1T[k] + .45)), drift = seg(t, S1T[k], S1T[k] + S1D);
+    s1w.style.transform = `scale(${1.08 - .08 * p + .05 * drift})`;
+  }
+
+  // S2: 현장 사진 카드가 흩어져 튀어나오고 → 가운데 한 점으로 → 흰 화면
+  const on2 = t >= T2 && t < T3 + .5;
+  show('s2', on2);
+  if (on2) {
+    wipe($('s2'), t, T2, 'up', .25);
+    const g = inOutCubic(seg(t, T2 + 1.45, T2 + 1.9));
+    cards.forEach((el, i) => {
+      const a = seg(t, T2 + .1 + i * .09, T2 + .55 + i * .09), b = outBack(a, 2);
+      const [x, y, r] = CPOS[i], fx = Math.sin((t - T2) * 1.6 + i) * 10, fy = Math.cos((t - T2) * 1.3 + i) * 8;
+      el.style.transform = `translate(${(x + fx) * (1 - g)}px, ${(y + fy) * (1 - g)}px) rotate(${r * (1 - g) + (1 - b) * 25}deg) scale(${b * (1 - .9 * g)})`;
+      el.style.opacity = a > 0 ? 1 - seg(t, T2 + 1.8, T2 + 1.95) : 0;
+      el.style.zIndex = i === 9 ? 20 : i;
+    });
+    const d = seg(t, T2 + 1.8, T2 + 1.95), e = inCubic(seg(t, T2 + 1.95, T3 + .25));
+    $('dot').style.opacity = d;
+    $('dot').style.transform = `scale(${(.3 + .7 * outBack(d)) * (1 + e * 80)})`;
+    $('dot').style.background = e > .02 ? 'var(--paper)' : '#fff';
+  }
+
+  // S3: 하나로.
+  const on3 = t >= T3 && t < T4 + .3;
+  show('s3', on3);
+  if (on3) {
+    pop(s3c, t, T3 + .05, { dur: .5, stag: .06, y: -115, rot: 12, sc: 1.3 });
+    const W = $('s3w').offsetWidth; gradFlow(s3c, W, (t - T3) * W * .5);
+    const p = outExpo(seg(t, T3 + .05, T3 + .55));
+    $('s3w').style.transform = `scale(${1.18 - .18 * p})`;
+    $('uline').style.width = ($('s3w').offsetWidth - 40) + 'px';   // 밑줄 = 글자 폭
+    $('uline').style.transform = `scaleX(${outExpo(seg(t, T3HIT - .04, T3HIT + .3))})`;
+    // "끝낸다!"에 맞춰 한 번 쿵
+    const hit = seg(t, T3HIT - .04, T3HIT + .26);
+    $('s3w').style.transform = `scale(${1.18 - .18 * p + .06 * Math.sin(Math.PI * hit)})`;
+  }
+
+  // S4: AI가 + 동사 다섯, 동사마다 배경 사진 교체
+  const on4 = t >= T4 && t < T4END + .3;
+  show('s4', on4);
+  if (on4) {
+    wipe($('s4'), t, T4, 'up', .25);
+    pop(aiC, t, T4 + .08, { dur: .4, stag: .05, rot: -10, sc: .5 });
+    sink(aiC, t, T4END - .2);
+    const vw = verbEls.map(el => el.offsetWidth), box = $('verbs').offsetWidth;
+    let off = (box - vw[0]) / 2;
+    for (let i = 1; i < VT.length; i++) off += ((box - vw[i]) / 2 - (box - vw[i - 1]) / 2) * inOutCubic(seg(t, VT[i], VT[i] + .4));
+    $('row4').style.transform = `translateX(${off}px)`;
+    verbEls.forEach((el, i) => {
+      const t0 = VT[i], t1 = i < VT.length - 1 ? VT[i + 1] : T4END - .2;
+      const pi = i === 0 ? seg(t, t0, t0 + .32) : seg(t, t0 + .1, t0 + .42);
+      const pout = inCubic(seg(t, t1, t1 + .12));
+      el.style.transform = `translateY(${(1 - outExpo(pi)) * 115 - pout * 115}%) skewY(${(1 - outBack(pi)) * 8}deg)`;
+      const m = outExpo(seg(t, VKW[i] - .03, VKW[i] + .27)), mo = inCubic(seg(t, t1 - .05, t1 + .08));
+      // 핵심어 순간 동사가 살짝 튐
+      const kw = seg(t, VKW[i] - .03, VKW[i] + .25);
+      if (kw > 0 && kw < 1) el.style.transform += ` scale(${1 + .07 * Math.sin(Math.PI * kw)})`;
+      mkEls[i].style.width = el.offsetWidth + 'px';
+      mkEls[i].style.transform = `scaleX(${m * (1 - mo)})`;
+      const cin = i === 0 ? outExpo(seg(t, t0 + .05, t0 + .3)) : outExpo(seg(t, t0 + .14, t0 + .4)), cout = inCubic(seg(t, t1, t1 + .12));
+      capEls[i].style.transform = `translateY(${(1 - cin) * 100 - cout * 100}%)`;
+      // 배경 사진: 동사가 바뀔 때 아래에서 밀려 올라옴
+      const bg = vbgs[i], vis = t >= t0 - .05 && t < (i < VT.length - 1 ? VT[i + 1] + .4 : T4END + .3);
+      bg.style.display = vis ? 'block' : 'none';
+      if (vis) { if (i) wipe(bg, t, t0, 'up', .35); kb(bg.querySelector('.ph'), t, t0, 1.6, i % 2 ? 1 : -1); }
+    });
+  }
+
+  // S5: 똑똑한 AI 솔루션 — 서비스 다섯이 날아와 가운데 문구로 선이 이어짐
+  const on5 = t >= T5 && t < PT[0] + .3;
+  show('s5', on5);
+  if (on5) {
+    wipe($('s5'), t, T5, 'up', .25);
+    const d = t - T5;
+    pop(s5s, t, T5 + .12, { dur: .36, stag: .04 });
+    pop(s5b, t, T5BIG - .04, { dur: .45, stag: .05, sc: .4, rot: -8 });
+    const W = $('s5b').offsetWidth; gradFlow(s5b, W, d * W * .5);
+    $('s5txt').style.transform = `scale(${1 + .03 * seg(t, T5 + 1, PT[0])})`;
+    chipEls.forEach((el, i) => {
+      const a = seg(t, T5 + .2 + i * .08, T5 + .75 + i * .08), e = outExpo(a), b = outBack(a, 1.6);
+      const [x, y] = CHPOS[i], fx = Math.sin(d * 1.7 + i) * 6, fy = Math.cos(d * 1.4 + i) * 5;
+      const w = el.offsetWidth, h = el.offsetHeight;
+      el.style.transform = `translate(${960 - w / 2 + (x * (1.6 - .6 * e)) + fx}px, ${540 - h / 2 + (y * (1.6 - .6 * e)) + fy}px) scale(${.5 + .5 * b})`;
+      el.style.opacity = clamp(a * 3);
+      // 칩이 자리 잡은 뒤, 칩 테두리 → 가운데 문구 상자 바로 앞까지 선이 뻗음
+      const l = outCubic(seg(t, T5BIG + .05 + i * .06, T5BIG + .4 + i * .06));
+      const ln = lineEls[i], px = 960 + x + fx, py = 540 + y + fy, dx = px - 960, dy = py - 540;
+      const GAP = 14, tb = $('s5txt'), hw = tb.offsetWidth / 2 + 28, hh = tb.offsetHeight / 2 + 10;
+      const k1 = Math.min(hw / Math.abs(dx || 1e-6), hh / Math.abs(dy || 1e-6));              // 문구 상자 경계
+      const k2 = Math.min((w / 2 + GAP) / Math.abs(dx || 1e-6), (h / 2 + GAP) / Math.abs(dy || 1e-6)); // 칩 경계
+      const sx = px - dx * k2, sy = py - dy * k2, ex = 960 + dx * k1, ey = 540 + dy * k1;
+      ln.setAttribute('x1', sx); ln.setAttribute('y1', sy);
+      ln.setAttribute('x2', sx + (ex - sx) * l); ln.setAttribute('y2', sy + (ey - sy) * l);
+      ln.style.opacity = l > 0 ? .85 : 0;
+    });
+    // 선이 다 이어지면 가운데 빛이 한 번 밝아짐
+    const pulse = seg(t, T5BIG + .55, T5BIG + .85), fade = seg(t, T5BIG + .85, PT[0] + .3);
+    const g = outCubic(seg(t, T5, T5 + .6));
+    $('s5glow').style.opacity = g * (.7 + .5 * outCubic(pulse) - .25 * fade);
+    $('s5glow').style.transform = `scale(${.7 + .3 * g + .12 * outBack(pulse)})`;
+  }
+
+  // 대비 장면 셋: 현장 사진 + 색
+  pairEls.forEach((p, i) => {
+    const t0 = PT[i], t1 = i < 2 ? PT[i + 1] : T6;
+    const on = t >= t0 && t < t1 + .3;
+    p.el.style.visibility = on ? 'visible' : 'hidden';
+    if (!on) return;
+    wipe(p.el, t, t0, PDIR[i], .3);
+    kb(p.ph, t, t0, 2.1, i % 2 ? -1 : 1);
+    pop(p.small, t, t0 + .08, { dur: .32, stag: .03 });
+    pop(p.big, t, PBIG[i] - .04, { dur: .45, stag: .05, sc: .4, rot: PROT[i] });
+    p.bigWrap.style.letterSpacing = `${.14 - .19 * outExpo(seg(t, PBIG[i] - .04, PBIG[i] + .46))}em`;
+  });
+
+  // S6: 현장 사진 격자가 하나씩 켜지고 그 위에 문구
+  const on6 = t >= T6 && t < T7 + .15;
+  show('s6', on6);
+  if (on6) {
+    wipe($('s6'), t, T6, 'down', .28);
+    tiles.forEach((el, i) => {
+      const k = GORD.indexOf(i), a = seg(t, T6 + .05 + k * .07, T6 + .45 + k * .07);
+      el.style.opacity = outCubic(a);
+      el.style.transform = `scale(${.7 + .3 * outBack(a, 1.6)})`;
+    });
+    const gz = seg(t, T6, T7);
+    $('grid').style.transform = `scale(${1.06 - .06 * gz}) rotate(${-1.5 + 1.5 * gz}deg)`;
+    $('s6scrim').style.opacity = .55 + .45 * outCubic(seg(t, T6 + .6, T6 + 1.2));
+    pop(s6c.slice(0, TXT.s6gradFrom), t, T6 + .72, { dur: .45, stag: .045, rot: 10, sc: .6 });   // "취업의"
+    pop(s6g, t, T6B - .04, { dur: .45, stag: .045, rot: 10, sc: .6 });                            // "모든 순간."
+    const W = s6g.reduce((a, c) => a + c.offsetWidth, 0); gradFlow(s6g, W, (t - T6) * W * .5);
+    const q = outCubic(seg(t, T7 - .4, T7 + .1));
+    $('s6w').style.transform = `scale(${1 - .12 * q})`;
+    $('s6w').style.opacity = 1 - q;
+    $('grid').style.opacity = 1 - q;
+  }
+
+  // S7: 빛무리 + 로고
+  const on7 = t >= T7 - .05;
+  show('s7', on7);
+  if (on7) {
+    const d = Math.max(0, t - T7), g = outCubic(seg(t, T7, T7 + 1));
+    $('g1').style.transform = `translate(${-420 + d * 40}px, ${-120 - d * 12}px) scale(${.6 + .4 * g})`;
+    $('g2').style.transform = `translate(${380 - d * 35}px, ${80 + d * 10}px) scale(${.6 + .4 * g})`;
+    $('g3').style.transform = `translate(${40 + d * 15}px, ${330 - d * 20}px) scale(${.5 + .4 * g})`;
+    ['g1', 'g2', 'g3'].forEach(id => $(id).style.opacity = g);
+    const m = outBack(seg(t, T7, T7 + .65), 1.4);
+    $('mark').style.transform = `scale(${.3 + .7 * m}) rotate(${-120 * (1 - outExpo(seg(t, T7, T7 + .6)))}deg)`;
+    $('mark').style.opacity = clamp(d / .15);
+    pop(wordC.slice(0, 6), t, T7 + .17, { dur: .5, stag: .045, rot: -12, sc: .5 });   // "Moriah" ← "모리아"
+    pop(aiLogo, t, T7AI - .04, { dur: .45, stag: .07, rot: -12, sc: .3 });           // "AI" ← "AI!"
+    const W = aiLogo.reduce((a, c) => a + c.offsetWidth, 0); gradFlow(aiLogo, W * 1.6, (d * W * .5) % (W * 3.2));
+    pop(subC, t, T7AI + .55, { dur: .4, stag: .018 });   // 나레이션이 끝난 뒤
+    const u = outCubic(seg(t, T7AI + 1.1, T7AI + 1.6));
+    $('url').style.opacity = u; $('url').style.letterSpacing = `${.4 - .28 * u}em`;
+  }
+}
+window.renderAt = renderAt;
+
+const params = new URLSearchParams(location.search);
+const stage = $('stage');
+if (params.has('render')) document.body.classList.add('render');
+else { const fit = () => { const s = Math.min(innerWidth / 1920, (innerHeight - 44) / 1080); stage.style.transform = `scale(${s})`; }; addEventListener('resize', fit); fit(); }
+let T = 0, playing = false, t0w = 0, tStart = 0;
+const seek = $('seek'), tc = $('tc'), playBtn = $('play');
+function draw() { renderAt(T); seek.value = T; tc.textContent = T.toFixed(2); }
+function loop() { if (!playing) return; T = tStart + (performance.now() - t0w) / 1000; if (T >= DURATION) { T = DURATION; playing = false; playBtn.textContent = '재생'; } draw(); if (playing) requestAnimationFrame(loop); }
+playBtn.onclick = () => { playing = !playing; playBtn.textContent = playing ? '멈춤' : '재생'; if (playing) { if (T >= DURATION) T = 0; tStart = T; t0w = performance.now(); requestAnimationFrame(loop); } };
+seek.oninput = () => { T = +seek.value; if (playing) { tStart = T; t0w = performance.now(); } draw(); };
+addEventListener('keydown', e => { if (e.code === 'Space') { e.preventDefault(); playBtn.onclick(); } });
+// 모든 사진을 미리 불러와 둠(렌더 때 빈 화면 방지)
+const allPhotos = [...new Set(Object.values(PHOTO).flat())].map(n => new Promise(r => { const im = new Image(); im.onload = im.onerror = () => im.decode ? im.decode().then(r, r) : r(); im.src = PH(n); }));
+window.FILM_READY = Promise.all([document.fonts.ready, ...allPhotos, ...[...document.images].map(i => i.complete ? 0 : new Promise(r => i.onload = i.onerror = r))])
+  .then(() => Promise.all(['900 100px P', '800 100px P', '700 100px P', '500 100px P', '500 20px M'].map(f => document.fonts.load(f, '가A'))))
+  .then(() => { draw(); return true; });
+</script>
+</body>
+</html>
