@@ -1264,7 +1264,7 @@
             <summary>발행 정보 · 썸네일 · 요약 · 태그</summary>
             <div class="grid">
               <label class="f col-4">요약 <small>목록과 글 상단에 보이는 한두 문장</small><input type="text" data-k="summary" value="${esc(d.summary)}"></label>
-              <label class="f col-2">태그 <small>쉼표로 구분</small><input type="text" data-k="tags" value="${esc((d.tags || []).join(', '))}" placeholder="AI명함, 퍼스널브랜딩"></label>
+              <label class="f col-2">태그 <small>쉼표로 구분</small><input type="text" data-k="tags" value="${esc((d.tags || []).join(', '))}" placeholder="AI명함, 셀프브랜딩"></label>
               <label class="f col-2">주소(슬러그) <small>${pub ? '발행 후에는 바꾸지 않는 게 좋아요' : '비워 두면 제목을 따라 자동으로 정해져요'}</small><input type="text" data-k="slug" value="${esc(d.slug)}"></label>
             </div>
             <div class="thumb-box" id="thumbBox">${thumbBoxHTML(d)}</div>

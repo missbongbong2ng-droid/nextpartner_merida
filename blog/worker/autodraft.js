@@ -7,14 +7,14 @@ import Anthropic from '@anthropic-ai/sdk';
 export const AUTODRAFT_SITE = 'selb';
 export const AUTODRAFT_CATS = {
   news: { label: '소식', desc: 'SelB 기능 소개, 활용 가이드, 사용 팁, 서비스 안내 (공지·업데이트 내역처럼 실제 일정·변경 사항이 필요한 글은 제외)' },
-  brand: { label: '브랜드', desc: '퍼스널 브랜딩 노하우, 자기소개·홍보·네트워킹 팁, 일하는 사람을 위한 실용 가이드 (고객 사례·인터뷰·후기는 제외)' },
+  brand: { label: '브랜드', desc: '셀프 브랜딩 노하우, 자기소개·홍보·네트워킹 팁, 일하는 사람을 위한 실용 가이드 (고객 사례·인터뷰·후기는 제외)' },
 };
 const DEFAULT_CONFIG = { enabled: true, categories: ['news', 'brand'] };
 const BANNED_TITLE = /이벤트|경품|당첨|추첨|인터뷰|고객\s*이야기|고객\s*사례|후기|체험기|\[고객|사연/;
 
 // SelB 홈페이지(pbaas.vercel.app)에서 확인한 사실 — 이 범위 밖의 기능·숫자·혜택은 쓰지 않는다
 const FACTS = `
-- SelB: AI 퍼스널 브랜딩 · AI 명함 서비스. 슬로건 "Discover Yourself. Build Your Brand." / "나를 발견하고, 나만의 브랜드를 만들고, 세상에 알려요"
+- SelB: AI 셀프 브랜딩 · AI 명함 서비스. 슬로건 "Discover Yourself. Build Your Brand." / "나를 발견하고, 나만의 브랜드를 만들고, 세상에 알려요"
 - 다섯 단계: Discover(나를 발견하기, 셀브와 대화) → Profile(나를 기록하기, 경험과 활동 정리) → AI Branding(나를 표현하기, 강점을 한 줄 소개로) → AI Business Card(나를 알리기, 명함과 개인 페이지) → Connect(사람과 잇기, 카톡·QR)
 - AI '셀브'와 대화로 AI 명함을 만든다. 하는 일·일하는 곳부터 하나씩 물어본다. 대화 내용이 경력·활동·대표 성과·키워드로 프로필에 정리된다.
 - 한 줄 소개는 셀브가 세 가지를 제안하고, 그중 고른 뒤 직접 수정해 저장할 수 있다.
@@ -63,7 +63,7 @@ const IMAGES = {
 };
 const IMAGE_LIST = Object.entries(IMAGES).map(([k, v]) => `- ${k} : ${v}`).join('\n');
 
-const SYSTEM = `당신은 SelB(AI 퍼스널 브랜딩 · AI 명함 서비스) 블로그의 전속 작가입니다. 블로그에 올릴 초안 한 편을 씁니다. 사람 편집자가 검토한 뒤 발행합니다.
+const SYSTEM = `당신은 SelB(AI 셀프 브랜딩 · AI 명함 서비스) 블로그의 전속 작가입니다. 블로그에 올릴 초안 한 편을 씁니다. 사람 편집자가 검토한 뒤 발행합니다.
 
 [SelB에 대해 쓸 수 있는 사실 — 이것이 전부입니다]
 ${FACTS}
