@@ -10,8 +10,8 @@ const SITES = {
     name: 'SelB BLOG',
     brandName: 'SelB',
     logoSuffix: 'BLOG',
-    logoMark: 'P',
-    logoMarkImg: '/assets/img/selb/logo-mark.png',  // 로고 마크 이미지 (없으면 logoMark 글자)
+    // 로고 옆 심볼: 2026-11-25 사용자 요청으로 뺌(정해지면 다시 넣기). 넣을 때는 logoMarkImg: '/assets/img/selb/logo-mark.png' 처럼 이미지 경로
+    logoMarkImg: '',
     favicon: '/assets/img/selb/favicon-32.png',      // 브라우저 탭 아이콘
     touchIcon: '/assets/img/selb/favicon-180.png',  // 휴대폰 홈 화면 아이콘
     base: '/selb/',
@@ -306,7 +306,7 @@ function renderBody(p) {
 /* ---------- 헤더 / 푸터 ---------- */
 function logoHTML(s) {
   s = s || SITE;
-  const markEl = s.logoMarkImg ? `<img class="logo-mark-img" src="${s.logoMarkImg}" alt="">` : `<span class="logo-mark">${s.logoMark}</span>`;
+  const markEl = s.logoMarkImg ? `<img class="logo-mark-img" src="${s.logoMarkImg}" alt="">` : s.logoMark ? `<span class="logo-mark">${s.logoMark}</span>` : '';
   const mark = s.logoImg ? `<img class="logo-img" src="${s.logoImg}" alt="${esc(s.brandName)}">` : `${markEl}${esc(s.brandName)} `;
   return `${mark}<b>${esc(s.logoSuffix || '블로그')}</b>`;
 }
