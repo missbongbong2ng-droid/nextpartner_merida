@@ -14,7 +14,7 @@ const BANNED_TITLE = /이벤트|경품|당첨|추첨|인터뷰|고객\s*이야�
 
 // SelB 홈페이지(pbaas.vercel.app)에서 확인한 사실 — 이 범위 밖의 기능·숫자·혜택은 쓰지 않는다
 const FACTS = `
-- SelB: AI 셀프 브랜딩 · AI 명함 서비스. 슬로건 "Discover Yourself. Build Your Brand." / "나를 발견하고, 나만의 브랜드를 만들고, 세상에 알려요"
+- SelB: AI 셀프 브랜딩 · AI 명함 서비스. 슬로건 "세상에 하나뿐인 나, 브랜드가 되다" (영문 "One and Only You. Become Your Brand.") / "나를 발견하고, 나만의 브랜드를 만들고, 세상에 알려요"
 - 다섯 단계: Discover(나를 발견하기, 셀브와 대화) → Profile(나를 기록하기, 경험과 활동 정리) → AI Branding(나를 표현하기, 강점을 한 줄 소개로) → AI Business Card(나를 알리기, 명함과 개인 페이지) → Connect(사람과 잇기, 카톡·QR)
 - AI '셀브'와 대화로 AI 명함을 만든다. 하는 일·일하는 곳부터 하나씩 물어본다. 대화 내용이 경력·활동·대표 성과·키워드로 프로필에 정리된다.
 - 한 줄 소개는 셀브가 세 가지를 제안하고, 그중 고른 뒤 직접 수정해 저장할 수 있다.
@@ -33,7 +33,7 @@ const FACTS = `
 // 본문에 쓸 수 있는 사진 (경로 → 설명). 이 목록 밖의 주소는 저장 전에 지운다
 const IMAGES = {
   'assets/img/content/film/01-worries.jpg': '세 사람의 고민 말풍선(은퇴 후 강사, 동네 카페 사장님, 새 출발 프리랜서) · 가로',
-  'assets/img/content/film/02-discover.jpg': '"Discover Yourself. Build Your Brand." 슬로건 화면 · 가로',
+  'assets/img/content/film/02-discover.jpg': '"세상에 하나뿐인 나, 브랜드가 되다." 슬로건 화면 · 가로',
   'assets/img/content/film/03-five-steps.jpg': '다섯 단계 카드(Discover·Profile·AI Branding·AI Business Card·Connect) · 가로',
   'assets/img/content/film/04-chat-profile.jpg': '셀브와 대화(왼쪽)하며 프로필이 채워지는 화면 · 가로',
   'assets/img/content/film/06-ai-photo.jpg': 'AI 한 줄 소개와 셀카→AI 프로필 사진 · 가로',
