@@ -37,7 +37,34 @@
 
     /* 보드 */
     .main { flex: 1; min-height: 0; padding: 0 20px 20px; }
+    .board-wrap { height: 100%; display: flex; flex-direction: column; gap: 12px; }
+    .board-wrap > .board { flex: 1; min-height: 0; height: auto; }
     .board { height: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, .85fr); gap: 14px; }
+    /* 추천글 줄 (보드 위, 블로그 첫 화면 추천글 순서) */
+    .feat-bar { flex: none; background: #FFF9E6; border: 1px solid #F3E2A6; border-radius: 14px; padding: 10px 12px 12px; }
+    .feat-bar.over { border-color: #E0A800; box-shadow: 0 0 0 2px #FFE89A; }
+    .feat-head { display: flex; align-items: baseline; gap: 8px; padding: 0 2px 8px; flex-wrap: wrap; }
+    .feat-head h2 { margin: 0; font-size: 15px; }
+    .feat-head .n { font-size: 13px; font-weight: 700; color: #8A6A00; }
+    .feat-head .hint { font-size: 12px; color: var(--muted); }
+    .feat-slots { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; }
+    .fslot { position: relative; min-width: 0; height: 74px; border-radius: 10px; border: 1.5px dashed #E6D18A; background: rgba(255,255,255,.55); display: flex; align-items: center; justify-content: center; font-size: 12px; color: #B09A55; text-align: center; padding: 4px; }
+    .fslot.over { border-color: #E0A800; background: #fff; }
+    .fslot .no { position: absolute; left: 7px; top: 5px; font-size: 11px; font-weight: 800; color: #B08900; }
+    .fcard { position: relative; width: 100%; height: 74px; display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; border-radius: 10px; border: 1px solid #EBD58C; background: #fff center / cover no-repeat; padding: 6px 8px; cursor: grab; overflow: hidden; text-align: left; font: inherit; }
+    .fcard.has-img::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 20%, rgba(0,0,0,.68)); }
+    .fcard > * { position: relative; }
+    .fcard .no { position: absolute; left: 7px; top: 5px; font-size: 11px; font-weight: 800; color: #B08900; }
+    .fcard.has-img .no { color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.5); }
+    .fcard .t { font-size: 12px; font-weight: 700; line-height: 1.35; color: var(--ink); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .fcard.has-img .t { color: #fff; }
+    .fcard .warn-pub { position: absolute; right: 26px; top: 5px; font-size: 10px; font-weight: 700; background: #FFE3E0; color: #B42318; border-radius: 999px; padding: 1px 6px; }
+    .fcard .x { position: absolute; right: 4px; top: 3px; width: 20px; height: 20px; border: 0; border-radius: 50%; background: rgba(255,255,255,.9); color: var(--ink-2); font-size: 13px; line-height: 20px; cursor: pointer; padding: 0; }
+    .fcard .x:hover { background: #fff; color: #C0392B; }
+    .fcard.dragging { opacity: .4; }
+    .kcard .feat-tg { border: 0; background: none; padding: 0 2px; font-size: 14px; line-height: 1; color: #C9CDD8; cursor: pointer; }
+    .kcard .feat-tg.on { color: #E0A800; }
+    .kcard .feat-tg:hover { color: #E0A800; }
     .col-tools { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 12px 8px; }
     .col-tools select, .col-tools input[type=date] { width: auto; flex: 1 1 0; min-width: 0; font-size: 12px; padding: 3px 6px; border-radius: 7px; height: 28px; }
     .col-tools input[type=date] { flex-basis: 100%; }
@@ -290,6 +317,9 @@
       /* 보드: 칸을 옆으로 넘겨 보기 */
       .board { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 12px; gap: 10px; }
       .col { flex: 0 0 86%; scroll-snap-align: center; }
+      .feat-bar { margin: 0 12px; }
+      .feat-slots { display: flex; overflow-x: auto; }
+      .fslot, .feat-slots > .fcard { flex: 0 0 132px; }
       .table-wrap { margin: 0 12px; height: 100%; }
       .list .hide-m { display: none; }
       .ed-head { padding: 10px 12px; flex-wrap: wrap; }
@@ -612,7 +642,7 @@
         ? `<div class="k-acts"><span data-act="restore">복원 (${esc(statusLabel(p.prevStatus || 'idea'))})</span><span data-act="purge" class="danger">영구 삭제</span></div>` : '';
       return `<button class="kcard ${draft && draft.id === p.id ? 'on' : ''} ${p.status === 'trash' ? 'in-trash' : ''}" draggable="true" data-id="${p.id}">
         <div class="k-main">
-          <div class="k-meta"><span class="cat ${esc(p.category)}">${esc(catLabel(p.category))}</span>${p.featured ? '<span class="star" title="추천글">★</span>' : ''}${hasWarn ? '<span class="warn" title="확인할 곳이 있어요">⚠</span>' : ''}<span title="${postDayLabel(p)}일">${postDayLabel(p)} ${fmtDate(postDay(p))}</span>${p.status === 'published' ? `<span class="views" title="전체 조회 ${fmtN(vw(p.id).total)} · 최근 7일 ${fmtN(vw(p.id).d7)}">👁 ${fmtN(vw(p.id).total)}${vw(p.id).d7 ? ` <small>+${fmtN(vw(p.id).d7)}</small>` : ''}</span>` : ''}</div>
+          <div class="k-meta"><span class="cat ${esc(p.category)}">${esc(catLabel(p.category))}</span>${p.status !== 'trash' ? `<span class="feat-tg ${p.featured ? 'on' : ''}" data-feat="${p.id}" title="${p.featured ? '추천글에서 빼기' : '추천글로 넣기'}">${p.featured ? '★' : '☆'}</span>` : ''}${hasWarn ? '<span class="warn" title="확인할 곳이 있어요">⚠</span>' : ''}<span title="${postDayLabel(p)}일">${postDayLabel(p)} ${fmtDate(postDay(p))}</span>${p.status === 'published' ? `<span class="views" title="전체 조회 ${fmtN(vw(p.id).total)} · 최근 7일 ${fmtN(vw(p.id).d7)}">👁 ${fmtN(vw(p.id).total)}${vw(p.id).d7 ? ` <small>+${fmtN(vw(p.id).d7)}</small>` : ''}</span>` : ''}</div>
           <div class="k-title">${esc(p.title || '(제목 없음)')}</div>
           ${memo ? `<div class="k-memo">${esc(memo)}</div>` : ''}
           ${acts}
@@ -634,11 +664,75 @@
         </section>`;
       };
       const nOf = st => list.filter(p => p.status === st).length;
-      $('main').innerHTML = `<div class="board">${BOARD_STATUSES.map(s => col(s, n => `<h2>${s.label}</h2><span class="n">${n}</span>
+      $('main').innerHTML = `<div class="board-wrap">${featBarHTML()}<div class="board">${BOARD_STATUSES.map(s => col(s, n => `<h2>${s.label}</h2><span class="n">${n}</span>
             <button class="add" data-add="${s.id}" title="${s.label}에 새 글">+</button>`)).join('')}${col(STATUSES.find(s => s.id === boxTab), () => `<div class="box-seg" role="tablist" aria-label="보관함">
               <button type="button" data-box="hold" class="${boxTab === 'hold' ? 'on' : ''}">보류함<small>${nOf('hold')}</small></button>
               <button type="button" data-box="trash" class="${boxTab === 'trash' ? 'on' : ''}">휴지통<small>${nOf('trash')}</small></button>
-            </div>${boxTab === 'trash' && nOf('trash') ? '<button type="button" class="empty-trash" data-empty-trash>비우기</button>' : ''}`)}</div>`;
+            </div>${boxTab === 'trash' && nOf('trash') ? '<button type="button" class="empty-trash" data-empty-trash>비우기</button>' : ''}`)}</div></div>`;
+    }
+
+    /* ---------- 추천글 (블로그 첫 화면 위쪽, 서비스별 최대 8개, featuredOrder 순) ---------- */
+    const FEAT_MAX = 8;
+    const featOrder = p => (typeof p.featuredOrder === 'number' ? p.featuredOrder : 999);
+    function featuredOf(site) {
+      return posts.filter(p => siteOf(p) === site && p.featured && p.status !== 'trash')
+        .sort((a, b) => featOrder(a) - featOrder(b) || byDateDesc(a, b));
+    }
+    function featBarHTML() {
+      const list = featuredOf(siteFilter);
+      const pubN = list.filter(p => p.status === 'published').length;
+      const slots = Array.from({ length: FEAT_MAX }, (_, i) => {
+        const p = list[i];
+        if (!p) return `<div class="fslot" data-fslot="${i}"><span class="no">${i + 1}</span>${i === list.length ? '여기로 끌어 놓기' : ''}</div>`;
+        const img = p.thumbnail ? ` has-img" style="background-image:url('${esc(p.thumbnail)}')` : '';
+        return `<div class="fslot" data-fslot="${i}"><div class="fcard${img}" draggable="true" data-fid="${p.id}" title="${esc(p.title || '')}">
+          <span class="no">${i + 1}</span>${p.status !== 'published' ? '<span class="warn-pub" title="발행 전이라 블로그에는 아직 안 보여요">발행 전</span>' : ''}
+          <span class="t">${esc(p.title || '(제목 없음)')}</span>
+          <button type="button" class="x" data-unfeat="${p.id}" title="추천글에서 빼기">×</button>
+        </div></div>`;
+      }).join('');
+      return `<section class="feat-bar" data-featbar>
+        <div class="feat-head"><h2>★ 추천글</h2><span class="n">${list.length} / ${FEAT_MAX}</span>
+          <span class="hint">블로그 첫 화면에 이 순서로 보여요 · 카드를 칸에 끌어 놓거나 ☆로 넣고, 칸끼리 끌어 순서를 바꿔요${pubN < 5 ? ' · 발행 글이 5개보다 적으면 나머지는 최신 글로 채워져요' : ''}</span></div>
+        <div class="feat-slots">${slots}</div>
+      </section>`;
+    }
+    // 원하는 추천글 순서(id 목록)대로 저장: 바뀐 글만 서버에 저장한다
+    async function saveFeatured(ids) {
+      let ok = true;
+      for (const p of posts.filter(o => siteOf(o) === siteFilter)) {
+        const i = ids.indexOf(p.id);
+        const want = i >= 0 ? { featured: true, featuredOrder: i + 1 } : (p.featured && p.status !== 'trash' ? { featured: false } : null);
+        if (!want || (p.featured === want.featured && featOrder(p) === (want.featuredOrder || 999))) continue;
+        const c = clone(p);
+        c.featured = want.featured;
+        if (want.featuredOrder) c.featuredOrder = want.featuredOrder; else delete c.featuredOrder;
+        if (!(await persistOne(c))) { ok = false; break; }
+        posts[posts.findIndex(o => o.id === p.id)] = c;
+        // 편집 창에 열려 있는 글이면 그쪽 값도 맞춘다 (나중에 저장할 때 덮어쓰지 않게)
+        if (draft && draft.id === p.id) {
+          draft.featured = c.featured;
+          if (c.featuredOrder) draft.featuredOrder = c.featuredOrder; else delete draft.featuredOrder;
+          const cb = document.querySelector('#drawer [data-k="featured"]'); if (cb) cb.checked = c.featured;
+        }
+      }
+      renderMain();
+      return ok;
+    }
+    function featIds() { return featuredOf(siteFilter).map(p => p.id); }
+    function toggleFeatured(id) {
+      const ids = featIds();
+      if (ids.includes(id)) return saveFeatured(ids.filter(x => x !== id)).then(ok => ok && toast('추천글에서 뺐어요'));
+      if (ids.length >= FEAT_MAX) { toast(`추천글은 ${FEAT_MAX}개까지예요. 하나를 빼고 넣어 주세요`); return; }
+      return saveFeatured([...ids, id]).then(ok => ok && toast(`추천글 ${ids.length + 1}번으로 넣었어요`));
+    }
+    function placeFeatured(id, idx) {
+      const ids = featIds(), had = ids.includes(id);
+      if (!had && ids.length >= FEAT_MAX) { toast(`추천글은 ${FEAT_MAX}개까지예요. 하나를 빼고 넣어 주세요`); return; }
+      const rest = ids.filter(x => x !== id);
+      rest.splice(Math.min(idx, rest.length), 0, id);
+      if (had && rest.join() === ids.join()) return;
+      saveFeatured(rest).then(ok => ok && toast(had ? '추천글 순서를 바꿨어요' : `추천글 ${rest.indexOf(id) + 1}번으로 넣었어요`));
     }
     function renderTable() {
       const order = { idea: 0, draft: 1, published: 2, hold: 3 };
@@ -1047,12 +1141,12 @@
 
     /* 상태 바꾸기 (끌어 놓기, 목록의 선택 상자) */
     /* 상태가 바뀔 때 날짜 정리: 발행하는 순간이 발행일, 휴지통은 지운 시각과 이전 상태를 기억 */
-    const STATUS_KEYS = ['status', 'date', 'publishedAt', 'created', 'createdAt', 'prevStatus', 'trashedAt', 'heldAt'];
+    const STATUS_KEYS = ['status', 'date', 'publishedAt', 'created', 'createdAt', 'prevStatus', 'trashedAt', 'heldAt', 'featured', 'featuredOrder'];
     function applyStatus(p, status, opts = {}) {
       const from = p.status;
       if (!p.created) p.created = p.date || todayStr();
       if (status === 'published' && from !== 'published' && !opts.restore) { p.date = todayStr(); p.publishedAt = Date.now(); }
-      if (status === 'trash') { p.prevStatus = from; p.trashedAt = Date.now(); }
+      if (status === 'trash') { p.prevStatus = from; p.trashedAt = Date.now(); p.featured = false; delete p.featuredOrder; } // 지운 글은 추천글에서 빠진다
       else { delete p.trashedAt; delete p.prevStatus; }
       if (status === 'hold') p.heldAt = Date.now(); else delete p.heldAt;
       p.status = status;
@@ -1323,7 +1417,14 @@
     }
     function readField(el) {
       const k = el.dataset.k;
-      if (k === 'featured') draft.featured = el.checked;
+      if (k === 'featured') {
+        // 추천글은 서비스별 FEAT_MAX(8)개까지, 새로 넣으면 맨 뒤 순서
+        const others = featuredOf(siteOf(draft)).filter(p => p.id !== draft.id);
+        if (el.checked && !draft.featured && others.length >= FEAT_MAX) { el.checked = false; toast(`추천글은 ${FEAT_MAX}개까지예요. 보드 위 추천글 줄에서 하나를 빼고 넣어 주세요`); }
+        else if (el.checked && !draft.featured) draft.featuredOrder = others.reduce((m, p) => Math.max(m, featOrder(p) === 999 ? 0 : featOrder(p)), 0) + 1;
+        if (!el.checked) delete draft.featuredOrder;
+        draft.featured = el.checked;
+      }
       else if (k === 'tags') draft.tags = el.value.split(',').map(s => s.trim().replace(/^#/, '')).filter(Boolean);
       else if (k === 'slug') { draft.slug = el.value; draft.slugAuto = !el.value.trim(); }
       else draft[k] = el.value;
@@ -1392,6 +1493,12 @@
       const th = e.target.closest('th[data-sort]');
       if (th) { const k = th.dataset.sort; sortDir = sortKey === k ? -sortDir : (['date', 'views', 'd7'].includes(k) ? -1 : 1); sortKey = k; renderMain(); return; }
       if (e.target.closest('select, input, .col-tools')) return;
+      const unf = e.target.closest('[data-unfeat]');
+      if (unf) { toggleFeatured(unf.dataset.unfeat); return; }
+      const ftg = e.target.closest('[data-feat]');
+      if (ftg) { e.preventDefault(); toggleFeatured(ftg.dataset.feat); return; }
+      const fc = e.target.closest('[data-fid]');
+      if (fc) { openPost(fc.dataset.fid); return; }
       const box = e.target.closest('[data-box]');
       if (box) { boxTab = box.dataset.box; savePrefs(); renderMain(); return; }
       if (e.target.closest('[data-empty-trash]')) {
@@ -1421,27 +1528,44 @@
       }
     });
     // 끌어 놓기로 상태 바꾸기
+    // 끌어 놓기: 카드 → 칸(상태 바꾸기) / 카드 → 추천글 칸(추천글로) / 추천글 칸끼리(순서 바꾸기)
+    let dragFrom = null;
+    const clearOver = () => document.querySelectorAll('.col.over, .fslot.over, .feat-bar.over').forEach(x => x.classList.remove('over'));
     $('main').addEventListener('dragstart', e => {
-      const c = e.target.closest('.kcard'); if (!c) return;
-      e.dataTransfer.setData('text/plain', c.dataset.id);
+      const c = e.target.closest('.kcard, .fcard'); if (!c) return;
+      dragFrom = c.classList.contains('fcard') ? 'feat' : 'card';
+      e.dataTransfer.setData('text/plain', c.dataset.id || c.dataset.fid);
       e.dataTransfer.effectAllowed = 'move';
       c.classList.add('dragging');
     });
     $('main').addEventListener('dragend', e => {
-      const c = e.target.closest('.kcard'); if (c) c.classList.remove('dragging');
-      document.querySelectorAll('.col.over').forEach(x => x.classList.remove('over'));
+      const c = e.target.closest('.kcard, .fcard'); if (c) c.classList.remove('dragging');
+      clearOver(); dragFrom = null;
     });
     $('main').addEventListener('dragover', e => {
-      const col = e.target.closest('.col'); if (!col) return;
+      const bar = e.target.closest('[data-featbar]');
+      if (bar) {
+        e.preventDefault(); clearOver(); bar.classList.add('over');
+        const slot = e.target.closest('.fslot'); if (slot) slot.classList.add('over');
+        return;
+      }
+      const col = e.target.closest('.col'); if (!col || dragFrom !== 'card') return;
       e.preventDefault();
-      document.querySelectorAll('.col.over').forEach(x => x !== col && x.classList.remove('over'));
+      clearOver();
       col.classList.add('over');
     });
     $('main').addEventListener('drop', e => {
-      const col = e.target.closest('.col'); if (!col) return;
-      e.preventDefault();
-      col.classList.remove('over');
       const id = e.dataTransfer.getData('text/plain');
+      const bar = e.target.closest('[data-featbar]');
+      if (bar) {
+        e.preventDefault(); clearOver();
+        const slot = e.target.closest('.fslot');
+        if (id) placeFeatured(id, slot ? +slot.dataset.fslot : FEAT_MAX);
+        return;
+      }
+      const col = e.target.closest('.col'); if (!col || dragFrom !== 'card') return;
+      e.preventDefault();
+      clearOver();
       if (id) changeStatus(id, col.dataset.status);
     });
 

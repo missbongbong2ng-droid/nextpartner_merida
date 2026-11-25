@@ -111,9 +111,13 @@
         </div>
       </div>`;
     } else {
-      // 추천글을 먼저, 5개가 안 되면 최신 글로 채움
-      const featured = [...feed.filter(p => p.featured), ...feed.filter(p => !p.featured)].slice(0, 5);
-      const [first, ...rest] = featured;
+      // 추천글(관리자 보드에서 정한 순서, 최대 8개)을 먼저, 5개가 안 되면 최신 글로 채움
+      const fo = p => (typeof p.featuredOrder === 'number' ? p.featuredOrder : 999);
+      const picked = all.filter(p => p.featured)   // 직접 고른 추천글은 현장 스케치도 포함
+       .sort((a, b) => fo(a) - fo(b)).slice(0, 8);
+      const featured = picked.length >= 5 ? picked : [...picked, ...feed.filter(p => !p.featured)].slice(0, 5);
+      const [first, ...others] = featured;
+      const rest = others.slice(0, 4), more = others.slice(4);   // 옆 4개 + 아래 줄 3개
       const pagePosts = feed.slice((page - 1) * PER_PAGE, page * PER_PAGE);
       // 홈 1쪽: 사진 격자 카테고리(현장 스케치) 최신 4곳 미리보기
       const gridCat = CATEGORIES.find(c => c.layout === 'grid');
@@ -139,7 +143,12 @@
               <span class="meta">${fmtDate(p.date)}</span>
             </a>`).join('')}
           </div>
-        </section>` : ''}
+        </section>
+        ${more.length ? `<section class="feat-more">${more.map(p => `<a href="${postUrl(p)}">
+            ${thumbHTML(p, 'thumb-sm')}
+            <h3>${esc(p.title)}</h3>
+            <span class="meta">${fmtDate(p.date)}</span>
+          </a>`).join('')}</section>` : ''}` : ''}
         ${sketches.length ? `
         <div class="section-title sk-home-title"><span>${esc(gridCat.label)}</span><a href="index.html?cat=${gridCat.id}">전체 보기 →</a></div>
         <div class="sk-grid sk-home">${sketches.map(sketchCard).join('')}</div>` : ''}
